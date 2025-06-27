@@ -1,19 +1,23 @@
+/* ─────────────────────────────────────────────────────
+   Global variables & reset
+───────────────────────────────────────────────────── */
+
 :root {
   --font-sans: system-ui, Avenir, Helvetica, Arial, sans-serif;
   --color-text: rgba(255, 255, 255, 0.87);
-  --bg-dark: #242424;
-  --btn-bg: #1a1a1a;
+  --bg-dark:    #242424;
+  --btn-bg:     #1a1a1a;
   --btn-hover-border: #646cff;
-  --link: #646cff;
+  --link:       #646cff;
   --link-hover: #535bf2;
 }
 
 @media (prefers-color-scheme: light) {
   :root {
     --color-text: #213547;
-    --bg-dark: #ffffff;
+    --bg-dark:    #ffffff;
     --link-hover: #747bff;
-    --btn-bg: #f9f9f9;
+    --btn-bg:     #f9f9f9;
   }
 }
 
@@ -34,10 +38,11 @@ html {
 
 body {
   margin: 0;
+  padding-top: 3.5rem; /* leave room for the fixed navbar */
   min-height: 100vh;
-  padding-top: 3.5rem;
 }
 
+/* Links & buttons */
 a {
   font-weight: 500;
   color: var(--link);

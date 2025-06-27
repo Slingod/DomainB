@@ -17,14 +17,14 @@ import AdminUsers     from './pages/AdminUsers';
 export default function App() {
   return (
     <>
-      <Navbar />
+      <Navbar />            {/* <nav className={`navbar${open?' open':''}`}> */}
       <div className="page-content">
         <Routes>
           <Route path="/" element={<Home />} />
 
           {/* Produits */}
-          <Route path="/products"       element={<Products />} />
-          <Route path="/products/:id"   element={<ProductDetail />} />
+          <Route path="/products"     element={<Products />} />
+          <Route path="/products/:id" element={<ProductDetail />} />
 
           {/* Authentification */}
           <Route path="/signup" element={<Signup />} />

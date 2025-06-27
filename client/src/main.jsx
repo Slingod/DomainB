@@ -5,8 +5,8 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { store } from './store/store';
 import App from './App';
 
-import './index.scss';  // ton global
-import './App.scss';    // ton layout global
+import './index.scss';  // styles globaux (reset, vars, body…)
+import './App.scss';    // layout global (container, .page-content…)
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
