@@ -1,0 +1,50 @@
+.orders-page {
+  padding: 2rem 1rem;
+
+  h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+  }
+
+  .order-card {
+    background: #fff;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+
+    .order-header {
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: #111;
+    }
+
+    ul.items {
+      padding-left: 1.25rem;
+      margin-bottom: 0.75rem;
+
+      li {
+        margin-bottom: 0.25rem;
+        color: #555;
+      }
+    }
+
+    .order-footer {
+      text-align: right;
+      font-weight: 600;
+      color: #16a34a;
+    }
+  }
+}
+
+/* Mobile: réduire les marges */
+@media (max-width: 640px) {
+  .orders-page {
+    padding: 1rem;
+
+    .order-card {
+      padding: 0.75rem;
+    }
+  }
+}

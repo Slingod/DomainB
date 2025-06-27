@@ -1,0 +1,166 @@
+.cart-page {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: #333;
+  }
+
+  .empty {
+    text-align: center;
+    color: #666;
+    font-size: 1.1rem;
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+    margin-bottom: 1rem;
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 600px;
+
+      th, td {
+        padding: 0.75rem 1rem;
+        border: 1px solid #e5e7eb;
+        text-align: left;
+      }
+
+      th {
+        background: #f9fafb;
+        color: #555;
+        font-weight: 600;
+      }
+
+      tbody tr:hover {
+        background-color: #f1f5f9;
+      }
+
+      input[type="number"] {
+        width: 4rem;
+        padding: 0.3rem;
+        border: 1px solid #ccc;
+        border-radius: 0.25rem;
+      }
+
+      .btn.delete {
+        background: #ef4444;
+        color: white;
+        border: none;
+        padding: 0.4rem 0.8rem;
+        border-radius: 0.25rem;
+        cursor: pointer;
+        transition: background 0.2s;
+
+        &:hover {
+          background: #dc2626;
+        }
+      }
+    }
+  }
+
+  .summary {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+
+    .total {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #111;
+    }
+
+    .order-btn {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.375rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+
+      &:hover {
+        background: #1e40af;
+      }
+    }
+  }
+
+  // Par défaut on cache la vue "card" sur desktop
+  .card-list {
+    display: none;
+  }
+
+  // Responsive : sur petit écran, on transforme la table en cartes
+  @media (max-width: 640px) {
+    .table-wrapper {
+      table {
+        display: none; // On cache la table
+      }
+    }
+
+    // On affiche un “card-list” à la place
+    .card-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      .card {
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        background: white;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-row-gap: 0.5rem;
+        align-items: center;
+
+        .field {
+          display: flex;
+          flex-direction: column;
+
+          &.actions {
+            display: flex;
+            justify-content: flex-end;
+          }
+
+          .label {
+            font-size: 0.85rem;
+            color: #555;
+          }
+
+          .value {
+            font-size: 1rem;
+            color: #111;
+            margin-top: 0.25rem;
+          }
+
+          input[type="number"] {
+            width: 3.5rem;
+          }
+
+          .btn.delete {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: background 0.2s;
+
+            &:hover {
+              background: #dc2626;
+            }
+          }
+        }
+      }
+    }
+  }
+}

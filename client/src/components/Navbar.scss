@@ -1,0 +1,187 @@
+@use "sass:color";
+
+// Variables
+$navbar-height: 3.5rem;
+$navbar-bg:       #1f2937;     // gris foncé
+$navbar-text:     #ffffff;     // blanc
+$navbar-hover:    rgba(255, 255, 255, 0.1);
+$breakpoint-sm:   640px;
+$breakpoint-md:   768px;
+
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: $navbar-height;
+  background-color: $navbar-bg;
+  color: $navbar-text;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+
+  // Burger pour mobile
+  .navbar-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.75rem;
+    color: $navbar-text;
+    cursor: pointer;
+  }
+
+  // Zone gauche
+  .navbar-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  // Zone droite
+  .navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    // Bonjour, Pseudo
+    .navbar-greeting {
+      font-weight: 500;
+      white-space: nowrap;
+      margin-right: 1rem;
+    }
+  }
+
+  // Liens
+  .nav-link {
+    color: $navbar-text;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.2s;
+
+    &:hover,
+    &.active {
+      background-color: $navbar-hover;
+      color: color.adjust($navbar-bg, $lightness: 40%);
+    }
+  }
+
+  // Boutons (déconnexion, etc.)
+  .nav-button {
+    background: none;
+    border: 1px solid $navbar-text;
+    color: $navbar-text;
+    font-weight: 500;
+    padding: 0.4rem 0.75rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: $navbar-hover;
+    }
+  }
+
+  // Dropdown (exemple)
+  .dropdown {
+    position: relative;
+
+    .dropdown-toggle {
+      @extend .nav-link;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      cursor: pointer;
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: $navbar-height;
+      left: 0;
+      background: $navbar-bg;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      border-radius: 0.25rem;
+      overflow: hidden;
+      min-width: 10rem;
+      z-index: 1000;
+
+      .dropdown-item {
+        padding: 0.5rem 1rem;
+        color: $navbar-text;
+        text-decoration: none;
+        display: block;
+        transition: background-color 0.2s;
+
+        &:hover {
+          background-color: $navbar-hover;
+        }
+      }
+    }
+
+    &:hover .dropdown-menu {
+      display: block;
+    }
+  }
+
+  // --- Responsive (≤ petit écran) ---
+  @media (max-width: $breakpoint-sm) {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 0.5rem 1rem;
+
+    .navbar-toggle {
+      display: block;
+    }
+
+    // Masquer la zone gauche
+    .navbar-left {
+      display: none;
+    }
+
+    // Déployer le menu quand .open est ajouté à .navbar
+    &.open {
+      .navbar-left {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        .nav-link {
+          width: 100%;
+          text-align: center;
+          padding: 0.75rem 0;
+        }
+      }
+    }
+
+    // Zone droite en colonne
+    .navbar-right {
+      width: 100%;
+      flex-direction: column;
+      margin-top: 0.5rem;
+
+      .navbar-greeting,
+      .nav-link,
+      .nav-button {
+        width: 100%;
+        text-align: center;
+        padding: 0.75rem 0;
+      }
+    }
+  }
+
+  // Mi-taille : espace réduit
+  @media (min-width: $breakpoint-sm) and (max-width: $breakpoint-md) {
+    .navbar-left,
+    .navbar-right {
+      gap: 0.5rem;
+    }
+  }
+}
+
+// Pour que le contenu ne soit pas caché sous la navbar
+.page-content {
+  padding-top: $navbar-height;
+}
