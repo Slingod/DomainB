@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate }  from 'react-router-dom';
 import api from '../api/api';
 import { useDispatch } from 'react-redux';
-import { addToCart } from '../store/cartSlice';
+import { addToCart }   from '../store/cartSlice';
 import './ProductDetail.scss';
 
 export default function ProductDetail() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
-  const [quantity, setQuantity] = useState(1);
+  const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -19,15 +19,13 @@ export default function ProductDetail() {
   if (!product) return <p>Chargement…</p>;
 
   const handleAdd = () => {
-    dispatch(
-      addToCart({
-        id: product.id,
-        title: product.title,
-        price: product.price,
-        image_url: product.image_url,
-        quantity
-      })
-    );
+    dispatch(addToCart({
+      id: product.id,
+      title: product.title,
+      price: product.price,
+      image_url: product.image_url,
+      quantity: qty
+    }));
     navigate('/cart');
   };
 
@@ -41,6 +39,9 @@ export default function ProductDetail() {
       <div className="details">
         <h1>{product.title}</h1>
         <div className="price">{product.price.toFixed(2)} €</div>
+        <p className="stock">
+          {product.stock > 0 ? `En stock : ${product.stock}` : 'Rupture de stock'}
+        </p>
         {product.description && (
           <p className="description">{product.description}</p>
         )}
@@ -50,12 +51,21 @@ export default function ProductDetail() {
             id="qty"
             type="number"
             min="1"
-            value={quantity}
-            onChange={e => setQuantity(Number(e.target.value))}
+            max={product.stock}  // ← on limite au stock dispo
+            value={qty}
+            onChange={e => {
+              const v = Number(e.target.value);
+              // Conserver 1 <= qty <= stock
+              setQty(v < 1 ? 1 : v > product.stock ? product.stock : v);
+            }}
           />
         </div>
-        <button onClick={handleAdd} className="btn-add">
-          Ajouter au panier
+        <button
+          onClick={handleAdd}
+          disabled={product.stock === 0}
+          className="btn-add"
+        >
+          {product.stock === 0 ? 'Indisponible' : 'Ajouter au panier'}
         </button>
       </div>
     </div>

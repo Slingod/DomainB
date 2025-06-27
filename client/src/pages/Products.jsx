@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 import './Products.scss';
 
 export default function Products() {
-  const [products, setProducts]   = useState([]);
-  const [filtered, setFiltered]   = useState([]);
+  const [products, setProducts]     = useState([]);
+  const [filtered, setFiltered]     = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Chargement des produits
+  // Chargement initial des produits
   useEffect(() => {
     api.get('/products').then(res => {
       setProducts(res.data);
@@ -16,14 +16,12 @@ export default function Products() {
     });
   }, []);
 
-  // Filtrage « live » dès que searchTerm change
+  // Filtrage « live » sur searchTerm
   useEffect(() => {
     const term = searchTerm.toLowerCase();
-    setFiltered(
-      products.filter(p =>
-        p.title.toLowerCase().includes(term)
-      )
-    );
+    setFiltered(products.filter(p =>
+      p.title.toLowerCase().includes(term)
+    ));
   }, [searchTerm, products]);
 
   return (
@@ -42,18 +40,19 @@ export default function Products() {
           <Link
             key={p.id}
             to={`/products/${p.id}`}
-            className="product-card"
+            className={`product-card ${p.stock === 0 ? 'out-of-stock' : ''}`}
           >
             {p.image_url && (
-              <img
-                src={p.image_url}
-                alt={p.title}
-                className="product-image"
-              />
+              <img src={p.image_url} alt={p.title} className="product-image" />
             )}
             <div className="product-info">
-              <h3>{p.title}</h3>
+              <h3 className="title">{p.title}</h3>
               <p className="price">{p.price.toFixed(2)} €</p>
+              <p className="stock">
+                {p.stock > 0
+                  ? `En stock : ${p.stock}`
+                  : 'Rupture de stock'}
+              </p>
             </div>
           </Link>
         ))}

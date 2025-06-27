@@ -2,6 +2,9 @@ npm start
 node app.js
 npx localtunnel --port 5000 --subdomain monshopdev
 
+> slingo@DESKTOP-F4FM3H9:~/Ends/my-shop/server$ npx localtunnel --port 5000 --subdomain monshopdev
+> your url is: https://monshopdev.loca.lt
+
 # 1️⃣ – Création de l’utilisateur “Ringoo” via l’API (role “member” par défaut)
 
 curl -X POST http://localhost:5000/auth/signup \
@@ -78,3 +81,11 @@ SQL
 sqlite3 database.sqlite "SELECT COUNT(\*) AS exists FROM users WHERE email='ringo@gmail.com';"
 
 # → 0
+
+sqlite3 database.sqlite <<SQL
+UPDATE users
+SET role = 'admin'
+WHERE email = 'test.test@gmail.com';
+SQL
+
+sqlite3 database.sqlite "SELECT id, username, email, role FROM users WHERE email='test.test@gmail.com';"

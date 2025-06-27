@@ -15,8 +15,9 @@ export default function Cart() {
     .reduce((sum, i) => sum + i.price * i.quantity, 0)
     .toFixed(2);
 
-  const handleQuantityChange = (id, value) => {
-    const qty = Math.max(1, parseInt(value, 10) || 1);
+  const handleQuantityChange = (id, value, maxStock) => {
+    let qty = parseInt(value, 10) || 1;
+    qty = Math.max(1, Math.min(qty, maxStock ?? qty));
     dispatch(updateQuantity({ id, quantity: qty }));
   };
 
@@ -25,13 +26,20 @@ export default function Cart() {
   };
 
   const handleOrder = async () => {
+    const payload = {
+      items: items.map(i => ({
+        product_id: i.id,
+        quantity: i.quantity
+      }))
+    };
+
     try {
-      await api.post('/orders', { items });
+      await api.post('/orders', payload);
       dispatch(clearCart());
       alert('Commande passée avec succès !');
       navigate('/orders');
-    } catch {
-      alert('Erreur lors de la commande');
+    } catch (err) {
+      alert(err.response?.data?.error || 'Erreur lors de la commande');
     }
   };
 
@@ -66,7 +74,7 @@ export default function Cart() {
                         min="1"
                         value={item.quantity}
                         onChange={e =>
-                          handleQuantityChange(item.id, e.target.value)
+                          handleQuantityChange(item.id, e.target.value, item.stock)
                         }
                       />
                     </td>
@@ -85,7 +93,7 @@ export default function Cart() {
             </table>
           </div>
 
-          {/* LISTE CARTES (Mobile) */}
+          {/* CARDS (Mobile) */}
           <div className="card-list">
             {items.map(item => (
               <div key={item.id} className="card">
@@ -104,7 +112,7 @@ export default function Cart() {
                     min="1"
                     value={item.quantity}
                     onChange={e =>
-                      handleQuantityChange(item.id, e.target.value)
+                      handleQuantityChange(item.id, e.target.value, item.stock)
                     }
                   />
                 </div>
@@ -129,7 +137,11 @@ export default function Cart() {
           {/* RÉCAPITULATIF */}
           <div className="summary">
             <span className="total">Total : {total} €</span>
-            <button className="order-btn" onClick={handleOrder}>
+            <button
+              className="order-btn"
+              onClick={handleOrder}
+              disabled={items.length === 0}
+            >
               Passer la commande
             </button>
           </div>
