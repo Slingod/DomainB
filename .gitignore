@@ -1,0 +1,36 @@
+# Ignorer les dépendances Node.js
+node_modules/
+
+# Ignorer les fichiers de configuration de l'environnement
+.env
+
+# Ignorer les fichiers de base de données SQLite
+*.sqlite
+*.db
+
+# Ignorer les fichiers de logs
+*.log
+
+# Ignorer les fichiers de configuration de l'IDE
+.idea/
+.vscode/
+*.swp
+
+# Ignorer les fichiers de build et de distribution
+dist/
+build/
+
+# Ignorer les fichiers de configuration spécifiques à la machine
+*.config.js
+
+# Ignorer les fichiers de cache
+*.cache
+
+# Ignorer les fichiers de configuration de l'IDE WebStorm
+.idea/
+
+# Ignorer les fichiers de configuration de l'IDE VSCode
+.vscode/
+
+# Ignorer les fichiers de configuration de l'IDE IntelliJ
+*.iml
