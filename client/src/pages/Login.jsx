@@ -33,7 +33,7 @@ export default function Login() {
     // 2) Appel API
     try {
       const { data } = await api.post('/auth/login', { email, password });
-      console.log("Données reçues du backend :", data);
+      // console.log("Données reçues du backend :", data);
 
       const { token, role, username } = data;
       dispatch(setCredentials({ token, role, username }));
