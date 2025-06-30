@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import api from '../api/api';
 import { useDispatch } from 'react-redux';
 import { logout } from '../store/authSlice';
@@ -6,35 +6,49 @@ import { useNavigate } from 'react-router-dom';
 import './AdminUsers.scss';
 
 export default function AdminUsers() {
-  const [users, setUsers] = useState([]);
-  const [editId, setEditId] = useState(null);
-  const [form, setForm] = useState({
-    email: '',
-    first_name: '',
-    last_name: '',
-    address: '',
-    phone: '',
-    role: 'member'
+  const [users, setUsers]             = useState([]);
+  const [filtered, setFiltered]       = useState([]);
+  const [searchTerm, setSearchTerm]   = useState('');
+  const [editId, setEditId]           = useState(null);
+  const [form, setForm]               = useState({
+    email: '', first_name: '', last_name: '',
+    address: '', phone: '', role: 'member'
   });
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetchUsers();
-  }, []);
-
-  const fetchUsers = async () => {
+  // fetchUsers stabilisé par useCallback
+  const fetchUsers = useCallback(async () => {
     try {
       const { data } = await api.get('/users');
       setUsers(data);
+      setFiltered(data);
     } catch (err) {
       if (err.response?.status === 401) {
         dispatch(logout());
         navigate('/login');
       }
     }
-  };
+  }, [dispatch, navigate]);
+
+  // appel au montage
+  useEffect(() => {
+    fetchUsers();
+  }, [fetchUsers]);
+
+  // Recherche live
+  useEffect(() => {
+    const term = searchTerm.trim().toLowerCase();
+    setFiltered(
+      users.filter(u =>
+        u.id.toString().includes(term) ||
+        u.username.toLowerCase().includes(term) ||
+        u.email.toLowerCase().includes(term) ||
+        u.role.toLowerCase().includes(term)
+      )
+    );
+  }, [searchTerm, users]);
 
   const startEdit = (u) => {
     setEditId(u.id);
@@ -76,6 +90,16 @@ export default function AdminUsers() {
     <div className="admin-users-page">
       <h1 className="page-title">Administration des utilisateurs</h1>
 
+      {/* Barre de recherche */}
+      <div className="search-bar">
+        <input
+          type="text"
+          placeholder="Rechercher par ID, pseudo, email ou rôle…"
+          value={searchTerm}
+          onChange={e => setSearchTerm(e.target.value)}
+        />
+      </div>
+
       <div className="table-wrapper">
         <table className="users-table">
           <thead>
@@ -88,18 +112,25 @@ export default function AdminUsers() {
             </tr>
           </thead>
           <tbody>
-            {users.map(u => (
+            {filtered.map(u => (
               <tr key={u.id}>
                 <td>{u.id}</td>
                 <td>{u.username}</td>
                 <td>{u.email}</td>
                 <td>{u.role}</td>
                 <td className="actions">
-                  <button className="btn edit" onClick={() => startEdit(u)}>Modifier</button>
+                  <button className="btn edit"   onClick={() => startEdit(u)}>Modifier</button>
                   <button className="btn delete" onClick={() => deleteUser(u.id)}>Supprimer</button>
                 </td>
               </tr>
             ))}
+            {filtered.length === 0 && (
+              <tr>
+                <td colSpan="5" className="no-results">
+                  Aucun utilisateur ne correspond.
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
@@ -111,7 +142,7 @@ export default function AdminUsers() {
             <div className="modal-form">
               {['email', 'first_name', 'last_name', 'address', 'phone'].map(field => (
                 <label key={field} className="field-group">
-                  <span>{field}</span>
+                  <span>{field.replace('_', ' ')}</span>
                   <input
                     type="text"
                     value={form[field]}

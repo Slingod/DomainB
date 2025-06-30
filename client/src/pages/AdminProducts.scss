@@ -164,5 +164,30 @@
     .modal {
       padding: 1rem;
     }
+    // barre de recherche
+    .search-bar {
+      margin: 1rem 0;
+      input {
+        width: 100%;
+        max-width: 400px;
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 0.375rem;
+        transition: border-color 0.2s;
+        &:focus {
+          border-color: #2563eb;
+          outline: none;
+        }
+      }
+    }
+
+    // message pas de résultat
+    .product-list .no-results {
+      list-style: none;
+      text-align: center;
+      color: #666;
+      margin-top: 2rem;
+    }
   }
 }

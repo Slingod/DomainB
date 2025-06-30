@@ -1,47 +1,93 @@
 .orders-page {
   padding: 2rem 1rem;
+  max-width: 800px;
+  margin: 0 auto;
 
   h1 {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     margin-bottom: 1.5rem;
     color: #333;
+    text-align: center;
   }
 
-  .order-card {
-    background: #fff;
-    border-radius: 0.5rem;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
 
-    .order-header {
-      font-weight: 600;
-      margin-bottom: 0.75rem;
-      color: #111;
-    }
+    .stat-card {
+      background: #f9fafb;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
 
-    ul.items {
-      padding-left: 1.25rem;
-      margin-bottom: 0.75rem;
-
-      li {
-        margin-bottom: 0.25rem;
+      .stat-label {
+        font-size: 0.9rem;
         color: #555;
+        margin-bottom: 0.5rem;
+      }
+      .stat-value {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #111;
+      }
+      .stat-sub {
+        font-size: 0.85rem;
+        color: #16a34a;
+        margin-top: 0.25rem;
+      }
+    }
+  }
+
+  .orders-list {
+    .order-card {
+      background: #fff;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+
+      .order-header {
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+        color: #111;
+      }
+
+      ul.items {
+        padding-left: 1.25rem;
+        margin-bottom: 0.75rem;
+        li {
+          margin-bottom: 0.25rem;
+          color: #555;
+        }
+      }
+
+      .order-footer {
+        text-align: right;
+        font-weight: 600;
+        color: #16a34a;
       }
     }
 
-    .order-footer {
-      text-align: right;
-      font-weight: 600;
-      color: #16a34a;
+    .no-orders {
+      text-align: center;
+      color: #666;
+      margin-top: 2rem;
     }
   }
 }
 
-/* Mobile: réduire les marges */
+/* Mobile */
 @media (max-width: 640px) {
   .orders-page {
     padding: 1rem;
+
+    .stats {
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+    }
 
     .order-card {
       padding: 0.75rem;

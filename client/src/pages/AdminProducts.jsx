@@ -3,13 +3,28 @@ import api from '../api/api';
 import './AdminProducts.scss';
 
 export default function AdminProducts() {
-  const [products, setProducts] = useState([]);
-  const [editing, setEditing]   = useState(null);
+  const [products, setProducts]   = useState([]);
+  const [filtered, setFiltered]   = useState([]);
+  const [editing, setEditing]     = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
   // Chargement initial des produits
   useEffect(() => {
-    api.get('/products').then(res => setProducts(res.data));
+    api.get('/products').then(res => {
+      setProducts(res.data);
+      setFiltered(res.data);
+    });
   }, []);
+
+  // Filtrage live
+  useEffect(() => {
+    const term = searchTerm.trim().toLowerCase();
+    setFiltered(
+      products.filter(p =>
+        p.title.toLowerCase().includes(term)
+      )
+    );
+  }, [searchTerm, products]);
 
   // Sauvegarde (création ou mise à jour)
   const saveProduct = async p => {
@@ -55,8 +70,18 @@ export default function AdminProducts() {
         </button>
       </header>
 
+      {/* Barre de recherche */}
+      <div className="search-bar">
+        <input
+          type="text"
+          placeholder="Rechercher un produit…"
+          value={searchTerm}
+          onChange={e => setSearchTerm(e.target.value)}
+        />
+      </div>
+
       <ul className="product-list">
-        {products.map(p => (
+        {filtered.map(p => (
           <li key={p.id} className="product-item">
             <div className="info">
               <strong className="title">{p.title}</strong>
@@ -77,15 +102,15 @@ export default function AdminProducts() {
             </div>
           </li>
         ))}
+        {filtered.length === 0 && (
+          <li className="no-results">Aucun produit ne correspond.</li>
+        )}
       </ul>
 
       {editing && (
         <div className="modal-overlay">
           <form
-            onSubmit={e => {
-              e.preventDefault();
-              saveProduct(editing);
-            }}
+            onSubmit={e => { e.preventDefault(); saveProduct(editing); }}
             className="modal"
           >
             <h2>{editing.id ? 'Modifier' : 'Nouveau'} produit</h2>
