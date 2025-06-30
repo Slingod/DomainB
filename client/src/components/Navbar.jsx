@@ -46,9 +46,9 @@ export default function Navbar() {
       </div>
 
       <div className="navbar-right">
-        {token && username && (
+        {token && username ? (
           <span className="navbar-greeting">👋 Bonjour, {username}</span>
-        )}
+        ) : null}
         {!token ? (
           <>
             <Link to="/signup" className="nav-link">Inscription</Link>

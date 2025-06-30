@@ -2,9 +2,6 @@ npm start
 node app.js
 npx localtunnel --port 5000 --subdomain monshopdev
 
-> slingo@DESKTOP-F4FM3H9:~/Ends/my-shop/server$ npx localtunnel --port 5000 --subdomain monshopdev
-> your url is: https://monshopdev.loca.lt
-
 # 1️⃣ – Création de l’utilisateur “Ringoo” via l’API (role “member” par défaut)
 
 curl -X POST http://localhost:5000/auth/signup \

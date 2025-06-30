@@ -8,8 +8,14 @@ import './Profile.scss';
 export default function Profile() {
   const [user, setUser]       = useState({});
   const [message, setMessage] = useState('');
+  const [error, setError]     = useState('');
   const dispatch              = useDispatch();
   const navigate              = useNavigate();
+
+  // Regex de validation
+  const nameRegex  = /^[A-Za-zÀ-ÖØ-öø-ÿ' -]{2,30}$/;
+  const addressRx  = /^.{3,100}$/;
+  const phoneRegex = /^\+?[0-9 ]{7,15}$/;
 
   useEffect(() => {
     api.get('/users/me')
@@ -24,11 +30,32 @@ export default function Profile() {
 
   const handleSave = async e => {
     e.preventDefault();
+    setError('');
+    setMessage('');
+
+    // Validation front
+    if (user.first_name && !nameRegex.test(user.first_name)) {
+      setError('Prénom invalide (2–30 lettres).');
+      return;
+    }
+    if (user.last_name && !nameRegex.test(user.last_name)) {
+      setError('Nom invalide (2–30 lettres).');
+      return;
+    }
+    if (user.address && !addressRx.test(user.address)) {
+      setError('Adresse invalide (3–100 caractères).');
+      return;
+    }
+    if (user.phone && !phoneRegex.test(user.phone)) {
+      setError('Téléphone invalide (7–15 chiffres, “+” autorisé).');
+      return;
+    }
+
     try {
       await api.put('/users/me', user);
-      setMessage('Profil mis à jour avec succès !');
+      setMessage('Profil mis à jour avec succès !');
     } catch (err) {
-      setMessage(err.response?.data?.error || 'Erreur lors de la mise à jour');
+      setError(err.response?.data?.error || 'Erreur lors de la mise à jour');
     }
   };
 
@@ -37,25 +64,26 @@ export default function Profile() {
       const { data } = await api.post('/users/me/export-mail');
       setMessage(data.message);
     } catch (err) {
-      setMessage(err.response?.data?.error || 'Erreur lors de l’export');
+      setError(err.response?.data?.error || 'Erreur lors de l’export');
     }
   };
 
   const handleDelete = async () => {
-    if (!window.confirm('Cette action est irréversible. Supprimer votre compte ?')) return;
+    if (!window.confirm('Cette action est irréversible. Supprimer votre compte ?')) return;
     try {
       await api.delete('/users/me');
       dispatch(logout());
       navigate('/');
     } catch (err) {
-      setMessage(err.response?.data?.error || 'Erreur lors de la suppression');
+      setError(err.response?.data?.error || 'Erreur lors de la suppression');
     }
   };
 
   return (
     <div className="profile-page">
       <h1>Mon Profil</h1>
-      {message && <div className="notification">{message}</div>}
+      {message && <div className="notification success">{message}</div>}
+      {error   && <div className="notification error">{error}</div>}
 
       <form onSubmit={handleSave} className="profile-form">
         <label>
@@ -64,30 +92,37 @@ export default function Profile() {
             type="text"
             value={user.first_name || ''}
             onChange={e => setUser({ ...user, first_name: e.target.value })}
+            placeholder="Ex : Marie"
           />
         </label>
+
         <label>
           Nom
           <input
             type="text"
             value={user.last_name || ''}
             onChange={e => setUser({ ...user, last_name: e.target.value })}
+            placeholder="Ex : Dupont"
           />
         </label>
+
         <label>
           Adresse
           <input
             type="text"
             value={user.address || ''}
             onChange={e => setUser({ ...user, address: e.target.value })}
+            placeholder="Ex : 10 rue de Paris, 75000 Paris"
           />
         </label>
+
         <label>
           Téléphone
           <input
             type="tel"
             value={user.phone || ''}
             onChange={e => setUser({ ...user, phone: e.target.value })}
+            placeholder="Ex : +33 6 12 34 56 78"
           />
         </label>
 

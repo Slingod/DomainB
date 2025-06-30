@@ -12,21 +12,30 @@ export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // Même regex email que sur l’inscription
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
   const handleSubmit = async e => {
     e.preventDefault();
     setError('');
+
+    // 1) Validation front
+    if (!emailRegex.test(email)) {
+      setError('Veuillez saisir une adresse email valide.');
+      return;
+    }
+    if (password.length === 0) {
+      setError('Veuillez saisir votre mot de passe.');
+      return;
+    }
+
+    // 2) Appel API
     try {
-      // 1) Login pour obtenir token+role
-      const { data: loginData } = await api.post('/auth/login', { email, password });
-      const { token, role } = loginData;
-      // 2) Appel /users/me pour récupérer le username
-      const { data: profile } = await api.get('/users/me', {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      const username = profile.username;
-      // 3) Stocker le trio dans Redux + localStorage
+      const { data } = await api.post('/auth/login', { email, password });
+      console.log("Données reçues du backend :", data);
+
+      const { token, role, username } = data;
       dispatch(setCredentials({ token, role, username }));
-      // 4) Redirection
       navigate('/products');
     } catch (err) {
       setError(err.response?.data?.error || 'Identifiants invalides');
@@ -38,24 +47,29 @@ export default function Login() {
       <form onSubmit={handleSubmit} className="auth-form">
         <h2>Connexion</h2>
         {error && <div className="error">{error}</div>}
+
         <label>
           Email
           <input
             type="email"
             value={email}
             onChange={e => setEmail(e.target.value)}
+            placeholder="exemple@domaine.com"
             required
           />
         </label>
+
         <label>
           Mot de passe
           <input
             type="password"
             value={password}
             onChange={e => setPassword(e.target.value)}
+            placeholder="Votre mot de passe"
             required
           />
         </label>
+
         <button type="submit" className="btn-primary">
           Se connecter
         </button>

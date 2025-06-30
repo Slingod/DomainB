@@ -14,6 +14,7 @@ const authSlice = createSlice({
       state.token    = token;
       state.role     = role;
       state.username = username;
+
       localStorage.setItem('token',    token);
       localStorage.setItem('role',     role);
       localStorage.setItem('username', username);
@@ -22,7 +23,11 @@ const authSlice = createSlice({
       state.token    = null;
       state.role     = null;
       state.username = null;
-      localStorage.clear();
+
+      // ✅ Ne pas utiliser `clear` : on cible ce qu’on enlève
+      localStorage.removeItem('token');
+      localStorage.removeItem('role');
+      localStorage.removeItem('username');
     }
   }
 });
