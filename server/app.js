@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 
 // Import de la DB pour initialisation
 const db = require('./db');
@@ -11,7 +12,7 @@ const userRoutes       = require('./routes/users');
 const productRoutes    = require('./routes/products');
 const orderRoutes      = require('./routes/orders');
 const moderationRoutes = require('./routes/moderation');
-const path = require('path');
+
 const app = express();
 
 // Middlewares globaux
@@ -34,7 +35,7 @@ app.get('/', (req, res) => {
   );
 });
 
-// Gestion des 404
+// Gestion des 404 pour toutes les autres routes
 app.use((req, res) => {
   res.status(404).json({ error: 'Route introuvable' });
 });

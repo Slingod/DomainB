@@ -1,16 +1,15 @@
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 
-const PUBLIC_URL = process.env.PUBLIC_URL || `http://localhost:${process.env.PORT}`;
+const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
+const PUBLIC_URL   = process.env.PUBLIC_URL   || `http://localhost:${process.env.PORT || 5000}`;
 
 let transporterPromise = null;
-
-// Crée un transporteur Nodemailer : vrai SMTP si configuré, sinon Ethereal
 async function getTransporter() {
   if (transporterPromise) return transporterPromise;
 
   if (process.env.SMTP_HOST && process.env.SMTP_USER) {
-    // Ton propre serveur SMTP (ex. Gmail, SendGrid…)
+    // Ton propre SMTP
     transporterPromise = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
       port: +process.env.SMTP_PORT,
@@ -36,6 +35,7 @@ async function getTransporter() {
   return transporterPromise;
 }
 
+// Vérification d’email (lien backend)
 exports.sendVerificationEmail = async (toEmail, token) => {
   const transporter = await getTransporter();
   const verifyUrl = `${PUBLIC_URL}/auth/verify-email?token=${token}`;
@@ -43,45 +43,63 @@ exports.sendVerificationEmail = async (toEmail, token) => {
     from: `"Mon Shop" <no-reply@monshop.com>`,
     to: toEmail,
     subject: '🔒 Vérifiez votre adresse email',
-    text: `Bienvenue sur Mon Shop ! Veuillez copier/coller ce lien dans votre navigateur pour vérifier votre email : ${verifyUrl}`,
+    text: `Bienvenue sur Mon Shop ! Copiez ce lien pour vérifier : ${verifyUrl}`,
     html: `
       <div style="font-family:Arial,sans-serif; background:#f4f4f4; padding:20px;">
-        <div style="max-width:600px; margin:0 auto; background:#fff; border-radius:8px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+        <div style="max-width:600px; margin:0 auto; background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
           <div style="background:#007bff; color:white; padding:20px; text-align:center;">
-            <h1>Bienvenue sur Mon Shop !</h1>
+            <h1>Bienvenue sur Mon Shop !</h1>
           </div>
           <div style="padding:20px; color:#333;">
-            <p>Merci de vous être inscrit. Cliquez sur le bouton ci-dessous pour vérifier votre adresse email :</p>
+            <p>Cliquez pour vérifier votre email :</p>
             <p style="text-align:center;">
               <a href="${verifyUrl}"
-                 style="display:inline-block; padding:12px 24px; background:#28a745; color:white; text-decoration:none; border-radius:4px; font-weight:bold;">
+                 style="padding:12px 24px;background:#28a745;color:white;text-decoration:none;border-radius:4px;">
                 Vérifier mon email
               </a>
             </p>
-            <p>Si le bouton ne fonctionne pas, copiez-collez ce lien :</p>
-            <p style="word-break:break-all;"><small>${verifyUrl}</small></p>
-            <hr style="border:none; border-top:1px solid #eee; margin:20px 0;" />
-            <p style="font-size:12px; color:#999;">
-              Si vous n&apos;avez pas créé de compte, ignorez cet email.
-            </p>
+            <p><small>${verifyUrl}</small></p>
           </div>
         </div>
-      </div>
-    `
+      </div>`
   });
-
   console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
 };
 
-/**
- * Envoie un email générique avec options Nodemailer
- * Ex : export RGPD en pièce jointe, notifications, etc.
- */
-exports.sendCustomEmail = async (opts) => {
+// Réinitialisation de mot de passe (lien frontend)
+exports.sendResetEmail = async (toEmail, token) => {
   const transporter = await getTransporter();
+  const resetUrl = `${FRONTEND_URL}/reset-password?token=${token}`;
   const info = await transporter.sendMail({
     from: `"Mon Shop" <no-reply@monshop.com>`,
-    ...opts,
+    to: toEmail,
+    subject: '🔑 Réinitialisation du mot de passe',
+    text: `Vous avez demandé une réinitialisation. Copiez ce lien : ${resetUrl}`,
+    html: `
+      <div style="font-family:Arial,sans-serif; background:#f4f4f4; padding:20px;">
+        <div style="max-width:600px; margin:0 auto; background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+          <div style="background:#dc3545; color:white; padding:20px; text-align:center;">
+            <h2>Réinitialisation du mot de passe</h2>
+          </div>
+          <div style="padding:20px; color:#333;">
+            <p>Cliquez pour réinitialiser :</p>
+            <p style="text-align:center;">
+              <a href="${resetUrl}"
+                 style="padding:12px 24px;background:#dc3545;color:white;text-decoration:none;border-radius:4px;">
+                Réinitialiser mon mot de passe
+              </a>
+            </p>
+            <p><small>${resetUrl}</small></p>
+          </div>
+        </div>
+      </div>`
   });
+  console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+};
+
+// Envoi générique
+exports.sendCustomEmail = async (opts) => {
+  const transporter = await getTransporter();
+  const info = await transporter.sendMail({ from:`"Mon Shop"<no-reply@monshop.com>`, ...opts });
   console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
 };

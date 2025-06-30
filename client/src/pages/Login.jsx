@@ -4,6 +4,7 @@ import api from '../api/api';
 import { setCredentials } from '../store/authSlice';
 import { useNavigate } from 'react-router-dom';
 import './Login.scss';
+import { Link } from 'react-router-dom';
 
 export default function Login() {
   const [email,    setEmail]    = useState('');
@@ -73,6 +74,7 @@ export default function Login() {
         <button type="submit" className="btn-primary">
           Se connecter
         </button>
+        <Link to="/forgot-password" className="link">Mot de passe oublié?</Link>
       </form>
     </div>
   );

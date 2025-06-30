@@ -5,8 +5,12 @@ const crypto = require('crypto');
 const fs     = require('fs');
 const path   = require('path');
 const xss    = require('xss');
-const { sendVerificationEmail } = require('../utils/email');
+const {
+  sendVerificationEmail,
+  sendResetEmail,
+} = require('../utils/email');
 
+// Inscription
 exports.signup = async (req, res) => {
   try {
     const username = xss(req.body.username?.trim());
@@ -45,6 +49,7 @@ exports.signup = async (req, res) => {
   }
 };
 
+// Vérification email
 exports.verifyEmail = (req, res) => {
   const { token } = req.query;
   const record = db
@@ -65,6 +70,7 @@ exports.verifyEmail = (req, res) => {
   res.send(html);
 };
 
+// Connexion
 exports.login = (req, res) => {
   const email = xss(req.body.email?.trim().toLowerCase());
   const password = req.body.password;
@@ -86,10 +92,86 @@ exports.login = (req, res) => {
     { expiresIn: '1h' }
   );
 
-  // ✅ Important : inclure `username` dans la réponse
   res.json({
     token,
     role: user.role,
     username: user.username,
   });
+};
+
+// Demande de réinitialisation (via /auth/forgot-password)
+exports.forgotPassword = async (req, res) => {
+  try {
+    const email = xss(req.body.email?.trim().toLowerCase());
+    if (!email) return res.status(400).json({ error: 'Email requis' });
+
+    const user = db.prepare('SELECT id FROM users WHERE email = ?').get(email);
+    if (!user) {
+      return res.json({ message: 'Si ce compte existe, vous recevrez un email.' });
+    }
+
+    const token = crypto.randomBytes(32).toString('hex');
+    db.prepare('DELETE FROM password_resets WHERE user_id = ?').run(user.id);
+    db.prepare('INSERT INTO password_resets (user_id, token) VALUES (?, ?)').run(user.id, token);
+
+    await sendResetEmail(email, token);
+    res.json({ message: 'Si ce compte existe, vous recevrez un email.' });
+
+  } catch (err) {
+    console.error('Erreur /auth/forgot-password :', err);
+    res.status(500).json({ error: 'Erreur lors de la demande de réinitialisation.' });
+  }
+};
+
+// Réinitialisation du mot de passe
+exports.resetPassword = async (req, res) => {
+  try {
+    const token = req.body.token?.trim();
+    const newPassword = req.body.newPassword;
+
+    if (!token || !newPassword) {
+      return res.status(400).json({ error: 'Token et nouveau mot de passe requis.' });
+    }
+
+    const record = db.prepare('SELECT * FROM password_resets WHERE token = ?').get(token);
+    if (!record) {
+      return res.status(400).json({ error: 'Lien expiré ou invalide.' });
+    }
+
+    const hash = bcrypt.hashSync(newPassword, 10);
+    db.prepare('UPDATE users SET password_hash = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?')
+      .run(hash, record.user_id);
+
+    db.prepare('DELETE FROM password_resets WHERE id = ?').run(record.id);
+
+    res.json({ message: 'Mot de passe réinitialisé avec succès.' });
+
+  } catch (err) {
+    console.error('Erreur /auth/reset-password :', err);
+    res.status(500).json({ error: 'Impossible de réinitialiser le mot de passe.' });
+  }
+};
+
+// ✅ Route alternative pour compatibilité frontend
+exports.requestPasswordReset = async (req, res) => {
+  try {
+    const email = xss(req.body.email?.trim().toLowerCase());
+    if (!email) return res.status(400).json({ error: 'Email requis.' });
+
+    const user = db.prepare('SELECT id FROM users WHERE email = ?').get(email);
+    if (!user) {
+      return res.json({ message: 'Si ce compte existe, vous recevrez un email.' });
+    }
+
+    const token = crypto.randomBytes(32).toString('hex');
+    db.prepare('DELETE FROM password_resets WHERE user_id = ?').run(user.id);
+    db.prepare('INSERT INTO password_resets (user_id, token) VALUES (?, ?)').run(user.id, token);
+
+    await sendResetEmail(email, token);
+    res.json({ message: 'Lien de réinitialisation envoyé si l’email existe.' });
+
+  } catch (err) {
+    console.error('Erreur /auth/request-password-reset :', err);
+    res.status(500).json({ error: 'Erreur serveur.' });
+  }
 };

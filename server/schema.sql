@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS products (
   updated_at  DATETIME
 );
 
--- 3) Table des commandes (ajout de total_price NOT NULL)
+-- 3) Table des commandes (avec total_price)
 CREATE TABLE IF NOT EXISTS orders (
   id          INTEGER PRIMARY KEY AUTOINCREMENT,
   user_id     INTEGER NOT NULL,
@@ -52,6 +52,15 @@ CREATE TABLE IF NOT EXISTS order_items (
 
 -- 5) Table des tokens de vérification d'email
 CREATE TABLE IF NOT EXISTS email_verifications (
+  id         INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id    INTEGER NOT NULL,
+  token      TEXT    NOT NULL UNIQUE,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- 6) Table des tokens de réinitialisation de mot de passe
+CREATE TABLE IF NOT EXISTS password_resets (
   id         INTEGER PRIMARY KEY AUTOINCREMENT,
   user_id    INTEGER NOT NULL,
   token      TEXT    NOT NULL UNIQUE,
