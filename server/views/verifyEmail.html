@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Vérification d’email</title>
+  <style>
+    body { font-family:Arial,sans-serif; background:#f4f4f4; padding:20px; }
+    .container {
+      max-width:600px; margin:0 auto; background:#fff;
+      border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1);
+    }
+    .header { background:#007bff; color:white; padding:20px; text-align:center; }
+    .content { padding:20px; color:#333; }
+    .btn {
+      display:inline-block; padding:12px 24px; background:#28a745;
+      color:white; text-decoration:none; border-radius:4px;
+      font-weight:bold;
+    }
+    .small-link { word-break:break-all; font-size:0.85rem; color:#555; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Bienvenue sur Mon Shop !</h1>
+    </div>
+    <div class="content">
+      <p>Merci de vous être inscrit. Cliquez sur le bouton ci‑dessous pour vérifier votre adresse email :</p>
+      <p style="text-align:center;">
+        <a href="{{VERIFY_URL}}" class="btn">Vérifier mon email</a>
+      </p>
+      <p>Si le bouton ne fonctionne pas, copiez‑collez ce lien :</p>
+      <p class="small-link">{{VERIFY_URL}}</p>
+    </div>
+  </div>
+</body>
+</html>
