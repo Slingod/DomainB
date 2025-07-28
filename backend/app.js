@@ -30,7 +30,7 @@ app.use('/moderation', moderationRoutes);
 // Route d’accueil simple
 app.get('/', (req, res) => {
   res.send(
-    '🚀 API Mon Shop est en ligne ! Endpoints disponibles : ' +
+    '🚀 API du Domaine Berthuit est en ligne ! Endpoints disponibles : ' +
     '/auth, /users, /products, /orders, /moderation'
   );
 });

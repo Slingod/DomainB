@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <div className="home-page">
       <header className="home-hero">
-        <h1>Bienvenue sur Mon Shop</h1>
+        <h1>Bienvenue au Domaine Berthuit</h1>
         <p>Explorez notre sélection et profitez de vos achats en toute simplicité.</p>
         {!token && (
           <Link to="/signup" className="btn-primary">

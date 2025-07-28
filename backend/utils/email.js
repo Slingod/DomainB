@@ -41,10 +41,10 @@ exports.sendVerificationEmail = async (toEmail, token) => {
   const transporter = await getTransporter();
   const verifyUrl = `${PUBLIC_URL}/auth/verify-email?token=${token}`;
   await transporter.sendMail({
-    from: `"Mon Shop" <no-reply@monshop.com>`,
+    from: `"Domaine Berthuit" <no-reply@domaineberthuit.com>`,
     to: toEmail,
     subject: '🔒 Vérifiez votre adresse email',
-    text: `Bienvenue sur Mon Shop ! Copiez ce lien pour vérifier : ${verifyUrl}`,
+    text: `Bienvenue au Domaine Berthuit ! Copiez ce lien pour vérifier : ${verifyUrl}`,
     html: renderTemplate('verifyEmail.html', { VERIFY_URL: verifyUrl })
   }).then(info => {
     console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
@@ -55,7 +55,7 @@ exports.sendResetEmail = async (toEmail, token) => {
   const transporter = await getTransporter();
   const resetUrl = `${FRONTEND_URL}/reset-password?token=${token}`;
   await transporter.sendMail({
-    from: `"Mon Shop" <no-reply@monshop.com>`,
+    from: `"Domaine Berthuit" <no-reply@domaineberthuit.com>`,
     to: toEmail,
     subject: '🔑 Réinitialisation du mot de passe',
     text: `Vous avez demandé une réinitialisation. Copiez ce lien : ${resetUrl}`,
@@ -67,6 +67,6 @@ exports.sendResetEmail = async (toEmail, token) => {
 
 exports.sendCustomEmail = async (opts) => {
   const transporter = await getTransporter();
-  await transporter.sendMail({ from:`"Mon Shop" <no-reply@monshop.com>`, ...opts })
+  await transporter.sendMail({ from:`"Domaine Berthuit" <no-reply@domaineberthuit.com>`, ...opts })
     .then(info => console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info)));
 };

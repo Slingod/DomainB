@@ -80,7 +80,7 @@ exports.exportUserDataByEmail = async (req, res) => {
     await sendCustomEmail({
       to: user.email,
       subject: 'Votre export de données (RGPD)',
-      text: `Bonjour ${user.username},\n\nVous trouverez en pièce jointe l’export de vos données.\n\nCordialement,\nMon Shop`,
+      text: `Bonjour ${user.username},\n\nVous trouverez en pièce jointe l’export de vos données.\n\nCordialement,\nL’équipe du Domaine Berthuit`,
       attachments: [
         {
           filename: 'export-donnees.json',

@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 import api from '../api/api';
 import './AdminProducts.scss';
 
 export default function AdminProducts() {
-  const [products, setProducts]   = useState([]);
-  const [filtered, setFiltered]   = useState([]);
-  const [editing, setEditing]     = useState(null);
+  const [products, setProducts]     = useState([]);
+  const [filtered, setFiltered]     = useState([]);
+  const [editing, setEditing]       = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
 
   // Chargement initial des produits
@@ -16,7 +17,7 @@ export default function AdminProducts() {
     });
   }, []);
 
-  // Filtrage live
+  // Filtrage en temps réel
   useEffect(() => {
     const term = searchTerm.trim().toLowerCase();
     setFiltered(
@@ -57,6 +58,15 @@ export default function AdminProducts() {
 
   return (
     <div className="admin-products-page">
+      {/* Meta tags SEO */}
+      <Helmet>
+        <title>Admin – Gestion des produits</title>
+        <meta
+          name="description"
+          content="Tableau de bord d'administration : création, modification et suppression de produits."
+        />
+      </Helmet>
+
       <header className="header">
         <h1>Gestion des produits</h1>
         <button
@@ -72,9 +82,13 @@ export default function AdminProducts() {
 
       {/* Barre de recherche */}
       <div className="search-bar">
+        <label htmlFor="product-search" className="visually-hidden">
+          Recherche de produit
+        </label>
         <input
+          id="product-search"
           type="text"
-          placeholder="Rechercher un produit…"
+          placeholder="Rechercher un produit..."
           value={searchTerm}
           onChange={e => setSearchTerm(e.target.value)}
         />
@@ -84,31 +98,52 @@ export default function AdminProducts() {
         {filtered.map(p => (
           <li key={p.id} className="product-item">
             <div className="info">
-              <strong className="title">{p.title}</strong>
-              <span className="price">{p.price.toFixed(2)} €</span>
-              <span
-                className={`stock-badge ${p.stock > 0 ? 'in-stock' : 'out-of-stock'}`}
-              >
-                {p.stock > 0 ? `En stock : ${p.stock}` : 'Rupture de stock'}
-              </span>
+              {p.image_url && (
+                <div className="product-thumb-wrapper">
+                  <img
+                    src={p.image_url}
+                    alt={`Produit : ${p.title}`}
+                    className="product-thumb"
+                  />
+                </div>
+              )}
+              <div className="text-info">
+                <strong className="title">{p.title}</strong>
+                <span className="price">{p.price.toFixed(2)} €</span>
+                <span
+                  className={`stock-badge ${p.stock > 0 ? 'in-stock' : 'out-of-stock'}`}
+                >
+                  {p.stock > 0 ? `En stock : ${p.stock}` : 'Rupture de stock'}
+                </span>
+              </div>
             </div>
+
             <div className="actions">
-              <button onClick={() => setEditing(p)} className="btn warning">
+              <button
+                onClick={() => setEditing(p)}
+                className="btn warning"
+                aria-label={`Modifier le produit ${p.title}`}
+              >
                 Modifier
               </button>
-              <button onClick={() => deleteProduct(p.id)} className="btn danger">
+              <button
+                onClick={() => deleteProduct(p.id)}
+                className="btn danger"
+                aria-label={`Supprimer le produit ${p.title}`}
+              >
                 Supprimer
               </button>
             </div>
           </li>
         ))}
+
         {filtered.length === 0 && (
           <li className="no-results">Aucun produit ne correspond.</li>
         )}
       </ul>
 
       {editing && (
-        <div className="modal-overlay">
+        <div className="modal-overlay" role="dialog" aria-modal="true">
           <form
             onSubmit={e => { e.preventDefault(); saveProduct(editing); }}
             className="modal"
@@ -148,11 +183,12 @@ export default function AdminProducts() {
             </label>
 
             <label>
-              URL de l’image
+              URL de l'image
               <input
                 type="url"
                 value={editing.image_url || ''}
                 onChange={e => setEditing({ ...editing, image_url: e.target.value })}
+                placeholder="https://..."
               />
             </label>
 
@@ -170,7 +206,9 @@ export default function AdminProducts() {
             </label>
 
             <div className="modal-actions">
-              <button type="submit" className="btn primary">Enregistrer</button>
+              <button type="submit" className="btn primary">
+                Enregistrer
+              </button>
               <button
                 type="button"
                 onClick={() => setEditing(null)}

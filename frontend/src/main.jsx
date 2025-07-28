@@ -1,18 +1,35 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+
+// Redux
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
 import { store } from './store/store';
+
+// React Router
+import { BrowserRouter as Router } from 'react-router-dom';
+
+// Helmet Async pour le head management (SEO dynamique)
+import { HelmetProvider } from 'react-helmet-async';
+
+// Le composant racine de votre appli
 import App from './App';
 
-import './index.scss';  // styles globaux (reset, vars, body…)
-import './App.scss';    // layout global (container, .page-content…)
+// Styles globaux
+import './index.scss';  // reset, variables CSS, règles de base…
+import './App.scss';    // layout principal (containers, grilles, utilitaires…)
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+const rootElement = document.getElementById('root');
+
+ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
+    {/* Fournit le store Redux à toute l’appli */}
     <Provider store={store}>
+      {/* Permet les routes client-side */}
       <Router>
-        <App />
+        {/* Permet aux components d’utiliser Helmet pour le head */}
+        <HelmetProvider>
+          <App />
+        </HelmetProvider>
       </Router>
     </Provider>
   </React.StrictMode>

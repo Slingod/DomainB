@@ -1,7 +1,7 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "API backend pour Mon Shop (Node.js + Express + SQLite)",
+  "description": "API backend pour Domaine Berthuit (Node.js + Express + SQLite)",
   "main": "app.js",
   "type": "commonjs",
   "scripts": {

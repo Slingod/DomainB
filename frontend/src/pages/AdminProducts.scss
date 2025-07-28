@@ -15,9 +15,25 @@
       font-size: 1.75rem;
       margin: 0;
     }
-
     .new-btn {
       font-size: 0.9rem;
+    }
+  }
+
+  .search-bar {
+    margin-bottom: 1rem;
+    input {
+      width: 100%;
+      max-width: 400px;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 0.375rem;
+      transition: border-color 0.2s;
+      &:focus {
+        border-color: #2563eb;
+        outline: none;
+      }
     }
   }
 
@@ -33,18 +49,49 @@
       align-items: center;
       padding: 0.75rem 0;
       border-bottom: 1px solid #e5e7eb;
+      gap: 1rem;
 
       .info {
         display: flex;
-        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
 
-        .title {
-          font-weight: 600;
-          font-size: 1.1rem;
+        .product-thumb-wrapper {
+          flex: 0 0 auto;
+          width: 80px;
+          height: 80px;
+          overflow: hidden;
+          border-radius: 4px;
+          background: #f9f9f9;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
-        .price {
-          color: #059669;
-          font-size: 0.95rem;
+
+        .product-thumb {
+          max-width: 100%;
+          max-height: 100%;
+          object-fit: cover;
+        }
+
+        .text-info {
+          display: flex;
+          flex-direction: column;
+          gap: 0.25rem;
+
+          .title {
+            font-weight: 600;
+            font-size: 1.1rem;
+          }
+          .price {
+            color: #059669;
+            font-size: 0.95rem;
+          }
+          .stock-badge {
+            font-size: 0.85rem;
+            &.in-stock { color: #047857; }
+            &.out-of-stock { color: #b91c1c; }
+          }
         }
       }
 
@@ -53,9 +100,16 @@
         gap: 0.5rem;
       }
     }
+
+    .no-results {
+      list-style: none;
+      text-align: center;
+      color: #666;
+      margin: 2rem 0;
+    }
   }
 
-  // Modal d’édition
+  /* Modal d’édition */
   .modal-overlay {
     position: fixed;
     inset: 0;
@@ -66,7 +120,7 @@
     padding: 1rem;
 
     .modal {
-      background: white;
+      background: #fff;
       border-radius: 0.5rem;
       padding: 1.5rem;
       width: 100%;
@@ -93,7 +147,6 @@
           border-radius: 0.375rem;
           font-size: 1rem;
           transition: border-color 0.2s;
-
           &:focus {
             border-color: #2563eb;
             outline: none;
@@ -110,7 +163,7 @@
     }
   }
 
-  // Boutons génériques
+  /* Boutons génériques */
   .btn {
     padding: 0.5rem 1rem;
     border: none;
@@ -121,73 +174,35 @@
 
     &.primary {
       background: #2563eb;
-      color: white;
+      color: #fff;
       &:hover { background: #1e40af; }
     }
-
     &.secondary {
       background: #e5e7eb;
       color: #374151;
       &:hover { background: #d1d5db; }
     }
-
     &.warning {
       background: #f59e0b;
-      color: white;
+      color: #fff;
       &:hover { background: #d97706; }
     }
-
     &.danger {
       background: #ef4444;
-      color: white;
+      color: #fff;
       &:hover { background: #dc2626; }
     }
   }
 
-  // Responsive
+  /* Responsive */
   @media (max-width: 600px) {
-    .header {
+    .product-item {
       flex-direction: column;
       align-items: flex-start;
-      gap: 0.5rem;
     }
-    .product-list .product-item {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.5rem;
-
-      .actions {
-        width: 100%;
-        justify-content: flex-end;
-      }
-    }
-    .modal {
-      padding: 1rem;
-    }
-    // barre de recherche
-    .search-bar {
-      margin: 1rem 0;
-      input {
-        width: 100%;
-        max-width: 400px;
-        padding: 0.5rem 1rem;
-        font-size: 1rem;
-        border: 1px solid #ccc;
-        border-radius: 0.375rem;
-        transition: border-color 0.2s;
-        &:focus {
-          border-color: #2563eb;
-          outline: none;
-        }
-      }
-    }
-
-    // message pas de résultat
-    .product-list .no-results {
-      list-style: none;
-      text-align: center;
-      color: #666;
-      margin-top: 2rem;
+    .actions {
+      width: 100%;
+      justify-content: flex-end;
     }
   }
 }

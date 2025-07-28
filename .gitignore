@@ -1,36 +1,39 @@
-# Ignorer les dépendances Node.js
+# --- Logs globaux ---
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# --- Environnements ---
+.env
+*.local
+
+# --- Node modules ---
 node_modules/
 
-# Ignorer les fichiers de configuration de l'environnement
-.env
+# --- Builds ---
+dist/
+build/
+dist-ssr/
 
-# Ignorer les fichiers de base de données SQLite
+# --- Caches / OS / IDE ---
+.DS_Store
+*.sw?
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.iml
+
+# --- IDEs ---
+.vscode/
+.idea/
+
+# --- DB ---
 *.sqlite
 *.db
 
-# Ignorer les fichiers de logs
-*.log
-
-# Ignorer les fichiers de configuration de l'IDE
-.idea/
-.vscode/
-*.swp
-
-# Ignorer les fichiers de build et de distribution
-dist/
-build/
-
-# Ignorer les fichiers de configuration spécifiques à la machine
+# --- Configs spécifiques machine ---
 *.config.js
-
-# Ignorer les fichiers de cache
-*.cache
-
-# Ignorer les fichiers de configuration de l'IDE WebStorm
-.idea/
-
-# Ignorer les fichiers de configuration de l'IDE VSCode
-.vscode/
-
-# Ignorer les fichiers de configuration de l'IDE IntelliJ
-*.iml

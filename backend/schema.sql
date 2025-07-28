@@ -1,5 +1,5 @@
 -- ----------------------------------------------------
--- Schéma de base de données pour Mon Shop
+-- Schéma de base de données pour Domaine Berthuit
 -- ----------------------------------------------------
 
 -- 1) Table des utilisateurs

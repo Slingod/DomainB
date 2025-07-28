@@ -2,13 +2,60 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <!-- Très important pour le responsive -->
+
+    <!-- Responsive -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Mon Shop</title>
-    <link rel="icon" href="/favicon.svg" />
+
+    <!-- Titre de la page -->
+    <title>Domaine Berthuit</title>
+
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      type="image/webp"
+      href="/logberthuit.webp"
+    />
+    <!-- 
+      Note : l’attribut alt n’est pas standard sur <link>. 
+      Pour l’accessibilité, on décrit idéalement le logo dans le HTML
+      via aria-label ou un texte alternatif visible/masqué. 
+    -->
+
+    <!-- SEO de base -->
+    <meta
+      name="description"
+      content="Domaine Berthuit, vigneron bio à Pépieux : vins rouges, rosés et blancs bio du Minervois. Achetez en direct auprès du producteur."
+    />
+    <meta
+      name="keywords"
+      content="Domaine Berthuit, vin bio, vigneron Pépieux, vin rouge, vin rosé, vin blanc, Minervois"
+    />
+    <meta name="author" content="Lucas Berthuit" />
+    <meta name="theme-color" content="#7B3F00" />
+
+    <!-- CSS principal -->
+    <link rel="stylesheet" href="/src/main.css" />
   </head>
+
   <body>
-    <div id="root"></div> <!-- CE DIV est CRUCIAL -->
+    <!-- Header global avec logo accessible -->
+    <header class="site-header">
+      <a href="/" class="logo-link" aria-label="Domaine Berthuit, accueil">
+        <img
+          src="/logberthuit.webp"
+          alt="Logo Domaine Berthuit"
+          width="50"
+          height="50"
+        />
+        <span class="visually-hidden">Domaine Berthuit</span>
+      </a>
+      <!-- Vous pouvez ici ajouter votre menu de navigation -->
+    </header>
+
+    <!-- Point d’entrée React -->
+    <div id="root"></div>
+
+    <!-- Bundle JS -->
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

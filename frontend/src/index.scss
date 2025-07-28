@@ -1,7 +1,11 @@
-/* ─────────────────────────────────────────────────────
-   Global variables & reset
-───────────────────────────────────────────────────── */
+// ─────────────────────────────────────────────────────
+// 1. UTILITAIRES
+// ─────────────────────────────────────────────────────
+@use "./styles/accessibility" as acc;
 
+// ─────────────────────────────────────────────────────
+// 2. VARIABLES GLOBALES & THÈMES
+// ─────────────────────────────────────────────────────
 :root {
   --font-sans: system-ui, Avenir, Helvetica, Arial, sans-serif;
   --color-text: rgba(255, 255, 255, 0.87);
@@ -21,6 +25,9 @@
   }
 }
 
+// ─────────────────────────────────────────────────────
+// 3. RESET & RÉGLAGES GLOBAUX
+// ─────────────────────────────────────────────────────
 *,
 *::before,
 *::after {
@@ -42,15 +49,25 @@ body {
   min-height: 100vh;
 }
 
-/* Links & buttons */
+// ─────────────────────────────────────────────────────
+// 4. TYPOGRAPHIE & UTILITAIRES D’ACCESSIBILITÉ
+// ─────────────────────────────────────────────────────
+.visually-hidden {
+  @include acc.visually-hidden;
+}
+
+// ─────────────────────────────────────────────────────
+// 5. LIENS ET BOUTONS
+// ─────────────────────────────────────────────────────
 a {
   font-weight: 500;
   color: var(--link);
   text-decoration: none;
   transition: color 0.2s;
-}
-a:hover {
-  color: var(--link-hover);
+
+  &:hover {
+    color: var(--link-hover);
+  }
 }
 
 button {
@@ -63,11 +80,13 @@ button {
   background-color: var(--btn-bg);
   cursor: pointer;
   transition: border-color 0.25s;
-}
-button:hover {
-  border-color: var(--btn-hover-border);
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+
+  &:hover {
+    border-color: var(--btn-hover-border);
+  }
+
+  &:focus,
+  &:focus-visible {
+    outline: 4px auto -webkit-focus-ring-color;
+  }
 }
