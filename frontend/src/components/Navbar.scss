@@ -1,16 +1,12 @@
 @use "sass:color";
-
-// Variables
-$navbar-height: 3.5rem;
-$navbar-bg:       #1f2937;     // gris foncé
-$navbar-text:     #ffffff;     // blanc
-$navbar-hover:    rgba(255, 255, 255, 0.1);
-$breakpoint-sm:   640px;
-$breakpoint-md:   768px;
+@use "../styles/variables" as *;
+@use "../styles/mixins" as *;
 
 .navbar {
   position: fixed;
-  top: 0; left: 0; right: 0;
+  top: 0;
+  left: 0;
+  right: 0;
   height: $navbar-height;
   background-color: $navbar-bg;
   color: $navbar-text;
@@ -20,8 +16,16 @@ $breakpoint-md:   768px;
   padding: 0 1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   z-index: 1000;
+  transition: all 0.3s ease;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 
-  // Burger pour mobile
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
   .navbar-toggle {
     display: none;
     background: none;
@@ -29,30 +33,22 @@ $breakpoint-md:   768px;
     font-size: 1.75rem;
     color: $navbar-text;
     cursor: pointer;
+    z-index: 1002;
   }
 
-  // Zone gauche
-  .navbar-left {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  // Zone droite
+  .navbar-left,
   .navbar-right {
     display: flex;
     align-items: center;
     gap: 1rem;
-
-    // Bonjour, Pseudo
-    .navbar-greeting {
-      font-weight: 500;
-      white-space: nowrap;
-      margin-right: 1rem;
-    }
   }
 
-  // Liens
+  .navbar-greeting {
+    font-weight: 500;
+    white-space: nowrap;
+    margin-right: 1rem;
+  }
+
   .nav-link {
     color: $navbar-text;
     text-decoration: none;
@@ -68,7 +64,6 @@ $breakpoint-md:   768px;
     }
   }
 
-  // Boutons (déconnexion, etc.)
   .nav-button {
     background: none;
     border: 1px solid $navbar-text;
@@ -84,7 +79,6 @@ $breakpoint-md:   768px;
     }
   }
 
-  // Dropdown (exemple)
   .dropdown {
     position: relative;
 
@@ -126,8 +120,8 @@ $breakpoint-md:   768px;
     }
   }
 
-  // --- Responsive (≤ petit écran) ---
-  @media (max-width: $breakpoint-sm) {
+  // Mobile (≤ 768px)
+  @media (max-width: $breakpoint-md) {
     flex-wrap: wrap;
     height: auto;
     padding: 0.5rem 1rem;
@@ -136,52 +130,93 @@ $breakpoint-md:   768px;
       display: block;
     }
 
-    // Masquer la zone gauche
-    .navbar-left {
-      display: none;
+    .navbar-left,
+    .navbar-right {
+      position: fixed;
+      top: $navbar-height;
+      left: 0;
+      right: 0;
+      background-color: $navbar-bg;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      padding: 1rem 0;
+      transform: translateY(-200%);
+      transition: transform 0.3s ease-in-out;
+      z-index: 1001;
     }
 
-    // Déployer le menu quand .open est ajouté à .navbar
     &.open {
-      .navbar-left {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-
-        .nav-link {
-          width: 100%;
-          text-align: center;
-          padding: 0.75rem 0;
-        }
+      .navbar-left,
+      .navbar-right {
+        transform: translateY(0);
       }
     }
 
-    // Zone droite en colonne
-    .navbar-right {
+    .nav-link,
+    .nav-button,
+    .navbar-greeting {
       width: 100%;
-      flex-direction: column;
-      margin-top: 0.5rem;
+      text-align: center;
+      padding: 0.75rem 0;
+      font-size: 1rem;
+    }
+  }
 
-      .navbar-greeting,
-      .nav-link,
-      .nav-button {
-        width: 100%;
-        text-align: center;
-        padding: 0.75rem 0;
+  // Tablette (768px à 1023px)
+  @media (min-width: $breakpoint-md) and (max-width: #{ $breakpoint-lg - 1 }) {
+    .navbar-left,
+    .navbar-right {
+      gap: 0.5rem;
+
+      .nav-link {
+        font-size: 0.9rem;
+        max-width: 110px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
   }
 
-  // Mi-taille : espace réduit
-  @media (min-width: $breakpoint-sm) and (max-width: $breakpoint-md) {
+  // Grand écran (≥ 1440px)
+  @media (min-width: $breakpoint-2xl) {
+    padding: 0 3rem;
+
+    .nav-link {
+      font-size: 1.1rem;
+      padding: 0.75rem 1.25rem;
+    }
+
+    .nav-button {
+      font-size: 1rem;
+      padding: 0.6rem 1.2rem;
+    }
+  }
+
+  // 4K (≥ 2560px)
+  @media (min-width: $breakpoint-4k) {
+    padding: 0 5rem;
+
     .navbar-left,
     .navbar-right {
-      gap: 0.5rem;
+      gap: 2rem;
+    }
+
+    .nav-link {
+      font-size: 1.25rem;
+    }
+
+    .navbar-greeting {
+      font-size: 1.2rem;
     }
   }
 }
 
-// Pour que le contenu ne soit pas caché sous la navbar
 .page-content {
   padding-top: $navbar-height;
+}
+
+body.menu-open {
+  overflow: hidden;
 }

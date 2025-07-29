@@ -1,3 +1,6 @@
+@use "../styles/variables" as *;
+@use "../styles/mixins" as *;
+
 .orders-page {
   padding: 2rem 1rem;
   max-width: 800px;
@@ -6,7 +9,7 @@
   h1 {
     font-size: 1.75rem;
     margin-bottom: 1.5rem;
-    color: #333;
+    color: $navbar-text;
     text-align: center;
   }
 
@@ -21,18 +24,20 @@
       border-radius: 0.5rem;
       padding: 1rem;
       text-align: center;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
 
       .stat-label {
         font-size: 0.9rem;
         color: #555;
         margin-bottom: 0.5rem;
       }
+
       .stat-value {
         font-size: 1.25rem;
         font-weight: 600;
         color: #111;
       }
+
       .stat-sub {
         font-size: 0.85rem;
         color: #16a34a;
@@ -47,7 +52,7 @@
       border-radius: 0.5rem;
       padding: 1rem;
       margin-bottom: 1rem;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
 
       .order-header {
         font-weight: 600;
@@ -58,6 +63,7 @@
       ul.items {
         padding-left: 1.25rem;
         margin-bottom: 0.75rem;
+
         li {
           margin-bottom: 0.25rem;
           color: #555;
@@ -77,11 +83,8 @@
       margin-top: 2rem;
     }
   }
-}
 
-/* Mobile */
-@media (max-width: 640px) {
-  .orders-page {
+  @include respond(sm) {
     padding: 1rem;
 
     .stats {

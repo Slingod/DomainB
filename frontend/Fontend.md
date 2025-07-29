@@ -1,14 +1,62 @@
-# React + Vite
+⚙️ **Présentation du Frontend – Domaine Berthuit**
+Le Frontend de ton projet repose sur les technologies modernes suivantes :
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🧱 **Stack utilisée**
+Technologie Rôle :
 
-Currently, two official plugins are available:
+- React Bibliothèque JavaScript pour construire l’interface utilisateur (UI)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Vite Bundler ultra-rapide pour développement React avec Hot Module Replacement (HMR)
 
-## Expanding the ESLint configuration
+- Sass (SCSS) Préprocesseur CSS pour écrire des styles modulaires, maintenables et variables
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React Router Gestion des routes côté client
 
+- Redux Toolkit Gestion d’état global (authentification, données utilisateurs, etc.)
+
+- Helmet Insertion de balises SEO dans le <head> de chaque page dynamiquement
+
+- Axios Requêtes HTTP vers l’API Backend
+
+- ESLint Linter JavaScript/JSX pour garantir la qualité du code
+
+🚀 **Lancer le projet en local**
+Une fois les dépendances installées (npm install), tu peux lancer le serveur de développement avec la commande :
+
+```bash
 npm run dev
+```
+
+✅ Ce que ça fait :
+Compile ton code avec Vite
+
+Lance un serveur local ultra-rapide (par défaut sur http://localhost:5173)
+
+Active le Hot Module Replacement (HMR), donc les modifications sont visibles en temps réel dans le navigateur
+
+📁 **Structure typique du Frontend**
+
+frontend/
+│
+├── src/
+│ ├── api/ # Config Axios
+│ ├── assets/ # Logos, icônes, images statiques
+│ ├── components/ # Composants réutilisables (Header, Footer…)
+│ ├── pages/ # Pages de l'application (Signup, Login, Profile…)
+│ ├── styles/ # SCSS : variables, mixins, globales
+│ └── store/ # Redux Toolkit: slices & store global
+│
+├── public/ # Fichiers statiques (favicon, index.html)
+├── App.jsx # Point d’entrée principal React
+├── main.jsx # Bootstrapping de l’app React
+└── vite.config.js # Configuration Vite
+
+🌍 **SEO & Accessibilité**
+
+Ton frontend inclut déjà :
+
+Des balises <Helmet> personnalisées pour chaque page
+
+Des rôles ARIA (role="main", aria-label, etc.)
+
+Une structure sémantique claire : <main>, <section>, <label>, etc.

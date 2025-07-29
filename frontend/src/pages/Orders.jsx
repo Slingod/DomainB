@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
 import api from '../api/api';
 import { useDispatch } from 'react-redux';
 import { logout } from '../store/authSlice';
@@ -10,7 +11,7 @@ function computeStats(orders) {
   const startOfWeek = new Date(now);
   startOfWeek.setDate(now.getDate() - now.getDay());
   const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
-  const startOfYear  = new Date(now.getFullYear(), 0, 1);
+  const startOfYear = new Date(now.getFullYear(), 0, 1);
 
   const stats = {
     week: { count: 0, total: 0 },
@@ -19,7 +20,7 @@ function computeStats(orders) {
     all: { count: orders.length, total: 0 },
   };
 
-  orders.forEach(o => {
+  orders.forEach((o) => {
     const date = new Date(o.created_at);
     const amount = o.total;
     stats.all.total += amount;
@@ -42,17 +43,18 @@ function computeStats(orders) {
 
 export default function Orders() {
   const [orders, setOrders] = useState([]);
-  const [stats, setStats]   = useState(null);
+  const [stats, setStats] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    api.get('/orders/my')
-      .then(res => {
+    api
+      .get('/orders/my')
+      .then((res) => {
         setOrders(res.data);
         setStats(computeStats(res.data));
       })
-      .catch(err => {
+      .catch((err) => {
         if (err.response?.status === 401) {
           dispatch(logout());
           navigate('/login');
@@ -65,35 +67,40 @@ export default function Orders() {
   }
 
   return (
-    <div className="orders-page">
-      <h1>Mes Commandes</h1>
+    <main className="orders-page">
+      <Helmet>
+        <title>Mes Commandes | Domaine Berthuit</title>
+        <meta name="description" content="Suivez l'historique de vos commandes sur Domaine Berthuit. Récapitulatif complet et statistiques d'achat." />
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
 
-      <div className="stats">
+      <header>
+        <h1>Mes Commandes</h1>
+      </header>
+
+      <section className="stats" aria-label="Statistiques de commandes">
         {[
           { label: 'Cette semaine', key: 'week' },
           { label: 'Ce mois', key: 'month' },
           { label: 'Cette année', key: 'year' },
           { label: 'Depuis toujours', key: 'all' },
         ].map(({ label, key }) => (
-          <div key={key} className="stat-card">
-            <div className="stat-label">{label}</div>
-            <div className="stat-value">
+          <article key={key} className="stat-card">
+            <h2 className="stat-label">{label}</h2>
+            <p className="stat-value">
               {stats[key].count} commande{stats[key].count > 1 ? 's' : ''}
-            </div>
-            <div className="stat-sub">
-              Total: {stats[key].total.toFixed(2)}€
-            </div>
-          </div>
+            </p>
+            <p className="stat-sub">Total: {stats[key].total.toFixed(2)}€</p>
+          </article>
         ))}
-      </div>
+      </section>
 
-      <div className="orders-list">
-        {orders.map(o => (
-          <div key={o.id} className="order-card">
-            <div className="order-header">
-              Commande #{o.id} –{' '}
-              {new Date(o.created_at).toLocaleString()}
-            </div>
+      <section className="orders-list" aria-label="Liste de commandes">
+        {orders.map((o) => (
+          <article key={o.id} className="order-card">
+            <header className="order-header">
+              Commande #{o.id} – {new Date(o.created_at).toLocaleString()}
+            </header>
             <ul className="items">
               {o.items.map((it, idx) => (
                 <li key={idx}>
@@ -101,15 +108,14 @@ export default function Orders() {
                 </li>
               ))}
             </ul>
-            <div className="order-footer">
-              Total: {o.total.toFixed(2)}€
-            </div>
-          </div>
+            <footer className="order-footer">Total: {o.total.toFixed(2)}€</footer>
+          </article>
         ))}
+
         {orders.length === 0 && (
           <p className="no-orders">Vous n’avez pas encore de commandes.</p>
         )}
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }

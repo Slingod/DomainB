@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { Helmet } from 'react-helmet';
 import api from '../api/api';
 import { useDispatch } from 'react-redux';
 import { logout } from '../store/authSlice';
@@ -18,7 +19,6 @@ export default function AdminUsers() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // fetchUsers stabilisé par useCallback
   const fetchUsers = useCallback(async () => {
     try {
       const { data } = await api.get('/users');
@@ -32,12 +32,10 @@ export default function AdminUsers() {
     }
   }, [dispatch, navigate]);
 
-  // appel au montage
   useEffect(() => {
     fetchUsers();
   }, [fetchUsers]);
 
-  // Recherche live
   useEffect(() => {
     const term = searchTerm.trim().toLowerCase();
     setFiltered(
@@ -64,14 +62,7 @@ export default function AdminUsers() {
 
   const saveEdit = async () => {
     try {
-      await api.put(`/users/${editId}`, {
-        email:      form.email,
-        first_name: form.first_name,
-        last_name:  form.last_name,
-        address:    form.address,
-        phone:      form.phone,
-        role:       form.role
-      });
+      await api.put(`/users/${editId}`, form);
       setEditId(null);
       fetchUsers();
     } catch (err) {
@@ -87,20 +78,30 @@ export default function AdminUsers() {
   };
 
   return (
-    <div className="admin-users-page">
-      <h1 className="page-title">Administration des utilisateurs</h1>
+    <main className="admin-users-page">
+      <Helmet>
+        <title>Admin - Utilisateurs | Domaine Berthuit</title>
+        <meta name="description" content="Interface d'administration pour gérer les utilisateurs du Domaine Berthuit : recherche, modification, suppression." />
+        <meta name="robots" content="noindex, nofollow" />
+        <link rel="canonical" href="http://localhost:5173/admin/users" />
+      </Helmet>
 
-      {/* Barre de recherche */}
-      <div className="search-bar">
+      <header>
+        <h1 className="page-title">Administration des utilisateurs</h1>
+      </header>
+
+      <section className="search-bar" aria-label="Recherche d'utilisateur">
+        <label htmlFor="search" className="sr-only">Recherche utilisateur</label>
         <input
+          id="search"
           type="text"
           placeholder="Rechercher par ID, pseudo, email ou rôle…"
           value={searchTerm}
           onChange={e => setSearchTerm(e.target.value)}
         />
-      </div>
+      </section>
 
-      <div className="table-wrapper">
+      <section className="table-wrapper" aria-label="Liste des utilisateurs">
         <table className="users-table">
           <thead>
             <tr>
@@ -119,28 +120,26 @@ export default function AdminUsers() {
                 <td>{u.email}</td>
                 <td>{u.role}</td>
                 <td className="actions">
-                  <button className="btn edit"   onClick={() => startEdit(u)}>Modifier</button>
+                  <button className="btn edit" onClick={() => startEdit(u)}>Modifier</button>
                   <button className="btn delete" onClick={() => deleteUser(u.id)}>Supprimer</button>
                 </td>
               </tr>
             ))}
             {filtered.length === 0 && (
               <tr>
-                <td colSpan="5" className="no-results">
-                  Aucun utilisateur ne correspond.
-                </td>
+                <td colSpan="5" className="no-results">Aucun utilisateur ne correspond.</td>
               </tr>
             )}
           </tbody>
         </table>
-      </div>
+      </section>
 
       {editId && (
-        <div className="modal-overlay">
+        <div className="modal-overlay" role="dialog" aria-modal="true">
           <div className="modal">
             <h2>Éditer utilisateur #{editId}</h2>
-            <div className="modal-form">
-              {['email', 'first_name', 'last_name', 'address', 'phone'].map(field => (
+            <form className="modal-form" onSubmit={e => e.preventDefault()}>
+              {["email", "first_name", "last_name", "address", "phone"].map(field => (
                 <label key={field} className="field-group">
                   <span>{field.replace('_', ' ')}</span>
                   <input
@@ -164,13 +163,13 @@ export default function AdminUsers() {
               </label>
 
               <div className="modal-actions">
-                <button className="btn save"   onClick={saveEdit}>Enregistrer</button>
+                <button className="btn save" onClick={saveEdit}>Enregistrer</button>
                 <button className="btn cancel" onClick={() => setEditId(null)}>Annuler</button>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       )}
-    </div>
+    </main>
   );
 }

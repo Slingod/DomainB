@@ -1,4 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
+
 import Navbar from './components/Navbar';
 import IdleTimer from './components/IdleTimer';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -21,9 +23,21 @@ import ResetPassword from './components/ResetPassword';
 export default function App() {
   return (
     <>
+      {/* SEO Meta Global */}
+      <Helmet>
+        <title>Domaine Berthuit - Boutique en ligne</title>
+        <meta name="description" content="Bienvenue sur Domaine Berthuit. Achetez nos produits directement en ligne." />
+        <meta name="keywords" content="vin, domaine, boutique, ecommerce, commande, produits, panier" />
+        <meta name="author" content="Domaine Berthuit" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta charSet="utf-8" />
+        <link rel="canonical" href="http://localhost:5173" />
+      </Helmet>
+
       <Navbar />
       <IdleTimer timeout={15 * 60 * 1000} />
-      <div className="page-content">
+
+      <main className="page-content">
         <Routes>
           {/* Pages publiques */}
           <Route path="/" element={<Home />} />
@@ -40,19 +54,25 @@ export default function App() {
           <Route
             path="/cart"
             element={
-              <ProtectedRoute element={Cart} roles={['member', 'moderator', 'admin']} />
+              <ProtectedRoute roles={['member', 'moderator', 'admin']}>
+                <Cart />
+              </ProtectedRoute>
             }
           />
           <Route
             path="/orders"
             element={
-              <ProtectedRoute element={Orders} roles={['member', 'moderator', 'admin']} />
+              <ProtectedRoute roles={['member', 'moderator', 'admin']}>
+                <Orders />
+              </ProtectedRoute>
             }
           />
           <Route
             path="/profile"
             element={
-              <ProtectedRoute element={Profile} roles={['member', 'moderator', 'admin']} />
+              <ProtectedRoute roles={['member', 'moderator', 'admin']}>
+                <Profile />
+              </ProtectedRoute>
             }
           />
 
@@ -60,21 +80,31 @@ export default function App() {
           <Route
             path="/moderation"
             element={
-              <ProtectedRoute element={Moderation} roles={['moderator', 'admin']} />
+              <ProtectedRoute roles={['moderator', 'admin']}>
+                <Moderation />
+              </ProtectedRoute>
             }
           />
 
           {/* Administration */}
           <Route
             path="/admin/products"
-            element={<ProtectedRoute element={AdminProducts} roles={['admin']} />}
+            element={
+              <ProtectedRoute roles={['admin']}>
+                <AdminProducts />
+              </ProtectedRoute>
+            }
           />
           <Route
             path="/admin/users"
-            element={<ProtectedRoute element={AdminUsers} roles={['admin']} />}
+            element={
+              <ProtectedRoute roles={['admin']}>
+                <AdminUsers />
+              </ProtectedRoute>
+            }
           />
         </Routes>
-      </div>
+      </main>
     </>
   );
 }

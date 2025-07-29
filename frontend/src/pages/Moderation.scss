@@ -40,6 +40,7 @@
         flex: 1;
         font-size: 0.95rem;
         color: #374151;
+
         strong {
           color: #111827;
           font-weight: 600;
@@ -95,7 +96,10 @@
       animation: scaleUp 0.3s forwards;
 
       @keyframes scaleUp {
-        to { transform: scale(1); opacity: 1; }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
       }
 
       h2 {

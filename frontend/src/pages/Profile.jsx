@@ -6,18 +6,28 @@ import { useNavigate } from 'react-router-dom';
 import './Profile.scss';
 
 export default function Profile() {
-  const [user, setUser]       = useState({});
+  const [user, setUser] = useState({});
   const [message, setMessage] = useState('');
-  const [error, setError]     = useState('');
-  const dispatch              = useDispatch();
-  const navigate              = useNavigate();
+  const [error, setError] = useState('');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  // Regex de validation
-  const nameRegex  = /^[A-Za-zÀ-ÖØ-öø-ÿ' -]{2,30}$/;
-  const addressRx  = /^.{3,100}$/;
+  const nameRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ' -]{2,30}$/;
+  const addressRx = /^.{3,100}$/;
   const phoneRegex = /^\+?[0-9 ]{7,15}$/;
 
   useEffect(() => {
+    document.title = "Profil utilisateur - Domaine Berthuit";
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Gérez vos informations personnelles sur Domaine Berthuit. Modifiez, exportez ou supprimez votre profil.');
+    } else {
+      const desc = document.createElement('meta');
+      desc.name = 'description';
+      desc.content = 'Gérez vos informations personnelles sur Domaine Berthuit. Modifiez, exportez ou supprimez votre profil.';
+      document.head.appendChild(desc);
+    }
+
     api.get('/users/me')
       .then(res => setUser(res.data))
       .catch(err => {
@@ -33,7 +43,6 @@ export default function Profile() {
     setError('');
     setMessage('');
 
-    // Validation front
     if (user.first_name && !nameRegex.test(user.first_name)) {
       setError('Prénom invalide (2–30 lettres).');
       return;
@@ -80,15 +89,17 @@ export default function Profile() {
   };
 
   return (
-    <div className="profile-page">
-      <h1>Mon Profil</h1>
-      {message && <div className="notification success">{message}</div>}
-      {error   && <div className="notification error">{error}</div>}
+    <main className="profile-page" role="main">
+      <header>
+        <h1>Mon Profil</h1>
+      </header>
+      {message && <div className="notification success" role="status">{message}</div>}
+      {error && <div className="notification error" role="alert">{error}</div>}
 
       <form onSubmit={handleSave} className="profile-form">
-        <label>
-          Prénom
+        <label htmlFor="first_name">Prénom
           <input
+            id="first_name"
             type="text"
             value={user.first_name || ''}
             onChange={e => setUser({ ...user, first_name: e.target.value })}
@@ -96,9 +107,9 @@ export default function Profile() {
           />
         </label>
 
-        <label>
-          Nom
+        <label htmlFor="last_name">Nom
           <input
+            id="last_name"
             type="text"
             value={user.last_name || ''}
             onChange={e => setUser({ ...user, last_name: e.target.value })}
@@ -106,9 +117,9 @@ export default function Profile() {
           />
         </label>
 
-        <label>
-          Adresse
+        <label htmlFor="address">Adresse
           <input
+            id="address"
             type="text"
             value={user.address || ''}
             onChange={e => setUser({ ...user, address: e.target.value })}
@@ -116,9 +127,9 @@ export default function Profile() {
           />
         </label>
 
-        <label>
-          Téléphone
+        <label htmlFor="phone">Téléphone
           <input
+            id="phone"
             type="tel"
             value={user.phone || ''}
             onChange={e => setUser({ ...user, phone: e.target.value })}
@@ -131,14 +142,14 @@ export default function Profile() {
         </button>
       </form>
 
-      <div className="actions">
+      <section className="actions">
         <button onClick={handleExport} className="btn export">
           Exporter mes données par email
         </button>
         <button onClick={handleDelete} className="btn delete">
           Supprimer mon compte
         </button>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }

@@ -1,30 +1,39 @@
+@use "../styles/variables" as *;
+@use "../styles/mixins" as *;
+
 .profile-page {
   max-width: 480px;
   margin: 2rem auto;
   padding: 0 1rem;
-  font-family: system-ui, sans-serif;
-  color: #333;
+  font-family: $font-main;
+  color: $text-main;
 
   h1 {
     text-align: center;
     font-size: 2rem;
     margin-bottom: 1rem;
-    color: #222;
+    color: $heading-color;
   }
 
   .notification {
-    background: #e6ffed;
-    border: 1px solid #a3f7bf;
-    color: #046c4e;
+    background: $success-bg;
+    border: 1px solid $success-border;
+    color: $success-text;
     padding: 0.75rem 1rem;
-    border-radius: 0.375rem;
+    border-radius: $radius;
     margin-bottom: 1rem;
     text-align: center;
+
+    &.error {
+      background: $error-bg;
+      border-color: $error-border;
+      color: $error-text;
+    }
   }
 
   .profile-form {
     display: grid;
-    grid-gap: 1rem;
+    gap: 1rem;
 
     label {
       display: flex;
@@ -35,30 +44,30 @@
       input {
         margin-top: 0.25rem;
         padding: 0.5rem;
-        border: 1px solid #ccc;
-        border-radius: 0.375rem;
+        border: 1px solid $border-color;
+        border-radius: $radius;
         font-size: 1rem;
         transition: border-color 0.2s;
 
         &:focus {
-          border-color: #2563eb;
+          border-color: $primary;
           outline: none;
         }
       }
     }
 
     .btn.save {
-      background: #2563eb;
+      background: $primary;
       color: white;
       border: none;
       padding: 0.75rem;
-      border-radius: 0.375rem;
+      border-radius: $radius;
       font-size: 1rem;
       cursor: pointer;
       transition: background 0.2s;
 
       &:hover {
-        background: #1e40af;
+        background: $primary-dark;
       }
     }
   }
@@ -72,33 +81,32 @@
     .btn {
       padding: 0.75rem;
       font-size: 1rem;
-      border-radius: 0.375rem;
+      border-radius: $radius;
       border: none;
       cursor: pointer;
       transition: background 0.2s;
 
       &.export {
-        background: #8b5cf6;
+        background: $purple;
         color: white;
 
         &:hover {
-          background: #6d28d9;
+          background: $purple-dark;
         }
       }
 
       &.delete {
-        background: #ef4444;
+        background: $danger;
         color: white;
 
         &:hover {
-          background: #dc2626;
+          background: $danger-dark;
         }
       }
     }
   }
 
-  // Responsive mobile
-  @media (max-width: 480px) {
+  @include respond(sm) {
     .profile-form {
       label {
         font-size: 0.9rem;
@@ -107,14 +115,14 @@
           font-size: 0.95rem;
         }
       }
+
       .btn.save {
         font-size: 0.95rem;
       }
     }
-    .actions {
-      .btn {
-        font-size: 0.95rem;
-      }
+
+    .actions .btn {
+      font-size: 0.95rem;
     }
   }
 }

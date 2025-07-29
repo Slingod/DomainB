@@ -2,22 +2,26 @@ import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
 /**
+ * Composant de route protégée.
+ *
  * @param {Object} props
- * @param {JSX.ElementType} props.element — le composant à afficher
- * @param {string[]} props.roles — liste de rôles autorisés, ex ['member','admin']
+ * @param {JSX.Element} props.children - Composant à afficher si autorisé
+ * @param {string[]} props.roles - Liste des rôles autorisés (facultatif)
+ * @returns {JSX.Element}
  */
-export default function ProtectedRoute({ element: Element, roles = [] }) {
+export default function ProtectedRoute({ children, roles = [] }) {
   const { token, role } = useSelector((state) => state.auth);
 
+  // Non connecté : redirection vers login
   if (!token) {
-    // non connecté → redirection vers login
     return <Navigate to="/login" replace />;
   }
 
+  // Connecté mais rôle non autorisé : redirection vers l'accueil
   if (roles.length > 0 && !roles.includes(role)) {
-    // connecté mais rôle non autorisé
     return <Navigate to="/" replace />;
   }
 
-  return <Element />;
+  // Utilisateur autorisé : on affiche la page protégée
+  return children;
 }
