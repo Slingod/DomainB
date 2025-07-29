@@ -1,0 +1,58 @@
+@use "variables" as *;
+@use "sass:color";
+
+.btn {
+  display: inline-block;
+  padding: 0.6rem 1.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: $radius;
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  text-align: center;
+  text-decoration: none;
+
+  &:disabled {
+    background-color: $gray;
+    color: $text-light;
+    cursor: not-allowed;
+  }
+
+  &.primary {
+    background-color: $primary;
+    color: #fff;
+
+    &:hover {
+      background-color: $primary-dark;
+    }
+  }
+
+  &.danger {
+    background-color: $danger;
+    color: #fff;
+
+    &:hover {
+      background-color: $danger-dark;
+    }
+  }
+
+  &.success {
+    background-color: $success-border;
+    color: $success-text;
+
+    &:hover {
+      background-color: color.adjust($success-border, $lightness: -10%);
+    }
+  }
+
+  &.warning {
+  background-color: $warning;
+  color: #1e1e1e; // Texte noir ou très foncé
+
+  &:hover {
+    background-color: $warning-dark;
+    color: #fff; // Optionnel : blanc sur fond orange foncé si bon contraste
+  }
+ }
+}

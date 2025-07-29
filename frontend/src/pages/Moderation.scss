@@ -1,15 +1,18 @@
+@use "../styles/variables" as *;
+@use "../styles/mixins" as *;
+
 .moderation-page {
   padding: 2rem 1rem;
   max-width: 900px;
   margin: 0 auto;
-  font-family: Arial, sans-serif;
-  background: #f9fafb;
+  font-family: $font-main;
+  background: $gray-light;
 
   .page-title {
     font-size: 1.75rem;
     margin-bottom: 1.5rem;
     font-weight: 700;
-    color: #111827;
+    color: $heading-color;
     text-align: center;
     letter-spacing: 0.02em;
   }
@@ -21,28 +24,28 @@
 
     .user-item {
       padding: 1rem 1.25rem;
-      border-bottom: 1px solid #e5e7eb;
+      border-bottom: 1px solid $gray;
       background: white;
-      border-radius: 0.375rem;
+      border-radius: $radius;
       margin-bottom: 0.5rem;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      box-shadow: $shadow-sm;
       display: flex;
       align-items: center;
       justify-content: space-between;
       transition: box-shadow 0.2s, transform 0.2s;
 
       &:hover {
-        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        box-shadow: $shadow-lg;
         transform: translateY(-2px);
       }
 
       .user-info {
         flex: 1;
         font-size: 0.95rem;
-        color: #374151;
+        color: $text-light;
 
         strong {
-          color: #111827;
+          color: $heading-color;
           font-weight: 600;
         }
       }
@@ -50,24 +53,23 @@
       .btn.edit {
         padding: 0.4rem 0.85rem;
         border: none;
-        border-radius: 0.375rem;
-        background: linear-gradient(135deg, #3b82f6, #2563eb);
+        border-radius: $radius;
+        background: linear-gradient(135deg, $primary, $primary-dark);
         color: white;
         cursor: pointer;
         font-size: 0.875rem;
         font-weight: 500;
-        box-shadow: 0 2px 4px rgba(59,130,246,0.3);
+        box-shadow: 0 2px 4px rgba($primary, 0.3);
         transition: all 0.2s;
 
         &:hover {
-          background: linear-gradient(135deg, #2563eb, #1d4ed8);
-          box-shadow: 0 4px 8px rgba(37,99,235,0.35);
+          background: linear-gradient(135deg, $primary-dark, darken($primary-dark, 10%));
+          box-shadow: 0 4px 8px rgba($primary-dark, 0.35);
         }
       }
     }
   }
 
-  // Modal overlay
   .modal-overlay {
     position: fixed;
     inset: 0;
@@ -80,17 +82,21 @@
     animation: fadeIn 0.3s ease;
 
     @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
     }
 
     .modal {
       background: white;
-      border-radius: 0.5rem;
+      border-radius: $radius;
       padding: 2rem;
       width: 100%;
       max-width: 420px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      box-shadow: $shadow-lg;
       transform: scale(0.95);
       opacity: 0;
       animation: scaleUp 0.3s forwards;
@@ -105,25 +111,25 @@
       h2 {
         margin: 0 0 1.25rem;
         font-size: 1.35rem;
-        color: #111827;
-        border-bottom: 1px solid #e5e7eb;
+        color: $heading-color;
+        border-bottom: 1px solid $gray;
         padding-bottom: 0.5rem;
       }
 
       input {
         width: 100%;
         padding: 0.6rem 0.75rem;
-        border: 1px solid #d1d5db;
-        border-radius: 0.375rem;
+        border: 1px solid $border-color;
+        border-radius: $radius;
         margin-bottom: 0.85rem;
         font-size: 0.9rem;
-        color: #374151;
+        color: $text-main;
         transition: border 0.2s;
 
         &:focus {
-          border-color: #2563eb;
+          border-color: $primary;
           outline: none;
-          box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+          box-shadow: 0 0 0 3px rgba($primary, 0.1);
         }
       }
 
@@ -132,31 +138,31 @@
         justify-content: flex-end;
         gap: 0.5rem;
         padding-top: 0.75rem;
-        border-top: 1px solid #e5e7eb;
+        border-top: 1px solid $gray;
 
         .btn {
           padding: 0.5rem 1.25rem;
-          border-radius: 0.375rem;
+          border-radius: $radius;
           border: none;
           cursor: pointer;
           font-weight: 500;
           transition: background 0.2s;
 
           &.save {
-            background: #10b981;
+            background: $success-text;
             color: white;
 
             &:hover {
-              background: #059669;
+              background: darken($success-text, 10%);
             }
           }
 
           &.cancel {
-            background: #f3f4f6;
-            color: #374151;
+            background: $gray;
+            color: $text-main;
 
             &:hover {
-              background: #e5e7eb;
+              background: darken($gray, 5%);
             }
           }
         }
@@ -165,7 +171,7 @@
   }
 
   // Responsive
-  @media (max-width: 600px) {
+  @include respond(sm) {
     padding: 1rem;
 
     .user-list .user-item {

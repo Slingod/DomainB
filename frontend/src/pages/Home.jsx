@@ -41,7 +41,7 @@ export default function Home() {
           <h2>🛒 Parcourez la boutique</h2>
           <p>Des produits de qualité sélectionnés pour vous.</p>
           <Link to="/products" className="btn-secondary" aria-label="Voir les produits">
-            Voir les produits
+            <button className="btn primary">Voir les produits</button>
           </Link>
         </article>
 

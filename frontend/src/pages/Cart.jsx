@@ -5,6 +5,7 @@ import api from '../api/api';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import './Cart.scss';
+import '../styles/buttons.scss';
 
 export default function Cart() {
   const dispatch = useDispatch();
@@ -85,7 +86,7 @@ export default function Cart() {
                     <td>{(item.price * item.quantity).toFixed(2)} €</td>
                     <td>
                       <button
-                        className="btn delete"
+                        className="btn danger"
                         onClick={() => handleRemove(item.id)}
                         aria-label={`Supprimer ${item.title} du panier`}
                       >
@@ -124,7 +125,7 @@ export default function Cart() {
                 </div>
                 <div className="field actions">
                   <button
-                    className="btn delete"
+                    className="btn danger"
                     onClick={() => handleRemove(item.id)}
                     aria-label={`Supprimer ${item.title} du panier`}
                   >
@@ -138,7 +139,7 @@ export default function Cart() {
           <section className="summary" aria-label="Récapitulatif de la commande">
             <span className="total">Total : {total} €</span>
             <button
-              className="order-btn"
+              className="btn primary order-btn"
               onClick={handleOrder}
               disabled={items.length === 0}
             >

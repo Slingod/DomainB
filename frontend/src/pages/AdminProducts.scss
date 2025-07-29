@@ -5,8 +5,8 @@
   max-width: 1000px;
   margin: 2rem auto;
   padding: 0 1rem;
-  font-family: system-ui, sans-serif;
-  color: #1f2937;
+  font-family: $font-main;
+  color: $text-main;
 
   .header {
     display: flex;
@@ -18,10 +18,12 @@
     h1 {
       font-size: 1.75rem;
       margin: 0;
+      color: $heading-color;
     }
 
     .new-btn {
-      font-size: 0.9rem;
+      @extend .btn;
+      @extend .primary;
       margin-top: 0.5rem;
     }
   }
@@ -34,13 +36,14 @@
       max-width: 420px;
       padding: 0.5rem 1rem;
       font-size: 1rem;
-      border: 1px solid #d1d5db;
-      border-radius: 0.375rem;
+      border: 1px solid $border-color;
+      border-radius: $radius;
       transition: border-color 0.2s;
 
       &:focus {
-        border-color: #2563eb;
+        border-color: $primary;
         outline: none;
+        box-shadow: 0 0 0 2px rgba($primary, 0.15);
       }
     }
   }
@@ -49,7 +52,7 @@
     list-style: none;
     padding: 0;
     margin: 0;
-    border-top: 1px solid #e5e7eb;
+    border-top: 1px solid $gray;
 
     .product-item {
       display: flex;
@@ -57,7 +60,7 @@
       align-items: center;
       gap: 1rem;
       padding: 0.75rem 0;
-      border-bottom: 1px solid #e5e7eb;
+      border-bottom: 1px solid $gray;
 
       .info {
         display: flex;
@@ -68,8 +71,8 @@
           width: 80px;
           height: 80px;
           flex-shrink: 0;
-          background: #f3f4f6;
-          border-radius: 0.5rem;
+          background: $gray-light;
+          border-radius: $radius;
           overflow: hidden;
           display: flex;
           justify-content: center;
@@ -90,22 +93,23 @@
           .title {
             font-size: 1.1rem;
             font-weight: 600;
+            color: $text-main;
           }
 
           .price {
             font-size: 0.95rem;
-            color: #10b981;
+            color: $success-text;
           }
 
           .stock-badge {
             font-size: 0.85rem;
 
             &.in-stock {
-              color: #047857;
+              color: $success-text;
             }
 
             &.out-of-stock {
-              color: #b91c1c;
+              color: $error-text;
             }
           }
         }
@@ -115,12 +119,24 @@
         display: flex;
         gap: 0.5rem;
         flex-shrink: 0;
+
+        .btn {
+          @extend .btn;
+
+          &.warning {
+            @extend .warning;
+          }
+
+          &.danger {
+            @extend .danger;
+          }
+        }
       }
     }
 
     .no-results {
       text-align: center;
-      color: #6b7280;
+      color: $text-muted;
       margin: 2rem 0;
     }
   }
@@ -138,15 +154,16 @@
     .modal {
       background: #fff;
       padding: 1.5rem;
-      border-radius: 0.5rem;
+      border-radius: $radius;
       width: 100%;
       max-width: 480px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+      box-shadow: $shadow-lg;
 
       h2 {
         margin-top: 0;
         margin-bottom: 1rem;
         font-size: 1.25rem;
+        color: $heading-color;
       }
 
       label {
@@ -159,13 +176,13 @@
         textarea {
           margin-top: 0.25rem;
           padding: 0.5rem;
-          border: 1px solid #d1d5db;
-          border-radius: 0.375rem;
+          border: 1px solid $border-color;
+          border-radius: $radius;
           font-size: 1rem;
           transition: border-color 0.2s;
 
           &:focus {
-            border-color: #2563eb;
+            border-color: $primary;
             outline: none;
           }
         }
@@ -176,57 +193,27 @@
         justify-content: flex-end;
         gap: 0.5rem;
         margin-top: 1rem;
+
+        .btn {
+          @extend .btn;
+
+          &.primary {
+            @extend .primary;
+          }
+
+          &.secondary {
+            background: $gray-light;
+            color: $text-light;
+
+            &:hover {
+              background: $gray;
+            }
+          }
+        }
       }
     }
   }
 
-  .btn {
-    padding: 0.5rem 1rem;
-    border-radius: 0.375rem;
-    font-size: 0.9rem;
-    font-weight: 500;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.2s;
-
-    &.primary {
-      background: #2563eb;
-      color: #fff;
-
-      &:hover {
-        background: #1e40af;
-      }
-    }
-
-    &.secondary {
-      background: #f3f4f6;
-      color: #374151;
-
-      &:hover {
-        background: #e5e7eb;
-      }
-    }
-
-    &.warning {
-      background: #f59e0b;
-      color: #fff;
-
-      &:hover {
-        background: #d97706;
-      }
-    }
-
-    &.danger {
-      background: #ef4444;
-      color: #fff;
-
-      &:hover {
-        background: #dc2626;
-      }
-    }
-  }
-
-  // Responsive
   @include respond(sm) {
     .product-item {
       flex-direction: column;

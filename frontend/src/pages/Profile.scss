@@ -1,5 +1,6 @@
 @use "../styles/variables" as *;
 @use "../styles/mixins" as *;
+@use "../styles/buttons" as *;
 
 .profile-page {
   max-width: 480px;
@@ -11,7 +12,7 @@
   h1 {
     text-align: center;
     font-size: 2rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     color: $heading-color;
   }
 
@@ -33,41 +34,39 @@
 
   .profile-form {
     display: grid;
-    gap: 1rem;
+    gap: 1.25rem;
 
     label {
       display: flex;
       flex-direction: column;
       font-weight: 500;
-      font-size: 0.95rem;
+      font-size: $font-size-sm;
+      color: $text-light;
 
       input {
-        margin-top: 0.25rem;
-        padding: 0.5rem;
+        margin-top: 0.35rem;
+        padding: 0.6rem;
         border: 1px solid $border-color;
         border-radius: $radius;
         font-size: 1rem;
-        transition: border-color 0.2s;
+        transition: border-color 0.2s ease;
 
         &:focus {
           border-color: $primary;
           outline: none;
+          box-shadow: 0 0 0 2px rgba($primary, 0.2);
         }
       }
     }
 
     .btn.save {
-      background: $primary;
-      color: white;
-      border: none;
-      padding: 0.75rem;
-      border-radius: $radius;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background 0.2s;
+      @extend .btn;
+      width: 100%;
+      background-color: $primary;
+      color: #fff;
 
       &:hover {
-        background: $primary-dark;
+        background-color: darken($primary, 10%);
       }
     }
   }
@@ -75,33 +74,26 @@
   .actions {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
-    margin-top: 1.5rem;
+    gap: 1rem;
+    margin-top: 2rem;
 
-    .btn {
-      padding: 0.75rem;
-      font-size: 1rem;
-      border-radius: $radius;
-      border: none;
-      cursor: pointer;
-      transition: background 0.2s;
+    .btn.export {
+      @extend .btn;
+      background-color: $primary;
+      color: #fff;
 
-      &.export {
-        background: $purple;
-        color: white;
-
-        &:hover {
-          background: $purple-dark;
-        }
+      &:hover {
+        background-color: darken($primary, 10%);
       }
+    }
 
-      &.delete {
-        background: $danger;
-        color: white;
+    .btn.delete {
+      @extend .btn;
+      background-color: $danger;
+      color: #fff;
 
-        &:hover {
-          background: $danger-dark;
-        }
+      &:hover {
+        background-color: darken($danger, 10%);
       }
     }
   }

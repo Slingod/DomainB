@@ -5,11 +5,13 @@
   padding: 2rem 1rem;
   max-width: 800px;
   margin: 0 auto;
+  font-family: $font-main;
+  color: $text-main;
 
   h1 {
     font-size: 1.75rem;
     margin-bottom: 1.5rem;
-    color: $navbar-text;
+    color: $heading-color;
     text-align: center;
   }
 
@@ -20,27 +22,27 @@
     margin-bottom: 2rem;
 
     .stat-card {
-      background: #f9fafb;
-      border-radius: 0.5rem;
+      background: $gray-light;
+      border-radius: $radius;
       padding: 1rem;
       text-align: center;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+      box-shadow: $shadow-sm;
 
       .stat-label {
         font-size: 0.9rem;
-        color: #555;
+        color: $text-muted;
         margin-bottom: 0.5rem;
       }
 
       .stat-value {
         font-size: 1.25rem;
         font-weight: 600;
-        color: #111;
+        color: $heading-color;
       }
 
       .stat-sub {
         font-size: 0.85rem;
-        color: #16a34a;
+        color: $success-text;
         margin-top: 0.25rem;
       }
     }
@@ -49,15 +51,15 @@
   .orders-list {
     .order-card {
       background: #fff;
-      border-radius: 0.5rem;
+      border-radius: $radius;
       padding: 1rem;
       margin-bottom: 1rem;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+      box-shadow: $shadow-sm;
 
       .order-header {
         font-weight: 600;
         margin-bottom: 0.75rem;
-        color: #111;
+        color: $heading-color;
       }
 
       ul.items {
@@ -66,20 +68,20 @@
 
         li {
           margin-bottom: 0.25rem;
-          color: #555;
+          color: $text-light;
         }
       }
 
       .order-footer {
         text-align: right;
         font-weight: 600;
-        color: #16a34a;
+        color: $success-text;
       }
     }
 
     .no-orders {
       text-align: center;
-      color: #666;
+      color: $text-muted;
       margin-top: 2rem;
     }
   }
