@@ -28,11 +28,6 @@
 // ─────────────────────────────────────────────────────
 // 3. RESET & RÉGLAGES GLOBAUX
 // ─────────────────────────────────────────────────────
-*,
-*::before,
-*::after {
-  //box-sizing: border-box;
-}
 
 html {
   font-family: var(--font-sans);
