@@ -4,18 +4,18 @@
 $breakpoint-xs: 480px;     // Téléphones petits
 $breakpoint-sm: 640px;     // Smartphones larges
 $breakpoint-md: 768px;     // Tablettes
-$breakpoint-lg: 1024px;    // Desktop standard
-$breakpoint-xl: 1280px;    // Desktop large
-$breakpoint-2xl: 1440px;   // Très grands écrans
+$breakpoint-lg: 1315px;    // 👈 Ajouté : Format tablette large / petit laptop
+$breakpoint-xl: 1440px;    // Desktop large
+$breakpoint-2xl: 1920px;   // Très grands écrans
 $breakpoint-4k: 2560px;    // 4K et ultrawide
 
 // ------------------------------------
 // 🎨 Palette de couleurs – Thème Vignoble
 // ------------------------------------
-$primary:        #7B3F00;   // Marron vigne
-$primary-dark:   #5C2E00;   // Marron foncé
-$secondary:      #A3B18A;   // Vert doux feuille
-$accent:         #D9A066;   // Doré robe vin blanc
+$primary:        #7B3F00;
+$primary-dark:   #5C2E00;
+$secondary:      #A3B18A;
+$accent:         #D9A066;
 
 $success-bg:     #e6ffed;
 $success-border: #a3f7bf;
@@ -31,7 +31,7 @@ $warning-dark:   #d97706;
 $danger:         #ef4444;
 $danger-dark:    #dc2626;
 
-$gray-light:     #FAF9F6;   // Fond naturel
+$gray-light:     #FAF9F6;
 $gray:           #e5e7eb;
 $text-main:      #2F2F2F;
 $text-light:     #666;
@@ -40,7 +40,7 @@ $text-inverse:   #ffffff;
 $heading-color:  #2F2F2F;
 
 // ------------------------------------
-// 🔤 Typographie – Élégance du terroir
+// 🔤 Typographie
 // ------------------------------------
 $font-main:      'Georgia', 'Times New Roman', serif;
 $font-size-base: 1rem;
@@ -65,6 +65,6 @@ $shadow-lg:      0 4px 12px rgba(0, 0, 0, 0.08);
 // 🧭 Navbar
 // ------------------------------------
 $navbar-height:  3.5rem;
-$navbar-bg:      #7B3F00;  // Marron profond
+$navbar-bg:      #7B3F00;
 $navbar-text:    #ffffff;
 $navbar-hover:   rgba(255, 255, 255, 0.1);
