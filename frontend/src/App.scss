@@ -1,12 +1,15 @@
 @use "./styles/variables" as *;
-@use "./styles/buttons"; // <-- important
+@use "./styles/buttons";
+
 #root {
-  max-width: 2440px;
-  margin: 0 auto;
-  //padding: 2rem;
+  max-width: none; // ← retire la contrainte de largeur
+  width: 100%;
+  margin: 0;
   flex: 1;
 }
 
-.page-content { // pour le contenu interne
-  margin-top: 3rem;
+.page-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }

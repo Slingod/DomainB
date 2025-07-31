@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import IdleTimer from './components/IdleTimer';
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -19,6 +20,10 @@ import AdminUsers from './pages/AdminUsers';
 
 import ForgotPassword from './components/ForgotPassword';
 import ResetPassword from './components/ResetPassword';
+
+import CGU from './pages/CGU';
+import Contact from './pages/Contact';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 
 export default function App() {
   return (
@@ -50,7 +55,12 @@ export default function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
 
-          {/* Espace membre / mod / admin */}
+          {/* Informations légales */}
+          <Route path="/cgu" element={<CGU />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+
+          {/* Espace membres */}
           <Route
             path="/cart"
             element={
@@ -105,6 +115,8 @@ export default function App() {
           />
         </Routes>
       </main>
+
+      <Footer />
     </>
   );
 }

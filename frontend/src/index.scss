@@ -28,20 +28,19 @@
 // ─────────────────────────────────────────────────────
 // 3. RESET & RÉGLAGES GLOBAUX
 // ─────────────────────────────────────────────────────
-
-html {
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
   font-family: var(--font-sans);
-  line-height: 1.5;
-  font-weight: 400;
-  color: var(--color-text);
   background-color: var(--bg-dark);
-  min-height: 100%;
+  color: var(--color-text);
 }
 
 body {
-  margin: 0;
-  padding-top: 3.5rem; /* leave room for the fixed navbar */
-  min-height: 100vh;
+  padding-top: 3.5rem; // Espace pour la navbar
 }
 
 // ─────────────────────────────────────────────────────
