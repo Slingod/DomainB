@@ -1,0 +1,266 @@
+{
+  "login": {
+    "title": "Connexion",
+    "email": "Email",
+    "emailPlaceholder": "exemple@domaine.com",
+    "password": "Mot de passe",
+    "passwordPlaceholder": "Votre mot de passe",
+    "submit": "Se connecter",
+    "forgotPassword": "Mot de passe oublié ?"
+  },
+  "resetPassword": {
+    "title": "Mot de passe oublié ?",
+    "email": "Votre adresse email",
+    "submit": "Envoyer le lien de réinitialisation",
+    "back": "Retour à l'accueil"
+  },
+  "navbar": {
+    "home": "Accueil",
+    "products": "Produits",
+    "cart": "Panier",
+    "orders": "Commandes",
+    "adminProducts": "Admin Produits",
+    "adminUsers": "Admin Utilisateurs",
+    "greeting": "Bonjour",
+    "logout": "Déconnexion"
+  },
+  "auth": {
+    "signup": "Inscription",
+    "login": "Connexion"
+  },
+  "footer": {
+    "assistance": "Assistance",
+    "contact": "Contact",
+    "terms": "CGU",
+    "privacy": "Politique de confidentialité",
+    "alcoholWarning": "L'abus d’alcool est dangereux pour la santé, à consommer avec modération."
+  },
+  "home": {
+    "welcome": "Bienvenue au Domaine Berthuit",
+    "subtitle": "Explorez notre sélection et profitez de vos achats en toute simplicité.",
+    "browseShop": "Parcourez la boutique",
+    "qualityProducts": "Des produits de qualité sélectionnés pour vous.",
+    "viewShop": "Voir la boutique",
+    "security": "Sécurité & RGPD",
+    "dataProtection": "Vos données sont protégées et exportables à tout moment."
+  },
+  "cart": {
+    "title": "Votre Panier",
+    "product": "Produit",
+    "price": "Prix unitaire",
+    "quantity": "Quantité",
+    "subtotal": "Sous-total",
+    "action": "Action",
+    "remove": "Supprimer",
+    "total": "Total :",
+    "checkout": "Passer la commande"
+  },
+  "terms": {
+    "title": "Conditions Générales d’Utilisation",
+    "lastUpdate": "Dernière mise à jour : Juillet 2025",
+    "toc": {
+      "title": "Table des matières",
+      "sections": {
+        "1": {
+          "label": "1. Objet"
+        },
+        "2": {
+          "label": "2. Services proposés"
+        },
+        "3": {
+          "label": "3. Accès et utilisation"
+        },
+        "4": {
+          "label": "4. Comptes utilisateurs"
+        },
+        "5": {
+          "label": "5. Réservations et commandes"
+        },
+        "6": {
+          "label": "6. Données personnelles"
+        },
+        "7": {
+          "label": "7. Propriété intellectuelle"
+        },
+        "8": {
+          "label": "8. Responsabilité"
+        },
+        "9": {
+          "label": "9. Modification des CGU"
+        },
+        "10": {
+          "label": "10. Loi applicable – Litiges"
+        },
+        "11": {
+          "label": "11. Mentions légales",
+          "content": "Consultez nos informations légales concernant l’éditeur, l’adresse, l’email et le SIRET de Domaine Berthuit."
+        }
+      }
+    }
+  },
+  "legal": {
+    "company": "Éditeur : Domaine Berthuit",
+    "address": "Adresse : XXXXXXXXXXXXXXX",
+    "email": "Email : XXXXXXXXXXXXXXX",
+    "siret": "SIRET : XXXXXXXXXXXXXXX"
+  },
+  "privacyPolicy": {
+    "title": "Politique de confidentialité",
+    "intro": "Nous attachons une grande importance à la protection de vos données personnelles.",
+    "content": "Contenu détaillé à compléter ici..."
+  },
+  "contact": {
+    "title": "Contactez-nous",
+    "description": "Vous avez une question, une commande spéciale ou souhaitez en savoir plus sur nos vins bio ? N’hésitez pas à nous contacter !",
+    "addressLabel": "Adresse",
+    "addressName": "Domaine Berthuit",
+    "address": "31 du Minervois\n11700 Pépieux",
+    "contactLabel": "Contact",
+    "phoneLabel": "Téléphone",
+    "phoneRaw": "+33668961834",
+    "phone": "06 68 96 18 34",
+    "emailLabel": "Email",
+    "email": "lucas@domaineberthuit.com",
+    "representative": {
+      "title": "Représentant",
+      "nameLabel": "Nom",
+      "name": "Lucas Berthuit",
+      "positionLabel": "Poste",
+      "position": "PDG",
+      "directPhoneLabel": "Tél. direct",
+      "directPhoneRaw": "+33668961834",
+      "directPhone": "06 68 96 18 34"
+    }
+  },
+  "orders": {
+    "title": "Mes Commandes",
+    "week": "Cette semaine",
+    "month": "Ce mois",
+    "year": "Cette année",
+    "allTime": "Depuis toujours",
+    "total": "Total:"
+  },
+  "admin": {
+    "products": {
+      "new": "+ Nouveau produit",
+      "search": "Rechercher un produit",
+      "searchPlaceholder": "Rechercher un produit...",
+      "stock": "En stock :",
+      "edit": "Modifier",
+      "delete": "Supprimer"
+    },
+    "users": {
+      "title": "Administration des utilisateurs",
+      "search": "Recherche utilisateur",
+      "searchPlaceholder": "Rechercher par ID, pseudo, email ou rôle…",
+      "columns": {
+        "id": "ID",
+        "username": "Pseudo",
+        "email": "Email",
+        "role": "Rôle",
+        "actions": "Actions"
+      }
+    }
+  },
+  "profile": {
+    "title": "Mon Profil",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "address": "Adresse",
+    "phone": "Téléphone",
+    "save": "Sauvegarder",
+    "export": "Exporter mes données par email",
+    "delete": "Supprimer mon compte"
+  },
+  "idle": {
+    "logoutMessage": "Vous avez été déconnecté(e) pour cause d'inactivité."
+  },
+  "reset": {
+    "title": "Réinitialisez votre mot de passe",
+    "newPassword": "Nouveau mot de passe",
+    "confirmPassword": "Confirmer le mot de passe",
+    "submit": "Réinitialiser",
+    "success": "Mot de passe réinitialisé avec succès.",
+    "mismatch": "Les mots de passe ne correspondent pas.",
+    "error": "Erreur lors de la réinitialisation.",
+    "back": "Retour à l'accueil"
+  },
+  "search": {
+    "label": "Rechercher un produit",
+    "placeholder": "Chercher un produit...",
+    "button": "Rechercher",
+    "ariaLabel": "Barre de recherche produits"
+  },
+  "cgu": {
+    "metaTitle": "Conditions Générales d’Utilisation – Domaine Berthuit",
+    "metaDescription": "Consultez les Conditions Générales d'Utilisation du site Domaine Berthuit. Découvrez vos droits et obligations en tant qu'utilisateur.",
+    "metaKeywords": "CGU, Domaine Berthuit, conditions d'utilisation, mentions légales, réservation, politique de confidentialité",
+    "title": "Conditions Générales d’Utilisation",
+    "toc": {
+      "title": "Table des matières",
+      "items": {
+        "1": "1. Objet",
+        "2": "2. Services proposés",
+        "3": "3. Accès et utilisation",
+        "4": "4. Comptes utilisateurs",
+        "5": "5. Réservations et commandes",
+        "6": "6. Données personnelles",
+        "7": "7. Propriété intellectuelle",
+        "8": "8. Responsabilité",
+        "9": "9. Modification des CGU",
+        "10": "10. Loi applicable – Litiges",
+        "11": "11. Mentions légales"
+      }
+    },
+    "sections": {
+      "1": {
+        "title": "1. Objet",
+        "content": "Les présentes CGU régissent l’accès et l’utilisation du site internet https://www.domaineberthuit.com, édité par la société Domaine Berthuit. En accédant et naviguant sur le site, l’utilisateur accepte sans réserve les présentes conditions."
+      },
+      "2": {
+        "title": "2. Services proposés",
+        "content": "Le Site permet de découvrir le domaine viticole, réserver des visites et dégustations, acheter des produits et consulter des actualités."
+      },
+      "3": {
+        "title": "3. Accès et utilisation",
+        "content": "L’accès est gratuit et réservé aux personnes majeures. L’éditeur met tout en œuvre pour garantir la disponibilité du site."
+      },
+      "4": {
+        "title": "4. Comptes utilisateurs",
+        "content": "Un compte est requis pour certaines fonctionnalités. L’utilisateur est responsable de la confidentialité de ses informations."
+      },
+      "5": {
+        "title": "5. Réservations et commandes",
+        "content": "Les réservations peuvent être gratuites ou payantes. Le paiement est sécurisé via Stripe."
+      },
+      "6": {
+        "title": "6. Données personnelles",
+        "content": "Les données personnelles sont collectées pour le bon fonctionnement du site. Voir notre Politique de confidentialité."
+      },
+      "7": {
+        "title": "7. Propriété intellectuelle",
+        "content": "Les contenus du site sont protégés. Toute reproduction sans autorisation est interdite."
+      },
+      "8": {
+        "title": "8. Responsabilité",
+        "content": "L’éditeur décline toute responsabilité en cas d’interruption, de contenus tiers ou de défaillance d’un partenaire."
+      },
+      "9": {
+        "title": "9. Modification des CGU",
+        "content": "Les CGU peuvent être modifiées à tout moment. Elles s’appliquent dès leur publication."
+      },
+      "10": {
+        "title": "10. Loi applicable – Litiges",
+        "content": "Les présentes CGU sont régies par le droit français. Les litiges relèveront des tribunaux français."
+      },
+      "11": {
+        "title": "11. Mentions légales",
+        "editeur": "Éditeur : Domaine Berthuit, XXXXXXXXXXXXXXX",
+        "adresse": "Adresse : XXXXXXXXXXXXXXX",
+        "email": "Email : XXXXXXXXXXXXXXX",
+        "siret": "SIRET : XXXXXXXXXXXXXXX",
+        "date": "Dernière mise à jour : Juillet 2025"
+      }
+    }
+  }
+}

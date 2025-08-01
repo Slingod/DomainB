@@ -1,5 +1,10 @@
+// /home/slingo/Ends/my-shop/frontend/src/main.jsx
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+
+// ⬇️ i18n (internationalisation)
+import './i18n/i18n'; // ← cette ligne est cruciale pour init i18next
 
 // Redux
 import { Provider } from 'react-redux';
@@ -15,8 +20,8 @@ import { HelmetProvider } from 'react-helmet-async';
 import App from './App';
 
 // Styles globaux
-import './index.scss'; // reset, base
-import './App.scss';   // layout
+import './index.scss';
+import './App.scss';
 
 const rootElement = document.getElementById('root');
 

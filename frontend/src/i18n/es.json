@@ -1,0 +1,231 @@
+{
+  "login": {
+    "title": "Iniciar sesión",
+    "email": "Correo electrónico",
+    "emailPlaceholder": "ejemplo@dominio.com",
+    "password": "Contraseña",
+    "passwordPlaceholder": "Tu contraseña",
+    "submit": "Iniciar sesión",
+    "forgotPassword": "¿Olvidaste tu contraseña"
+  },
+  "resetPassword": {
+    "title": "¿Olvidaste tu contraseña",
+    "email": "Tu dirección de correo",
+    "submit": "Enviar enlace de restablecimiento",
+    "back": "Volver al inicio"
+  },
+  "navbar": {
+    "home": "Inicio",
+    "products": "Productos",
+    "cart": "Carrito",
+    "orders": "Pedidos",
+    "adminProducts": "Administrar productos",
+    "adminUsers": "Administrar usuarios",
+    "greeting": "Hola",
+    "logout": "Cerrar sesión"
+  },
+  "auth": {
+    "signup": "Registrarse",
+    "login": "Iniciar sesión"
+  },
+  "footer": {
+    "assistance": "Asistencia",
+    "contact": "Contacto",
+    "terms": "Términos de uso",
+    "privacy": "Política de privacidad",
+    "alcoholWarning": "El abuso del alcohol es peligroso para la salud, consúmelo con moderación."
+  },
+  "home": {
+    "welcome": "Bienvenido al Domaine Berthuit",
+    "subtitle": "Explora nuestra selección y disfruta de tus compras con facilidad.",
+    "browseShop": "Explorar la tienda",
+    "qualityProducts": "Productos de calidad seleccionados para ti.",
+    "viewShop": "Ver tienda",
+    "security": "Seguridad y RGPD",
+    "dataProtection": "Tus datos están protegidos y exportables en cualquier momento."
+  },
+  "cart": {
+    "title": "Tu carrito",
+    "product": "Producto",
+    "price": "Precio unitario",
+    "quantity": "Cantidad",
+    "subtotal": "Subtotal",
+    "action": "Acción",
+    "remove": "Eliminar",
+    "total": "Total:",
+    "checkout": "Realizar pedido"
+  },
+  "terms": {
+    "title": "Términos de uso",
+    "lastUpdate": "Última actualización: Julio 2025",
+    "toc": "Tabla de contenidos",
+    "sections": [
+      "Objeto",
+      "Servicios ofrecidos",
+      "Acceso y uso",
+      "Cuentas de usuario",
+      "Reservas y pedidos",
+      "Datos personales",
+      "Propiedad intelectual",
+      "Responsabilidad",
+      "Modificación de los términos",
+      "Ley aplicable – Litigios",
+      "Aviso legal"
+    ]
+  },
+  "legal": {
+    "company": "Editor: Domaine Berthuit",
+    "address": "Dirección: XXXXXXXXXXXXXXX",
+    "email": "Correo electrónico: XXXXXXXXXXXXXXX",
+    "siret": "SIRET: XXXXXXXXXXXXXXX"
+  },
+  "privacyPolicy": {
+    "title": "Política de privacidad",
+    "intro": "Damos gran importancia a la protección de tus datos personales.",
+    "content": "Contenido detallado por completar aquí..."
+  },
+  "contact": {
+    "title": "Contáctanos",
+    "description": "¿Tienes una pregunta, un pedido especial o deseas saber más sobre nuestros vinos ecológicos? ¡No dudes en contactarnos!",
+    "address": "Domaine Berthuit\n31 du Minervois\n11700 Pépieux",
+    "phone": "Teléfono: +33 6 68 96 18 34",
+    "email": "lucas@domaineberthuit.com",
+    "representative": {
+      "title": "Representante",
+      "name": "Nombre: Lucas Berthuit",
+      "position": "Cargo: CEO",
+      "directPhone": "Tel. directo: +33 6 68 96 18 34"
+    }
+  },
+  "orders": {
+    "title": "Mis pedidos",
+    "week": "Esta semana",
+    "month": "Este mes",
+    "year": "Este año",
+    "allTime": "Desde siempre",
+    "total": "Total"
+  },
+  "admin": {
+    "products": {
+      "new": "+ Nuevo producto",
+      "search": "Buscar producto",
+      "searchPlaceholder": "Buscar un producto...",
+      "stock": "En stock:",
+      "edit": "Editar",
+      "delete": "Eliminar"
+    },
+    "users": {
+      "title": "Administración de usuarios",
+      "search": "Buscar usuario",
+      "searchPlaceholder": "Buscar por ID, nombre, correo o rol…",
+      "columns": {
+        "id": "ID",
+        "username": "Usuario",
+        "email": "Correo electrónico",
+        "role": "Rol",
+        "actions": "Acciones"
+      }
+    }
+  },
+  "profile": {
+    "title": "Mi perfil",
+    "firstName": "Nombre",
+    "lastName": "Apellido",
+    "address": "Dirección",
+    "phone": "Teléfono",
+    "save": "Guardar",
+    "export": "Exportar mis datos por correo",
+    "delete": "Eliminar mi cuenta"
+  },
+  "idle": {
+    "logoutMessage": "Se cerró la sesión por inactividad."
+  },
+  "reset": {
+    "title": "Restablece tu contraseña",
+    "newPassword": "Nueva contraseña",
+    "confirmPassword": "Confirmar contraseña",
+    "submit": "Restablecer",
+    "success": "Contraseña restablecida con éxito.",
+    "mismatch": "Las contraseñas no coinciden.",
+    "error": "Error al restablecer la contraseña.",
+    "back": "Volver al inicio"
+  },
+  "search": {
+    "label": "Buscar un producto",
+    "placeholder": "Buscar un producto...",
+    "button": "Buscar",
+    "ariaLabel": "Barra de búsqueda de productos"
+  },
+  "cgu": {
+    "metaTitle": "Términos de Uso – Domaine Berthuit",
+    "metaDescription": "Consulta los Términos de Uso del sitio Domaine Berthuit. Conoce tus derechos y obligaciones como usuario.",
+    "metaKeywords": "Términos de uso, Domaine Berthuit, aviso legal, política de privacidad, reservas",
+    "title": "Términos de Uso",
+    "toc": {
+      "title": "Tabla de Contenidos",
+      "items": {
+        "1": "1. Objeto",
+        "2": "2. Servicios Ofrecidos",
+        "3": "3. Acceso y Uso",
+        "4": "4. Cuentas de Usuario",
+        "5": "5. Reservas y Pedidos",
+        "6": "6. Datos Personales",
+        "7": "7. Propiedad Intelectual",
+        "8": "8. Responsabilidad",
+        "9": "9. Modificación de los Términos",
+        "10": "10. Ley Aplicable – Litigios",
+        "11": "11. Aviso Legal"
+      }
+    },
+    "sections": {
+      "1": {
+        "title": "1. Objeto",
+        "content": "Estos términos regulan el acceso y uso del sitio web https://www.domaineberthuit.com, editado por Domaine Berthuit. Al navegar por este sitio, el usuario acepta sin reservas estos términos."
+      },
+      "2": {
+        "title": "2. Servicios Ofrecidos",
+        "content": "El sitio permite a los usuarios descubrir la bodega, reservar visitas y degustaciones, comprar productos e informarse sobre nuestras novedades."
+      },
+      "3": {
+        "title": "3. Acceso y Uso",
+        "content": "El acceso es gratuito y reservado a mayores de edad. El editor hace todo lo posible para garantizar la disponibilidad constante del sitio."
+      },
+      "4": {
+        "title": "4. Cuentas de Usuario",
+        "content": "Algunas funciones requieren una cuenta. El usuario es responsable de mantener seguras sus credenciales."
+      },
+      "5": {
+        "title": "5. Reservas y Pedidos",
+        "content": "Las reservas pueden ser gratuitas o de pago. Los pagos son seguros a través de Stripe."
+      },
+      "6": {
+        "title": "6. Datos Personales",
+        "content": "Se recopilan datos personales necesarios para el funcionamiento del sitio. Consulta nuestra Política de Privacidad para más información."
+      },
+      "7": {
+        "title": "7. Propiedad Intelectual",
+        "content": "Todo el contenido del sitio está protegido. Queda prohibida la reproducción sin autorización."
+      },
+      "8": {
+        "title": "8. Responsabilidad",
+        "content": "El editor no se hace responsable por interrupciones del servicio, contenido de terceros o fallos de socios."
+      },
+      "9": {
+        "title": "9. Modificación de los Términos",
+        "content": "Los términos pueden modificarse en cualquier momento y se aplican inmediatamente después de su publicación."
+      },
+      "10": {
+        "title": "10. Ley Aplicable – Litigios",
+        "content": "Estos términos se rigen por la legislación francesa. Las disputas se resolverán en los tribunales franceses."
+      },
+      "11": {
+        "title": "11. Aviso Legal",
+        "editeur": "Editor: Domaine Berthuit, XXXXXXXXXXXXXXX",
+        "adresse": "Dirección: XXXXXXXXXXXXXXX",
+        "email": "Correo electrónico: XXXXXXXXXXXXXXX",
+        "siret": "SIRET: XXXXXXXXXXXXXXX",
+        "date": "Última actualización: Julio de 2025"
+      }
+    }
+  }
+}

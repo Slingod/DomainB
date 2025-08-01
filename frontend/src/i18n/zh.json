@@ -1,0 +1,231 @@
+{
+  "login": {
+    "title": "登录",
+    "email": "电子邮箱",
+    "emailPlaceholder": "example@domain.com",
+    "password": "密码",
+    "passwordPlaceholder": "您的密码",
+    "submit": "登录",
+    "forgotPassword": "忘记密码"
+  },
+  "resetPassword": {
+    "title": "忘记密码",
+    "email": "您的电子邮箱地址",
+    "submit": "发送重置链接",
+    "back": "返回主页"
+  },
+  "navbar": {
+    "home": "首页",
+    "products": "产品",
+    "cart": "购物车",
+    "orders": "订单",
+    "adminProducts": "管理产品",
+    "adminUsers": "管理用户",
+    "greeting": " 你好",
+    "logout": "登出"
+  },
+  "auth": {
+    "signup": "注册",
+    "login": "登录"
+  },
+  "footer": {
+    "assistance": "帮助",
+    "contact": "联系",
+    "terms": "使用条款",
+    "privacy": "隐私政策",
+    "alcoholWarning": "酗酒有害健康，请适度饮用。"
+  },
+  "home": {
+    "welcome": "欢迎来到 Domaine Berthuit",
+    "subtitle": "探索我们的精选商品，轻松愉快地购物。",
+    "browseShop": "浏览商店",
+    "qualityProducts": "为您精心挑选的优质产品。",
+    "viewShop": "查看商店",
+    "security": "安全 & GDPR",
+    "dataProtection": "您的数据受到保护，可随时导出。"
+  },
+  "cart": {
+    "title": "您的购物车",
+    "product": "产品",
+    "price": "单价",
+    "quantity": "数量",
+    "subtotal": "小计",
+    "action": "操作",
+    "remove": "移除",
+    "total": "总计：",
+    "checkout": "结算"
+  },
+  "terms": {
+    "title": "使用条款",
+    "lastUpdate": "最近更新：2025年7月",
+    "toc": "目录",
+    "sections": [
+      "目的",
+      "提供的服务",
+      "访问与使用",
+      "用户账户",
+      "预订与订单",
+      "个人数据",
+      "知识产权",
+      "责任",
+      "条款修改",
+      "适用法律与争议",
+      "法律声明"
+    ]
+  },
+  "legal": {
+    "company": "出版方：Domaine Berthuit",
+    "address": "地址：XXXXXXXXXXXXXXX",
+    "email": "电子邮箱：XXXXXXXXXXXXXXX",
+    "siret": "SIRET：XXXXXXXXXXXXXXX"
+  },
+  "privacyPolicy": {
+    "title": "隐私政策",
+    "intro": "我们非常重视您的个人数据保护。",
+    "content": "详细内容待补充……"
+  },
+  "contact": {
+    "title": "联系我们",
+    "description": "您有任何问题、特别订单或想了解我们的有机葡萄酒？欢迎随时联系我们！",
+    "address": "Domaine Berthuit\n31 du Minervois\n11700 Pépieux",
+    "phone": "电话：+33 6 68 96 18 34",
+    "email": "lucas@domaineberthuit.com",
+    "representative": {
+      "title": "代表",
+      "name": "姓名：Lucas Berthuit",
+      "position": "职位：首席执行官",
+      "directPhone": "直线电话：+33 6 68 96 18 34"
+    }
+  },
+  "orders": {
+    "title": "我的订单",
+    "week": "本周",
+    "month": "本月",
+    "year": "今年",
+    "allTime": "全部时间",
+    "total": "总计："
+  },
+  "admin": {
+    "products": {
+      "new": "+ 新产品",
+      "search": "搜索产品",
+      "searchPlaceholder": "搜索产品……",
+      "stock": "库存：",
+      "edit": "编辑",
+      "delete": "删除"
+    },
+    "users": {
+      "title": "用户管理",
+      "search": "搜索用户",
+      "searchPlaceholder": "通过ID、昵称、邮箱或角色搜索……",
+      "columns": {
+        "id": "ID",
+        "username": "用户名",
+        "email": "电子邮箱",
+        "role": "角色",
+        "actions": "操作"
+      }
+    }
+  },
+  "profile": {
+    "title": "我的资料",
+    "firstName": "名",
+    "lastName": "姓",
+    "address": "地址",
+    "phone": "电话",
+    "save": "保存",
+    "export": "通过电子邮件导出我的数据",
+    "delete": "删除我的账户"
+  },
+  "idle": {
+    "logoutMessage": "由于长时间未操作，您已被登出。"
+  },
+  "reset": {
+    "title": "重置密码",
+    "newPassword": "新密码",
+    "confirmPassword": "确认密码",
+    "submit": "重置",
+    "success": "密码重置成功。",
+    "mismatch": "两次输入的密码不一致。",
+    "error": "重置密码时出错。",
+    "back": "返回首页"
+  },
+  "search": {
+    "label": "搜索产品",
+    "placeholder": "搜索产品...",
+    "button": "搜索",
+    "ariaLabel": "产品搜索栏"
+  },
+  "cgu": {
+    "metaTitle": "使用条款 – Domaine Berthuit",
+    "metaDescription": "请阅读 Domaine Berthuit 网站的使用条款。了解您作为用户的权利与义务。",
+    "metaKeywords": "使用条款, Domaine Berthuit, 法律信息, 保密政策, 预订",
+    "title": "使用条款",
+    "toc": {
+      "title": "目录",
+      "items": {
+        "1": "1. 目的",
+        "2": "2. 提供的服务",
+        "3": "3. 访问与使用",
+        "4": "4. 用户账户",
+        "5": "5. 预订与订单",
+        "6": "6. 个人数据",
+        "7": "7. 知识产权",
+        "8": "8. 责任",
+        "9": "9. 条款修改",
+        "10": "10. 适用法律与争议",
+        "11": "11. 法律声明"
+      }
+    },
+    "sections": {
+      "1": {
+        "title": "1. 目的",
+        "content": "本条款规范对网站 https://www.domaineberthuit.com 的访问和使用，网站由 Domaine Berthuit 运营。访问和浏览即表示您接受这些条款。"
+      },
+      "2": {
+        "title": "2. 提供的服务",
+        "content": "该网站允许用户了解葡萄园，预约参观、品酒活动、购买产品、提交问题以及查看新闻。"
+      },
+      "3": {
+        "title": "3. 访问与使用",
+        "content": "用户须年满18岁，未成年人需监护人陪同。网站访问免费，但需自付上网费用。"
+      },
+      "4": {
+        "title": "4. 用户账户",
+        "content": "部分功能需要创建账户。用户须提供真实和最新的信息，并对密码保密负责。"
+      },
+      "5": {
+        "title": "5. 预订与订单",
+        "content": "预订可免费或付费。付款通过 STRIPE 安全处理。提交订单即表示接受本条款和适用的特殊条款。"
+      },
+      "6": {
+        "title": "6. 个人数据",
+        "content": "网站收集为运行所需的个人数据。详见我们的隐私政策。"
+      },
+      "7": {
+        "title": "7. 知识产权",
+        "content": "网站内容（文字、图片、视频、徽标等）受知识产权保护，未经许可不得复制。"
+      },
+      "8": {
+        "title": "8. 责任",
+        "content": "不对服务中断、第三方内容或合作伙伴故障承担责任。"
+      },
+      "9": {
+        "title": "9. 条款修改",
+        "content": "条款可随时修改，修改后立即生效。"
+      },
+      "10": {
+        "title": "10. 适用法律与争议",
+        "content": "本条款受法国法律管辖。所有争议由法国法院专属管辖。"
+      },
+      "11": {
+        "title": "11. 法律声明",
+        "editeur": "发布者：Domaine Berthuit，XXXXXXXXXXXXXXX",
+        "adresse": "地址：XXXXXXXXXXXXXXX",
+        "email": "电子邮件：XXXXXXXXXXXXXXX",
+        "siret": "SIRET 编号：XXXXXXXXXXXXXXX",
+        "date": "最后更新：2025年7月"
+      }
+    }
+  }
+}

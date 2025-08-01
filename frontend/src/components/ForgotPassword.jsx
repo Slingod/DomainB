@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import api from '../api/api';
+import { useTranslation } from 'react-i18next';
 import './ForgotPassword.scss';
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState({ message: '', error: false });
+  const { t } = useTranslation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,40 +18,38 @@ export default function ForgotPassword() {
       const res = await api.post('/auth/request-password-reset', { email });
       setStatus({ message: res.data.message, error: false });
     } catch (err) {
-      const errorMsg = err.response?.data?.error ?? 'Une erreur est survenue.';
+      const errorMsg = err.response?.data?.error ?? t('resetPassword.errorGeneric');
       setStatus({ message: errorMsg, error: true });
     }
   };
 
   return (
     <div className="forgot-password-container">
-      {/* SEO */}
       <Helmet>
-        <title>Reinitialisation du mot de passe – Domaine Berthuit</title>
+        <title>{t('resetPassword.title')} – Domaine Berthuit</title>
         <meta
           name="description"
-          content="Demandez un lien de reinitialisation de mot de passe pour votre compte sur Domaine Berthuit."
+          content={t('resetPassword.seoDescription')}
         />
       </Helmet>
 
       <div className="forgot-password-card" role="main">
-        <h2>Mot de passe oublie ?</h2>
+        <h2>{t('resetPassword.title')}</h2>
 
         <form onSubmit={handleSubmit} noValidate>
           <label htmlFor="fp-email" className="visually-hidden">
-            Votre adresse email
+            {t('resetPassword.email')}
           </label>
           <input
             id="fp-email"
             type="email"
-            placeholder="Votre adresse email"
+            placeholder={t('resetPassword.email')}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
             aria-required="true"
           />
-
-          <button type="submit">Envoyer le lien de reinitialisation</button>
+          <button type="submit">{t('resetPassword.submit')}</button>
         </form>
 
         {status.message && (
@@ -63,7 +63,7 @@ export default function ForgotPassword() {
         )}
 
         <Link to="/" className="back-link">
-          ← Retour a l'accueil
+          ← {t('resetPassword.back')}
         </Link>
       </div>
     </div>

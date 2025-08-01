@@ -1,16 +1,24 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import "./Footer.scss";
 import flags from "../data/flags.json";
 
 export default function Footer() {
-  const [lang, setLang] = useState("fr");
+  const { t, i18n } = useTranslation();
+  const [lang, setLang] = useState(i18n.language || "fr");
   const [open, setOpen] = useState(false);
   const [languages, setLanguages] = useState([]);
 
   useEffect(() => {
     setLanguages(flags);
   }, []);
+
+  const changeLanguage = (code) => {
+    i18n.changeLanguage(code);
+    setLang(code);
+    setOpen(false);
+  };
 
   const currentLang = languages.find((l) => l.code === lang) || {};
 
@@ -24,7 +32,7 @@ export default function Footer() {
         {open && (
           <ul className="options">
             {languages.map((l) => (
-              <li key={l.code} onClick={() => { setLang(l.code); setOpen(false); }}>
+              <li key={l.code} onClick={() => changeLanguage(l.code)}>
                 <img src={l.flagUrl} alt={l.code} />
                 {l.label}
               </li>
@@ -35,11 +43,11 @@ export default function Footer() {
 
       <div className="footer-content">
         <div className="footer-links">
-          <h4>Assistance</h4>
+          <h4>{t('footer.assistance')}</h4>
           <ul>
-            <li><Link to="/contact">Contact</Link></li>
-            <li><Link to="/cgu">CGU</Link></li>
-            <li><Link to="/privacy-policy">Politique de confidentialité</Link></li>
+            <li><Link to="/contact">{t('footer.contact')}</Link></li>
+            <li><Link to="/cgu">{t('footer.terms')}</Link></li>
+            <li><Link to="/privacy-policy">{t('footer.privacy')}</Link></li>
           </ul>
         </div>
 
@@ -52,7 +60,7 @@ export default function Footer() {
       </div>
 
       <div className="footer-bottom">
-        <p>L'abus d’alcool est dangereux pour la santé, à consommer avec modération.</p>
+        <p>{t('footer.alcoholWarning')}</p>
       </div>
     </footer>
   );

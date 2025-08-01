@@ -2,18 +2,20 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import { useTranslation } from 'react-i18next';
 import './Home.scss';
 
 export default function Home() {
   const { token } = useSelector(state => state.auth);
+  const { t } = useTranslation();
 
   return (
     <main className="home-page">
       <Helmet>
-        <title>Domaine Berthuit – Boutique de Vins en Ligne</title>
+        <title>{`${t('home.welcome')} – Domaine Berthuit`}</title>
         <meta
           name="description"
-          content="Bienvenue au Domaine Berthuit. Découvrez notre sélection de vins, commandez en ligne, et profitez d’une expérience sécurisée et personnalisée."
+          content={t('home.subtitle')}
         />
         <meta
           name="keywords"
@@ -25,29 +27,27 @@ export default function Home() {
       </Helmet>
 
       <header className="home-hero">
-        <h1>Bienvenue au Domaine Berthuit</h1>
-        <p>
-          Explorez notre sélection et profitez de vos achats en toute simplicité.
-        </p>
+        <h1>{t('home.welcome')}</h1>
+        <p>{t('home.subtitle')}</p>
         {!token && (
-          <Link to="/signup" className="btn-primary" aria-label="Créer un compte">
-            Créer un compte
+          <Link to="/signup" className="btn-primary" aria-label={t('auth.signup')}>
+            {t('auth.signup', 'Créer un compte')}
           </Link>
         )}
       </header>
 
-      <section className="home-features" aria-label="Avantages de notre boutique">
+      <section className="home-features" aria-label={t('home.featuresLabel')}>
         <article className="feature">
-          <h2>🛒 Parcourez la boutique</h2>
-          <p>Des produits de qualité sélectionnés pour vous.</p>
-          <Link to="/products" className="btn-secondary" aria-label="Voir la boutique">
-            <button className="btn primary">Voir la boutique</button>
+          <h2>🛒 {t('home.browseShop')}</h2>
+          <p>{t('home.qualityProducts')}</p>
+          <Link to="/products" className="btn-secondary" aria-label={t('home.viewShop')}>
+            <button className="btn primary">{t('home.viewShop')}</button>
           </Link>
         </article>
 
         <article className="feature">
-          <h2>🔒 Sécurité & RGPD</h2>
-          <p>Vos données sont protégées et exportables à tout moment.</p>
+          <h2>🔒 {t('home.security')}</h2>
+          <p>{t('home.dataProtection')}</p>
         </article>
       </section>
     </main>
