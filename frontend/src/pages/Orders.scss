@@ -16,7 +16,7 @@
   }
 
   .stats {
-    display: grid;
+    display: flex;
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: 1rem;
     margin-bottom: 2rem;

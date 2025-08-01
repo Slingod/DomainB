@@ -40,8 +40,8 @@ export default function Home() {
         <article className="feature">
           <h2>🛒 Parcourez la boutique</h2>
           <p>Des produits de qualité sélectionnés pour vous.</p>
-          <Link to="/products" className="btn-secondary" aria-label="Voir les produits">
-            <button className="btn primary">Voir les produits</button>
+          <Link to="/products" className="btn-secondary" aria-label="Voir la boutique">
+            <button className="btn primary">Voir la boutique</button>
           </Link>
         </article>
 

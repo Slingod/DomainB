@@ -1,0 +1,27 @@
+[
+  {
+    "code": "fr",
+    "label": "Français",
+    "flagUrl": "https://flagcdn.com/fr.svg"
+  },
+  {
+    "code": "en",
+    "label": "English",
+    "flagUrl": "https://flagcdn.com/gb.svg"
+  },
+  {
+    "code": "es",
+    "label": "Español",
+    "flagUrl": "https://flagcdn.com/es.svg"
+  },
+  {
+    "code": "ru",
+    "label": "Русский",
+    "flagUrl": "https://flagcdn.com/ru.svg"
+  },
+  {
+    "code": "zh",
+    "label": "中文",
+    "flagUrl": "https://flagcdn.com/cn.svg"
+  }
+]

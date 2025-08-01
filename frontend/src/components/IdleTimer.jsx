@@ -1,24 +1,25 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { logout } from '../store/authSlice';
 import { useNavigate } from 'react-router-dom';
+import './IdleNotification.scss';
 
-export default function IdleTimer({ timeout = 15 * 60 * 1000 }) {
+export default function IdleTimer({ timeout = 15 * 60 * 1000 }) { // 15 minutes default timeout
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const timerId = useRef(null);
+  const [showNotice, setShowNotice] = useState(false);
 
   useEffect(() => {
-    // fonction de deconnexion
     const handleLogout = () => {
       dispatch(logout());
-      navigate('/login');
-      alert(
-        'Vous avez ete deconnecte(e) pour cause d\'inactivite.'
-      );
+      setShowNotice(true);
+      setTimeout(() => {
+        setShowNotice(false);
+        navigate('/login');
+      }, 5000); // durée visible du toast 5s
     };
 
-    // fonction redemarrant le timer
     const reset = () => {
       if (timerId.current) {
         clearTimeout(timerId.current);
@@ -26,20 +27,10 @@ export default function IdleTimer({ timeout = 15 * 60 * 1000 }) {
       timerId.current = setTimeout(handleLogout, timeout);
     };
 
-    // evenements utilisateurs a capter
-    const events = [
-      'mousemove',
-      'mousedown',
-      'keypress',
-      'touchstart',
-      'scroll'
-    ];
-
-    // initialisation
+    const events = ['mousemove', 'mousedown', 'keypress', 'touchstart', 'scroll'];
     reset();
     events.forEach((e) => window.addEventListener(e, reset));
 
-    // nettoyage
     return () => {
       if (timerId.current) {
         clearTimeout(timerId.current);
@@ -48,5 +39,13 @@ export default function IdleTimer({ timeout = 15 * 60 * 1000 }) {
     };
   }, [dispatch, navigate, timeout]);
 
-  return null;
+  return (
+    <>
+      {showNotice && (
+        <div className="idle-toast">
+          Vous avez été déconnecté(e) pour cause d'inactivité.
+        </div>
+      )}
+    </>
+  );
 }

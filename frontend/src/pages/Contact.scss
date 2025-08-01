@@ -1,0 +1,67 @@
+.contact-page {
+  padding: 2rem;
+  max-width: 960px;
+  margin: 0 auto;
+  text-align: center;
+
+  h1 {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+    color: #0c2c40;
+  }
+
+  p {
+    color: #444;
+    margin-bottom: 2.5rem;
+  }
+
+  .contact-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 1.5rem 1.2rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+      text-align: left;
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: translateY(-5px);
+      }
+
+      h2 {
+        font-size: 1.3rem;
+        color: #7b3f00;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      p, address {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin: 0.5rem 0;
+      }
+
+      .label {
+        font-weight: 600;
+        color: #333;
+        margin-right: 0.3rem;
+      }
+
+      a {
+        color: #006699;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

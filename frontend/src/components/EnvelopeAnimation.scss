@@ -1,0 +1,120 @@
+.letter-image {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 2rem auto;
+  cursor: pointer;
+}
+
+.animated-mail {
+  position: absolute;
+  width: 200px;
+  height: 150px;
+  transition: transform 0.4s;
+
+  .body {
+    position: absolute;
+    bottom: 0;
+    border-style: solid;
+    border-width: 0 0 100px 200px;
+    border-color: transparent transparent #d84315 transparent;
+    z-index: 2;
+  }
+
+  .top-fold {
+    position: absolute;
+    top: 50px;
+    border-style: solid;
+    border-width: 50px 100px 0 100px;
+    border-color: #ff5722 transparent transparent transparent;
+    transform-origin: 50% 0%;
+    transition: transform 0.4s 0.4s, z-index 0.2s 0.4s;
+    z-index: 2;
+  }
+
+  .back-fold {
+    position: absolute;
+    bottom: 0;
+    width: 200px;
+    height: 100px;
+    background: #d84315;
+    z-index: 0;
+  }
+
+  .left-fold {
+    position: absolute;
+    bottom: 0;
+    border-style: solid;
+    border-width: 50px 0 50px 100px;
+    border-color: transparent transparent transparent #e64a19;
+    z-index: 2;
+  }
+
+  .letter {
+    position: absolute;
+    bottom: 0;
+    width: 180px;
+    height: 80px;
+    background: white;
+    left: 10px;
+    z-index: 1;
+
+    .letter-border,
+    .letter-title,
+    .letter-context,
+    .letter-stamp {
+      position: absolute;
+      background: #ccc;
+    }
+
+    .letter-border {
+      top: 5px;
+      left: 5px;
+      width: 170px;
+      height: 70px;
+      border: 2px dashed #d84315;
+    }
+
+    .letter-title {
+      top: 10px;
+      left: 15px;
+      width: 80px;
+      height: 10px;
+      background: #d84315;
+    }
+
+    .letter-context {
+      top: 30px;
+      left: 15px;
+      width: 120px;
+      height: 10px;
+    }
+
+    .letter-stamp {
+      top: 10px;
+      right: 15px;
+      width: 30px;
+      height: 30px;
+      background: #ff5722;
+    }
+  }
+}
+
+.shadow {
+  position: absolute;
+  width: 200px;
+  height: 15px;
+  background: rgba(0, 0, 0, 0.2);
+  bottom: -10px;
+  left: 0;
+  border-radius: 50%;
+}
+
+.letter-image-link:hover .animated-mail {
+  transform: translateY(-8px); // petit lift au hover
+}
+
+.letter-image-link:hover .top-fold {
+  transform: rotateX(180deg);
+  z-index: 0;
+}
