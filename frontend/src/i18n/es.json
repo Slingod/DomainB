@@ -6,11 +6,11 @@
     "password": "Contraseña",
     "passwordPlaceholder": "Tu contraseña",
     "submit": "Iniciar sesión",
-    "forgotPassword": "¿Olvidaste tu contraseña"
+    "forgotPassword": "¿Olvidaste tu contraseña?"
   },
   "resetPassword": {
-    "title": "¿Olvidaste tu contraseña",
-    "email": "Tu dirección de correo",
+    "title": "¿Olvidaste tu contraseña?",
+    "email": "Tu dirección de correo electrónico",
     "submit": "Enviar enlace de restablecimiento",
     "back": "Volver al inicio"
   },
@@ -19,8 +19,8 @@
     "products": "Productos",
     "cart": "Carrito",
     "orders": "Pedidos",
-    "adminProducts": "Administrar productos",
-    "adminUsers": "Administrar usuarios",
+    "adminProducts": "Admin Productos",
+    "adminUsers": "Admin Usuarios",
     "greeting": "Hola",
     "logout": "Cerrar sesión"
   },
@@ -33,12 +33,12 @@
     "contact": "Contacto",
     "terms": "Términos de uso",
     "privacy": "Política de privacidad",
-    "alcoholWarning": "El abuso del alcohol es peligroso para la salud, consúmelo con moderación."
+    "alcoholWarning": "El abuso de alcohol es peligroso para la salud. Consúmelo con moderación."
   },
   "home": {
-    "welcome": "Bienvenido al Domaine Berthuit",
-    "subtitle": "Explora nuestra selección y disfruta de tus compras con facilidad.",
-    "browseShop": "Explorar la tienda",
+    "welcome": "Bienvenido a Domaine Berthuit",
+    "subtitle": "Explora nuestra selección y disfruta de una experiencia de compra sencilla.",
+    "browseShop": "Explorar tienda",
     "qualityProducts": "Productos de calidad seleccionados para ti.",
     "viewShop": "Ver tienda",
     "security": "Seguridad y RGPD",
@@ -53,25 +53,50 @@
     "action": "Acción",
     "remove": "Eliminar",
     "total": "Total:",
-    "checkout": "Realizar pedido"
+    "checkout": "Finalizar compra"
   },
   "terms": {
-    "title": "Términos de uso",
+    "title": "Términos de Uso",
     "lastUpdate": "Última actualización: Julio 2025",
-    "toc": "Tabla de contenidos",
-    "sections": [
-      "Objeto",
-      "Servicios ofrecidos",
-      "Acceso y uso",
-      "Cuentas de usuario",
-      "Reservas y pedidos",
-      "Datos personales",
-      "Propiedad intelectual",
-      "Responsabilidad",
-      "Modificación de los términos",
-      "Ley aplicable – Litigios",
-      "Aviso legal"
-    ]
+    "toc": {
+      "title": "Tabla de Contenidos",
+      "sections": {
+        "1": {
+          "label": "1. Propósito"
+        },
+        "2": {
+          "label": "2. Servicios Ofrecidos"
+        },
+        "3": {
+          "label": "3. Acceso y Uso"
+        },
+        "4": {
+          "label": "4. Cuentas de Usuario"
+        },
+        "5": {
+          "label": "5. Reservas y Pedidos"
+        },
+        "6": {
+          "label": "6. Datos Personales"
+        },
+        "7": {
+          "label": "7. Propiedad Intelectual"
+        },
+        "8": {
+          "label": "8. Responsabilidad"
+        },
+        "9": {
+          "label": "9. Modificación de los Términos"
+        },
+        "10": {
+          "label": "10. Ley Aplicable – Disputas"
+        },
+        "11": {
+          "label": "11. Aviso Legal",
+          "content": "Consulta nuestra información legal sobre el editor, dirección, correo electrónico y SIRET de Domaine Berthuit."
+        }
+      }
+    }
   },
   "legal": {
     "company": "Editor: Domaine Berthuit",
@@ -80,44 +105,54 @@
     "siret": "SIRET: XXXXXXXXXXXXXXX"
   },
   "privacyPolicy": {
-    "title": "Política de privacidad",
-    "intro": "Damos gran importancia a la protección de tus datos personales.",
+    "title": "Política de Privacidad",
+    "intro": "Valoramos mucho la protección de tus datos personales.",
     "content": "Contenido detallado por completar aquí..."
   },
   "contact": {
     "title": "Contáctanos",
     "description": "¿Tienes una pregunta, un pedido especial o deseas saber más sobre nuestros vinos ecológicos? ¡No dudes en contactarnos!",
-    "address": "Domaine Berthuit\n31 du Minervois\n11700 Pépieux",
-    "phone": "Teléfono: +33 6 68 96 18 34",
+    "addressLabel": "Dirección",
+    "addressName": "Domaine Berthuit",
+    "address": "31 du Minervois\n11700 Pépieux",
+    "contactLabel": "Contacto",
+    "phoneLabel": "Teléfono",
+    "phoneRaw": "+33668961834",
+    "phone": "06 68 96 18 34",
+    "emailLabel": "Correo electrónico",
     "email": "lucas@domaineberthuit.com",
     "representative": {
       "title": "Representante",
-      "name": "Nombre: Lucas Berthuit",
-      "position": "Cargo: CEO",
-      "directPhone": "Tel. directo: +33 6 68 96 18 34"
+      "nameLabel": "Nombre",
+      "name": "Lucas Berthuit",
+      "positionLabel": "Cargo",
+      "position": "CEO",
+      "directPhoneLabel": "Tel. directo",
+      "directPhoneRaw": "+33668961834",
+      "directPhone": "06 68 96 18 34"
     }
   },
   "orders": {
-    "title": "Mis pedidos",
+    "title": "Mis Pedidos",
     "week": "Esta semana",
     "month": "Este mes",
     "year": "Este año",
     "allTime": "Desde siempre",
-    "total": "Total"
+    "total": "Total:"
   },
   "admin": {
     "products": {
-      "new": "+ Nuevo producto",
-      "search": "Buscar producto",
+      "new": "+ Nuevo Producto",
+      "search": "Buscar un producto",
       "searchPlaceholder": "Buscar un producto...",
       "stock": "En stock:",
       "edit": "Editar",
       "delete": "Eliminar"
     },
     "users": {
-      "title": "Administración de usuarios",
+      "title": "Administración de Usuarios",
       "search": "Buscar usuario",
-      "searchPlaceholder": "Buscar por ID, nombre, correo o rol…",
+      "searchPlaceholder": "Buscar por ID, nombre de usuario, correo o rol...",
       "columns": {
         "id": "ID",
         "username": "Usuario",
@@ -128,7 +163,7 @@
     }
   },
   "profile": {
-    "title": "Mi perfil",
+    "title": "Mi Perfil",
     "firstName": "Nombre",
     "lastName": "Apellido",
     "address": "Dirección",
@@ -138,7 +173,7 @@
     "delete": "Eliminar mi cuenta"
   },
   "idle": {
-    "logoutMessage": "Se cerró la sesión por inactividad."
+    "logoutMessage": "Has sido desconectado por inactividad."
   },
   "reset": {
     "title": "Restablece tu contraseña",
@@ -158,13 +193,13 @@
   },
   "cgu": {
     "metaTitle": "Términos de Uso – Domaine Berthuit",
-    "metaDescription": "Consulta los Términos de Uso del sitio Domaine Berthuit. Conoce tus derechos y obligaciones como usuario.",
-    "metaKeywords": "Términos de uso, Domaine Berthuit, aviso legal, política de privacidad, reservas",
+    "metaDescription": "Consulta los Términos de Uso del sitio web de Domaine Berthuit. Conoce tus derechos y responsabilidades como usuario.",
+    "metaKeywords": "términos, Domaine Berthuit, uso del sitio, aviso legal, reserva, política de privacidad",
     "title": "Términos de Uso",
     "toc": {
       "title": "Tabla de Contenidos",
       "items": {
-        "1": "1. Objeto",
+        "1": "1. Propósito",
         "2": "2. Servicios Ofrecidos",
         "3": "3. Acceso y Uso",
         "4": "4. Cuentas de Usuario",
@@ -173,50 +208,50 @@
         "7": "7. Propiedad Intelectual",
         "8": "8. Responsabilidad",
         "9": "9. Modificación de los Términos",
-        "10": "10. Ley Aplicable – Litigios",
+        "10": "10. Ley Aplicable – Disputas",
         "11": "11. Aviso Legal"
       }
     },
     "sections": {
       "1": {
-        "title": "1. Objeto",
-        "content": "Estos términos regulan el acceso y uso del sitio web https://www.domaineberthuit.com, editado por Domaine Berthuit. Al navegar por este sitio, el usuario acepta sin reservas estos términos."
+        "title": "1. Propósito",
+        "content": "Estos Términos regulan el acceso y uso del sitio web https://www.domaineberthuit.com, editado por Domaine Berthuit. Al acceder y navegar por el sitio, el usuario acepta sin reservas estos términos."
       },
       "2": {
         "title": "2. Servicios Ofrecidos",
-        "content": "El sitio permite a los usuarios descubrir la bodega, reservar visitas y degustaciones, comprar productos e informarse sobre nuestras novedades."
+        "content": "El sitio permite descubrir el viñedo, reservar visitas y degustaciones, comprar productos y consultar noticias."
       },
       "3": {
         "title": "3. Acceso y Uso",
-        "content": "El acceso es gratuito y reservado a mayores de edad. El editor hace todo lo posible para garantizar la disponibilidad constante del sitio."
+        "content": "El acceso es gratuito y reservado a personas mayores de edad. El editor hace todo lo posible para garantizar la disponibilidad del sitio."
       },
       "4": {
         "title": "4. Cuentas de Usuario",
-        "content": "Algunas funciones requieren una cuenta. El usuario es responsable de mantener seguras sus credenciales."
+        "content": "Se requiere una cuenta para ciertas funciones. El usuario es responsable de la confidencialidad de su información."
       },
       "5": {
         "title": "5. Reservas y Pedidos",
-        "content": "Las reservas pueden ser gratuitas o de pago. Los pagos son seguros a través de Stripe."
+        "content": "Las reservas pueden ser gratuitas o pagadas. El pago está asegurado a través de Stripe."
       },
       "6": {
         "title": "6. Datos Personales",
-        "content": "Se recopilan datos personales necesarios para el funcionamiento del sitio. Consulta nuestra Política de Privacidad para más información."
+        "content": "Los datos personales se recopilan para el buen funcionamiento del sitio. Consulta nuestra Política de Privacidad."
       },
       "7": {
         "title": "7. Propiedad Intelectual",
-        "content": "Todo el contenido del sitio está protegido. Queda prohibida la reproducción sin autorización."
+        "content": "El contenido del sitio está protegido. Cualquier reproducción sin autorización está prohibida."
       },
       "8": {
         "title": "8. Responsabilidad",
-        "content": "El editor no se hace responsable por interrupciones del servicio, contenido de terceros o fallos de socios."
+        "content": "El editor declina toda responsabilidad en caso de interrupción, contenido de terceros o fallo de un socio."
       },
       "9": {
         "title": "9. Modificación de los Términos",
-        "content": "Los términos pueden modificarse en cualquier momento y se aplican inmediatamente después de su publicación."
+        "content": "Los Términos pueden modificarse en cualquier momento. Se aplican desde su publicación."
       },
       "10": {
-        "title": "10. Ley Aplicable – Litigios",
-        "content": "Estos términos se rigen por la legislación francesa. Las disputas se resolverán en los tribunales franceses."
+        "title": "10. Ley Aplicable – Disputas",
+        "content": "Estos Términos se rigen por la legislación francesa. Las disputas estarán sujetas a los tribunales franceses."
       },
       "11": {
         "title": "11. Aviso Legal",
@@ -224,7 +259,7 @@
         "adresse": "Dirección: XXXXXXXXXXXXXXX",
         "email": "Correo electrónico: XXXXXXXXXXXXXXX",
         "siret": "SIRET: XXXXXXXXXXXXXXX",
-        "date": "Última actualización: Julio de 2025"
+        "date": "Última actualización: Julio 2025"
       }
     }
   }
