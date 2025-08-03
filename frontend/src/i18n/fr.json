@@ -44,17 +44,6 @@
     "security": "Sécurité & RGPD",
     "dataProtection": "Vos données sont protégées et exportables à tout moment."
   },
-  "cart": {
-    "title": "Votre Panier",
-    "product": "Produit",
-    "price": "Prix unitaire",
-    "quantity": "Quantité",
-    "subtotal": "Sous-total",
-    "action": "Action",
-    "remove": "Supprimer",
-    "total": "Total :",
-    "checkout": "Passer la commande"
-  },
   "terms": {
     "title": "Conditions Générales d’Utilisation",
     "lastUpdate": "Dernière mise à jour : Juillet 2025",
@@ -131,14 +120,6 @@
       "directPhoneRaw": "+33668961834",
       "directPhone": "06 68 96 18 34"
     }
-  },
-  "orders": {
-    "title": "Mes Commandes",
-    "week": "Cette semaine",
-    "month": "Ce mois",
-    "year": "Cette année",
-    "allTime": "Depuis toujours",
-    "total": "Total:"
   },
   "admin": {
     "products": {
@@ -284,6 +265,105 @@
       "email": "Veuillez saisir une adresse email valide.",
       "password": "Le mot de passe doit avoir au moins 6 caractères et ne pas contenir “<” ou “>”.",
       "default": "Erreur lors de l’inscription."
+    }
+  },
+  "products": {
+    "meta": {
+      "title": "Nos produits – Domaine Berthuit",
+      "description": "Découvrez nos vins bio rouges, blancs et rosés du Domaine Berthuit. Commandez en ligne directement auprès du producteur.",
+      "canonical": "http://localhost:5173/products"
+    },
+    "search": {
+      "label": "Rechercher un produit",
+      "placeholder": "Rechercher un produit…",
+      "ariaLabel": "Zone de recherche de produit"
+    },
+    "list": {
+      "ariaLabel": "Liste des produits",
+      "priceSuffix": "€",
+      "stockAvailable": "En stock : {{stock}}",
+      "outOfStock": "Rupture de stock",
+      "noResults": "Aucun produit trouvé."
+    }
+  },
+  "productDetail": {
+    "loading": "Chargement…",
+    "meta": {
+      "description": "Achetez {{title}} au prix de {{price}} €. En stock : {{stock}}",
+      "keywords": "vin, produit, {{title}}, Domaine Berthuit",
+      "canonical": "http://localhost:5173/products/{{id}}"
+    },
+    "imageAlt": "Photo de {{title}}",
+    "priceSuffix": "€",
+    "stockAvailable": "En stock : {{stock}}",
+    "outOfStock": "Rupture de stock",
+    "description": "Description",
+    "quantityLabel": "Quantité :",
+    "addToCart": "Ajouter au panier",
+    "unavailable": "Indisponible"
+  },
+  "cart": {
+    "meta": {
+      "title": "Votre Panier - Domaine Berthuit",
+      "description": "Consultez et validez votre panier avant de passer commande sur le Domaine Berthuit.",
+      "canonical": "http://localhost:5173/cart",
+      "robots": "index, follow"
+    },
+    "title": "Votre Panier",
+    "empty": "Votre panier est vide.",
+    "table": {
+      "ariaLabel": "Liste des produits en panier",
+      "headers": {
+        "product": "Produit",
+        "price": "Prix unitaire",
+        "quantity": "Quantité",
+        "subtotal": "Sous-total",
+        "action": "Action"
+      },
+      "removeAria": "Supprimer {{title}} du panier",
+      "remove": "Supprimer"
+    },
+    "cards": {
+      "ariaLabel": "Produits (vue mobile)",
+      "product": "Produit",
+      "price": "Prix unitaire",
+      "quantity": "Quantité",
+      "subtotal": "Sous-total",
+      "remove": "Supprimer",
+      "removeAria": "Supprimer {{title}} du panier"
+    },
+    "summary": {
+      "ariaLabel": "Récapitulatif de la commande",
+      "total": "Total : {{total}} €",
+      "submit": "Passer la commande"
+    },
+    "alerts": {
+      "success": "Commande passée avec succès !",
+      "error": "Erreur lors de la commande"
+    }
+  },
+  "orders": {
+    "meta": {
+      "title": "Mes Commandes | Domaine Berthuit",
+      "description": "Suivez l'historique de vos commandes sur Domaine Berthuit. Récapitulatif complet et statistiques d'achat."
+    },
+    "loading": "Chargement…",
+    "title": "Mes Commandes",
+    "stats": {
+      "ariaLabel": "Statistiques de commandes",
+      "week": { "label": "Cette semaine" },
+      "month": { "label": "Ce mois" },
+      "year": { "label": "Cette année" },
+      "all": { "label": "Depuis toujours" },
+      "orders": "{{count}} commande",
+      "orders_plural": "{{count}} commandes",
+      "total": "Total"
+    },
+    "list": {
+      "ariaLabel": "Liste de commandes",
+      "orderId": "Commande #{{id}}",
+      "total": "Total",
+      "empty": "Vous n’avez pas encore de commandes."
     }
   }
 }

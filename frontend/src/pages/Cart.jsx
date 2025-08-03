@@ -4,10 +4,12 @@ import { updateQuantity, removeFromCart, clearCart } from '../store/cartSlice';
 import api from '../api/api';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import { useTranslation } from 'react-i18next';
 import './Cart.scss';
 import '../styles/buttons.scss';
 
 export default function Cart() {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const items = useSelector(state => state.cart.items);
@@ -37,37 +39,37 @@ export default function Cart() {
     try {
       await api.post('/orders', payload);
       dispatch(clearCart());
-      alert('Commande passée avec succès !');
+      alert(t('cart.alerts.success'));
       navigate('/orders');
     } catch (err) {
-      alert(err.response?.data?.error || 'Erreur lors de la commande');
+      alert(err.response?.data?.error || t('cart.alerts.error'));
     }
   };
 
   return (
     <main className="cart-page" aria-labelledby="page-title">
       <Helmet>
-        <title>Votre Panier - Domaine Berthuit</title>
-        <meta name="description" content="Consultez et validez votre panier avant de passer commande sur le Domaine Berthuit." />
-        <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="http://localhost:5173/cart" />
+        <title>{t('cart.meta.title')}</title>
+        <meta name="description" content={t('cart.meta.description')} />
+        <meta name="robots" content={t('cart.meta.robots')} />
+        <link rel="canonical" href={t('cart.meta.canonical')} />
       </Helmet>
 
-      <h1 id="page-title" className="page-title">Votre Panier</h1>
+      <h1 id="page-title" className="page-title">{t('cart.title')}</h1>
 
       {items.length === 0 ? (
-        <p className="empty">Votre panier est vide.</p>
+        <p className="empty">{t('cart.empty')}</p>
       ) : (
         <>
-          <section className="table-wrapper" aria-label="Liste des produits en panier">
+          <section className="table-wrapper" aria-label={t('cart.table.ariaLabel')}>
             <table>
               <thead>
                 <tr>
-                  <th scope="col">Produit</th>
-                  <th scope="col">Prix unitaire</th>
-                  <th scope="col">Quantité</th>
-                  <th scope="col">Sous-total</th>
-                  <th scope="col">Action</th>
+                  <th scope="col">{t('cart.table.headers.product')}</th>
+                  <th scope="col">{t('cart.table.headers.price')}</th>
+                  <th scope="col">{t('cart.table.headers.quantity')}</th>
+                  <th scope="col">{t('cart.table.headers.subtotal')}</th>
+                  <th scope="col">{t('cart.table.headers.action')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -88,9 +90,9 @@ export default function Cart() {
                       <button
                         className="btn danger"
                         onClick={() => handleRemove(item.id)}
-                        aria-label={`Supprimer ${item.title} du panier`}
+                        aria-label={t('cart.table.removeAria', { title: item.title })}
                       >
-                        Supprimer
+                        {t('cart.table.remove')}
                       </button>
                     </td>
                   </tr>
@@ -99,19 +101,19 @@ export default function Cart() {
             </table>
           </section>
 
-          <section className="card-list" aria-label="Produits (vue mobile)">
+          <section className="card-list" aria-label={t('cart.cards.ariaLabel')}>
             {items.map(item => (
               <article key={item.id} className="card">
                 <div className="field">
-                  <span className="label">Produit</span>
+                  <span className="label">{t('cart.cards.product')}</span>
                   <span className="value">{item.title}</span>
                 </div>
                 <div className="field">
-                  <span className="label">Prix unitaire</span>
+                  <span className="label">{t('cart.cards.price')}</span>
                   <span className="value">{item.price.toFixed(2)} €</span>
                 </div>
                 <div className="field">
-                  <span className="label">Quantité</span>
+                  <span className="label">{t('cart.cards.quantity')}</span>
                   <input
                     type="number"
                     min="1"
@@ -120,30 +122,30 @@ export default function Cart() {
                   />
                 </div>
                 <div className="field">
-                  <span className="label">Sous-total</span>
+                  <span className="label">{t('cart.cards.subtotal')}</span>
                   <span className="value">{(item.price * item.quantity).toFixed(2)} €</span>
                 </div>
                 <div className="field actions">
                   <button
                     className="btn danger"
                     onClick={() => handleRemove(item.id)}
-                    aria-label={`Supprimer ${item.title} du panier`}
+                    aria-label={t('cart.cards.removeAria', { title: item.title })}
                   >
-                    Supprimer
+                    {t('cart.cards.remove')}
                   </button>
                 </div>
               </article>
             ))}
           </section>
 
-          <section className="summary" aria-label="Récapitulatif de la commande">
-            <span className="total">Total : {total} €</span>
+          <section className="summary" aria-label={t('cart.summary.ariaLabel')}>
+            <span className="total">{t('cart.summary.total', { total })}</span>
             <button
               className="btn primary order-btn"
               onClick={handleOrder}
               disabled={items.length === 0}
             >
-              Passer la commande
+              {t('cart.summary.submit')}
             </button>
           </section>
         </>

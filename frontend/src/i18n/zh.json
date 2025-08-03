@@ -44,17 +44,6 @@
     "security": "安全与数据保护",
     "dataProtection": "您的数据受到保护，可随时导出。"
   },
-  "cart": {
-    "title": "您的购物车",
-    "product": "产品",
-    "price": "单价",
-    "quantity": "数量",
-    "subtotal": "小计",
-    "action": "操作",
-    "remove": "移除",
-    "total": "总计：",
-    "checkout": "结算"
-  },
   "terms": {
     "title": "使用条款",
     "lastUpdate": "最后更新：2025年7月",
@@ -111,14 +100,6 @@
       "directPhoneRaw": "+33668961834",
       "directPhone": "06 68 96 18 34"
     }
-  },
-  "orders": {
-    "title": "我的订单",
-    "week": "本周",
-    "month": "本月",
-    "year": "今年",
-    "allTime": "所有时间",
-    "total": "总计："
   },
   "admin": {
     "products": {
@@ -264,6 +245,105 @@
       "email": "请输入有效的电子邮件地址。",
       "password": "密码至少为6个字符，且不能包含“<”或“>”。",
       "default": "注册时出错。"
+    }
+  },
+  "products": {
+    "meta": {
+      "title": "我们的产品 – Domaine Berthuit",
+      "description": "探索来自 Domaine Berthuit 的有机红葡萄酒、白葡萄酒和桃红葡萄酒。直接向生产商在线订购。",
+      "canonical": "http://localhost:5173/products"
+    },
+    "search": {
+      "label": "搜索产品",
+      "placeholder": "搜索产品...",
+      "ariaLabel": "产品搜索字段"
+    },
+    "list": {
+      "ariaLabel": "产品列表",
+      "priceSuffix": "€",
+      "stockAvailable": "库存: {{stock}}",
+      "outOfStock": "缺货",
+      "noResults": "未找到产品。"
+    }
+  },
+  "productDetail": {
+    "loading": "加载中…",
+    "meta": {
+      "description": "购买 {{title}}，价格为 {{price}} 欧元。库存：{{stock}}",
+      "keywords": "葡萄酒, 产品, {{title}}, Domaine Berthuit",
+      "canonical": "http://localhost:5173/products/{{id}}"
+    },
+    "imageAlt": "{{title}} 的照片",
+    "priceSuffix": "€",
+    "stockAvailable": "库存：{{stock}}",
+    "outOfStock": "缺货",
+    "description": "产品描述",
+    "quantityLabel": "数量：",
+    "addToCart": "加入购物车",
+    "unavailable": "不可用"
+  },
+  "cart": {
+    "meta": {
+      "title": "您的购物车 - Domaine Berthuit",
+      "description": "请在 Domaine Berthuit 下单前查看并确认您的购物车。",
+      "canonical": "http://localhost:5173/cart",
+      "robots": "index, follow"
+    },
+    "title": "您的购物车",
+    "empty": "您的购物车是空的。",
+    "table": {
+      "ariaLabel": "购物车产品列表",
+      "headers": {
+        "product": "商品",
+        "price": "单价",
+        "quantity": "数量",
+        "subtotal": "小计",
+        "action": "操作"
+      },
+      "removeAria": "将 {{title}} 从购物车中移除",
+      "remove": "移除"
+    },
+    "cards": {
+      "ariaLabel": "商品（移动端）",
+      "product": "商品",
+      "price": "单价",
+      "quantity": "数量",
+      "subtotal": "小计",
+      "remove": "移除",
+      "removeAria": "将 {{title}} 从购物车中移除"
+    },
+    "summary": {
+      "ariaLabel": "订单摘要",
+      "total": "总计：{{total}} €",
+      "submit": "下订单"
+    },
+    "alerts": {
+      "success": "订单提交成功！",
+      "error": "下单时出错"
+    }
+  },
+  "orders": {
+    "meta": {
+      "title": "我的订单 | Domaine Berthuit",
+      "description": "查看您在 Domaine Berthuit 的订单历史记录。完整摘要和购买统计数据。"
+    },
+    "loading": "加载中…",
+    "title": "我的订单",
+    "stats": {
+      "ariaLabel": "订单统计",
+      "week": { "label": "本周" },
+      "month": { "label": "本月" },
+      "year": { "label": "今年" },
+      "all": { "label": "全部时间" },
+      "orders": "{{count}} 个订单",
+      "orders_plural": "{{count}} 个订单",
+      "total": "总计"
+    },
+    "list": {
+      "ariaLabel": "订单列表",
+      "orderId": "订单 #{{id}}",
+      "total": "总计",
+      "empty": "您还没有任何订单。"
     }
   }
 }

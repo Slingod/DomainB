@@ -44,17 +44,6 @@
     "security": "Security & GDPR",
     "dataProtection": "Your data is protected and exportable at any time."
   },
-  "cart": {
-    "title": "Your Cart",
-    "product": "Product",
-    "price": "Unit price",
-    "quantity": "Quantity",
-    "subtotal": "Subtotal",
-    "action": "Action",
-    "remove": "Remove",
-    "total": "Total:",
-    "checkout": "Place order"
-  },
   "terms": {
     "title": "Terms of Use",
     "lastUpdate": "Last updated: July 2025",
@@ -111,14 +100,6 @@
       "directPhoneRaw": "+33668961834",
       "directPhone": "06 68 96 18 34"
     }
-  },
-  "orders": {
-    "title": "My Orders",
-    "week": "This week",
-    "month": "This month",
-    "year": "This year",
-    "allTime": "All time",
-    "total": "Total:"
   },
   "admin": {
     "products": {
@@ -264,6 +245,105 @@
       "email": "Please enter a valid email address.",
       "password": "Password must be at least 6 characters and not contain “<” or “>”.",
       "default": "Error during signup."
+    }
+  },
+  "products": {
+    "meta": {
+      "title": "Our Products – Domaine Berthuit",
+      "description": "Discover our organic red, white, and rosé wines from Domaine Berthuit. Order online directly from the producer.",
+      "canonical": "http://localhost:5173/products"
+    },
+    "search": {
+      "label": "Search a product",
+      "placeholder": "Search a product...",
+      "ariaLabel": "Product search field"
+    },
+    "list": {
+      "ariaLabel": "Product list",
+      "priceSuffix": "€",
+      "stockAvailable": "In stock: {{stock}}",
+      "outOfStock": "Out of stock",
+      "noResults": "No products found."
+    }
+  },
+  "productDetail": {
+    "loading": "Loading…",
+    "meta": {
+      "description": "Buy {{title}} for {{price}} €. In stock: {{stock}}",
+      "keywords": "wine, product, {{title}}, Domaine Berthuit",
+      "canonical": "http://localhost:5173/products/{{id}}"
+    },
+    "imageAlt": "Photo of {{title}}",
+    "priceSuffix": "€",
+    "stockAvailable": "In stock: {{stock}}",
+    "outOfStock": "Out of stock",
+    "description": "Description",
+    "quantityLabel": "Quantity:",
+    "addToCart": "Add to cart",
+    "unavailable": "Unavailable"
+  },
+  "cart": {
+    "meta": {
+      "title": "Your Cart - Domaine Berthuit",
+      "description": "Review and confirm your cart before placing your order at Domaine Berthuit.",
+      "canonical": "http://localhost:5173/cart",
+      "robots": "index, follow"
+    },
+    "title": "Your Cart",
+    "empty": "Your cart is empty.",
+    "table": {
+      "ariaLabel": "List of cart products",
+      "headers": {
+        "product": "Product",
+        "price": "Unit Price",
+        "quantity": "Quantity",
+        "subtotal": "Subtotal",
+        "action": "Action"
+      },
+      "removeAria": "Remove {{title}} from cart",
+      "remove": "Remove"
+    },
+    "cards": {
+      "ariaLabel": "Products (mobile view)",
+      "product": "Product",
+      "price": "Unit Price",
+      "quantity": "Quantity",
+      "subtotal": "Subtotal",
+      "remove": "Remove",
+      "removeAria": "Remove {{title}} from cart"
+    },
+    "summary": {
+      "ariaLabel": "Order Summary",
+      "total": "Total: {{total}} €",
+      "submit": "Place Order"
+    },
+    "alerts": {
+      "success": "Order placed successfully!",
+      "error": "Error placing the order"
+    }
+  },
+  "orders": {
+    "meta": {
+      "title": "My Orders | Domaine Berthuit",
+      "description": "Track your order history on Domaine Berthuit. Complete summary and purchase statistics."
+    },
+    "loading": "Loading…",
+    "title": "My Orders",
+    "stats": {
+      "ariaLabel": "Order statistics",
+      "week": { "label": "This week" },
+      "month": { "label": "This month" },
+      "year": { "label": "This year" },
+      "all": { "label": "All time" },
+      "orders": "{{count}} order",
+      "orders_plural": "{{count}} orders",
+      "total": "Total"
+    },
+    "list": {
+      "ariaLabel": "Orders list",
+      "orderId": "Order #{{id}}",
+      "total": "Total",
+      "empty": "You don’t have any orders yet."
     }
   }
 }

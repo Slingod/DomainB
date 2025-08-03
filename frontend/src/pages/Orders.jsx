@@ -4,6 +4,7 @@ import api from '../api/api';
 import { useDispatch } from 'react-redux';
 import { logout } from '../store/authSlice';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import './Orders.scss';
 
 function computeStats(orders) {
@@ -46,6 +47,7 @@ export default function Orders() {
   const [stats, setStats] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     api
@@ -63,43 +65,40 @@ export default function Orders() {
   }, [dispatch, navigate]);
 
   if (stats === null) {
-    return <p className="orders-page">Chargement…</p>;
+    return <p className="orders-page">{t('orders.loading')}</p>;
   }
 
   return (
     <main className="orders-page">
       <Helmet>
-        <title>Mes Commandes | Domaine Berthuit</title>
-        <meta name="description" content="Suivez l'historique de vos commandes sur Domaine Berthuit. Récapitulatif complet et statistiques d'achat." />
+        <title>{t('orders.meta.title')}</title>
+        <meta name="description" content={t('orders.meta.description')} />
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
 
       <header>
-        <h1>Mes Commandes</h1>
+        <h1>{t('orders.title')}</h1>
       </header>
 
-      <section className="stats" aria-label="Statistiques de commandes">
-        {[
-          { label: 'Cette semaine', key: 'week' },
-          { label: 'Ce mois', key: 'month' },
-          { label: 'Cette année', key: 'year' },
-          { label: 'Depuis toujours', key: 'all' },
-        ].map(({ label, key }) => (
+      <section className="stats" aria-label={t('orders.stats.ariaLabel')}>
+        {['week', 'month', 'year', 'all'].map((key) => (
           <article key={key} className="stat-card">
-            <h2 className="stat-label">{label}</h2>
+            <h2 className="stat-label">{t(`orders.stats.${key}.label`)}</h2>
             <p className="stat-value">
-              {stats[key].count} commande{stats[key].count > 1 ? 's' : ''}
+              {t('orders.stats.orders', { count: stats[key].count })}
             </p>
-            <p className="stat-sub">Total: {stats[key].total.toFixed(2)}€</p>
+            <p className="stat-sub">
+              {t('orders.stats.total')}: {stats[key].total.toFixed(2)}€
+            </p>
           </article>
         ))}
       </section>
 
-      <section className="orders-list" aria-label="Liste de commandes">
+      <section className="orders-list" aria-label={t('orders.list.ariaLabel')}>
         {orders.map((o) => (
           <article key={o.id} className="order-card">
             <header className="order-header">
-              Commande #{o.id} – {new Date(o.created_at).toLocaleString()}
+              {t('orders.list.orderId', { id: o.id })} – {new Date(o.created_at).toLocaleString()}
             </header>
             <ul className="items">
               {o.items.map((it, idx) => (
@@ -108,12 +107,14 @@ export default function Orders() {
                 </li>
               ))}
             </ul>
-            <footer className="order-footer">Total: {o.total.toFixed(2)}€</footer>
+            <footer className="order-footer">
+              {t('orders.list.total')}: {o.total.toFixed(2)}€
+            </footer>
           </article>
         ))}
 
         {orders.length === 0 && (
-          <p className="no-orders">Vous n’avez pas encore de commandes.</p>
+          <p className="no-orders">{t('orders.list.empty')}</p>
         )}
       </section>
     </main>

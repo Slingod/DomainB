@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import api from '../api/api';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import { useTranslation } from 'react-i18next';
 import './Products.scss';
 
 export default function Products() {
+  const { t } = useTranslation();
   const [products, setProducts] = useState([]);
   const [filtered, setFiltered] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -28,27 +30,29 @@ export default function Products() {
   return (
     <main className="products-page">
       <Helmet>
-        <title>Nos produits – Domaine Berthuit</title>
+        <title>{t('products.meta.title')}</title>
         <meta
           name="description"
-          content="Découvrez nos vins bio rouges, blancs et rosés du Domaine Berthuit. Commandez en ligne directement auprès du producteur."
+          content={t('products.meta.description')}
         />
-        <link rel="canonical" href="http://localhost:5173/products" />
+        <link rel="canonical" href={t('products.meta.canonical')} />
       </Helmet>
 
-      <section className="search-bar" aria-label="Recherche de produit">
-        <label htmlFor="search-input" className="sr-only">Rechercher un produit</label>
+      <section className="search-bar" aria-label={t('products.search.ariaLabel')}>
+        <label htmlFor="search-input" className="sr-only">
+          {t('products.search.label')}
+        </label>
         <input
           id="search-input"
           type="search"
-          placeholder="Rechercher un produit…"
+          placeholder={t('products.search.placeholder')}
           value={searchTerm}
           onChange={e => setSearchTerm(e.target.value)}
-          aria-label="Zone de recherche de produit"
+          aria-label={t('products.search.ariaLabel')}
         />
       </section>
 
-      <section className="products-list" aria-label="Liste des produits">
+      <section className="products-list" aria-label={t('products.list.ariaLabel')}>
         {filtered.map(p => (
           <Link
             key={p.id}
@@ -60,7 +64,7 @@ export default function Products() {
             {p.image_url ? (
               <img
                 src={p.image_url}
-                alt={`Image de ${p.title}`}
+                alt={`${t('products.meta.title')} - ${p.title}`}
                 className="product-image"
                 itemProp="image"
                 loading="lazy"
@@ -72,19 +76,19 @@ export default function Products() {
             <div className="product-info">
               <h3 className="title" itemProp="name">{p.title}</h3>
               <p className="price" itemProp="offers" itemScope itemType="https://schema.org/Offer">
-                <span itemProp="price">{p.price.toFixed(2)}</span> €
+                <span itemProp="price">{p.price.toFixed(2)}</span> {t('products.list.priceSuffix')}
                 <meta itemProp="priceCurrency" content="EUR" />
               </p>
               <p className="stock">
                 {p.stock > 0
-                  ? `En stock : ${p.stock}`
-                  : 'Rupture de stock'}
+                  ? t('products.list.stockAvailable', { stock: p.stock })
+                  : t('products.list.outOfStock')}
               </p>
             </div>
           </Link>
         ))}
         {filtered.length === 0 && (
-          <p className="no-results">Aucun produit trouvé.</p>
+          <p className="no-results">{t('products.list.noResults')}</p>
         )}
       </section>
     </main>

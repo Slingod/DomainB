@@ -44,17 +44,6 @@
     "security": "Seguridad y RGPD",
     "dataProtection": "Tus datos están protegidos y exportables en cualquier momento."
   },
-  "cart": {
-    "title": "Tu carrito",
-    "product": "Producto",
-    "price": "Precio unitario",
-    "quantity": "Cantidad",
-    "subtotal": "Subtotal",
-    "action": "Acción",
-    "remove": "Eliminar",
-    "total": "Total:",
-    "checkout": "Realizar pedido"
-  },
   "terms": {
     "title": "Términos y condiciones de uso",
     "lastUpdate": "Última actualización: Julio 2025",
@@ -111,14 +100,6 @@
       "directPhoneRaw": "+33668961834",
       "directPhone": "06 68 96 18 34"
     }
-  },
-  "orders": {
-    "title": "Mis pedidos",
-    "week": "Esta semana",
-    "month": "Este mes",
-    "year": "Este año",
-    "allTime": "Desde siempre",
-    "total": "Total:"
   },
   "admin": {
     "products": {
@@ -264,6 +245,105 @@
       "email": "Por favor, introduce una dirección de correo válida.",
       "password": "La contraseña debe tener al menos 6 caracteres y no contener “<” ni “>”.",
       "default": "Error al registrarse."
+    }
+  },
+  "products": {
+    "meta": {
+      "title": "Nuestros productos – Domaine Berthuit",
+      "description": "Descubre nuestros vinos ecológicos tintos, blancos y rosados del Domaine Berthuit. Haz tu pedido en línea directamente al productor.",
+      "canonical": "http://localhost:5173/products"
+    },
+    "search": {
+      "label": "Buscar un producto",
+      "placeholder": "Buscar un producto...",
+      "ariaLabel": "Campo de búsqueda de producto"
+    },
+    "list": {
+      "ariaLabel": "Lista de productos",
+      "priceSuffix": "€",
+      "stockAvailable": "En stock: {{stock}}",
+      "outOfStock": "Agotado",
+      "noResults": "No se encontraron productos."
+    }
+  },
+  "productDetail": {
+    "loading": "Cargando…",
+    "meta": {
+      "description": "Compra {{title}} por {{price}} €. En stock: {{stock}}",
+      "keywords": "vino, producto, {{title}}, Domaine Berthuit",
+      "canonical": "http://localhost:5173/products/{{id}}"
+    },
+    "imageAlt": "Foto de {{title}}",
+    "priceSuffix": "€",
+    "stockAvailable": "En stock: {{stock}}",
+    "outOfStock": "Agotado",
+    "description": "Descripción",
+    "quantityLabel": "Cantidad:",
+    "addToCart": "Añadir al carrito",
+    "unavailable": "No disponible"
+  },
+  "cart": {
+    "meta": {
+      "title": "Tu carrito - Domaine Berthuit",
+      "description": "Consulta y confirma tu carrito antes de realizar el pedido en Domaine Berthuit.",
+      "canonical": "http://localhost:5173/cart",
+      "robots": "index, follow"
+    },
+    "title": "Tu carrito",
+    "empty": "Tu carrito está vacío.",
+    "table": {
+      "ariaLabel": "Lista de productos en el carrito",
+      "headers": {
+        "product": "Producto",
+        "price": "Precio unitario",
+        "quantity": "Cantidad",
+        "subtotal": "Subtotal",
+        "action": "Acción"
+      },
+      "removeAria": "Eliminar {{title}} del carrito",
+      "remove": "Eliminar"
+    },
+    "cards": {
+      "ariaLabel": "Productos (vista móvil)",
+      "product": "Producto",
+      "price": "Precio unitario",
+      "quantity": "Cantidad",
+      "subtotal": "Subtotal",
+      "remove": "Eliminar",
+      "removeAria": "Eliminar {{title}} del carrito"
+    },
+    "summary": {
+      "ariaLabel": "Resumen del pedido",
+      "total": "Total: {{total}} €",
+      "submit": "Realizar pedido"
+    },
+    "alerts": {
+      "success": "¡Pedido realizado con éxito!",
+      "error": "Error al realizar el pedido"
+    }
+  },
+  "orders": {
+    "meta": {
+      "title": "Mis Pedidos | Domaine Berthuit",
+      "description": "Sigue el historial de tus pedidos en Domaine Berthuit. Resumen completo y estadísticas de compra."
+    },
+    "loading": "Cargando…",
+    "title": "Mis Pedidos",
+    "stats": {
+      "ariaLabel": "Estadísticas de pedidos",
+      "week": { "label": "Esta semana" },
+      "month": { "label": "Este mes" },
+      "year": { "label": "Este año" },
+      "all": { "label": "Desde siempre" },
+      "orders": "{{count}} pedido",
+      "orders_plural": "{{count}} pedidos",
+      "total": "Total"
+    },
+    "list": {
+      "ariaLabel": "Lista de pedidos",
+      "orderId": "Pedido #{{id}}",
+      "total": "Total",
+      "empty": "Aún no tienes pedidos."
     }
   }
 }

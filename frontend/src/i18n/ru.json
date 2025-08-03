@@ -44,17 +44,6 @@
     "security": "Безопасность и GDPR",
     "dataProtection": "Ваши данные защищены и могут быть экспортированы в любое время."
   },
-  "cart": {
-    "title": "Ваша корзина",
-    "product": "Продукт",
-    "price": "Цена за единицу",
-    "quantity": "Количество",
-    "subtotal": "Промежуточный итог",
-    "action": "Действие",
-    "remove": "Удалить",
-    "total": "Итого:",
-    "checkout": "Оформить заказ"
-  },
   "terms": {
     "title": "Условия использования",
     "lastUpdate": "Последнее обновление: июль 2025",
@@ -111,14 +100,6 @@
       "directPhoneRaw": "+33668961834",
       "directPhone": "06 68 96 18 34"
     }
-  },
-  "orders": {
-    "title": "Мои заказы",
-    "week": "На этой неделе",
-    "month": "В этом месяце",
-    "year": "В этом году",
-    "allTime": "За все время",
-    "total": "Итого:"
   },
   "admin": {
     "products": {
@@ -264,6 +245,105 @@
       "email": "Пожалуйста, введите действительный адрес электронной почты.",
       "password": "Пароль должен быть не менее 6 символов и не содержать “<” или “>”.",
       "default": "Ошибка при регистрации."
+    }
+  },
+  "products": {
+    "meta": {
+      "title": "Наши продукты – Domaine Berthuit",
+      "description": "Откройте для себя наши органические красные, белые и розовые вина от Domaine Berthuit. Заказывайте онлайн напрямую у производителя.",
+      "canonical": "http://localhost:5173/products"
+    },
+    "search": {
+      "label": "Поиск продукта",
+      "placeholder": "Найти продукт...",
+      "ariaLabel": "Поле поиска продукта"
+    },
+    "list": {
+      "ariaLabel": "Список продуктов",
+      "priceSuffix": "€",
+      "stockAvailable": "В наличии: {{stock}}",
+      "outOfStock": "Нет в наличии",
+      "noResults": "Продукты не найдены."
+    }
+  },
+  "productDetail": {
+    "loading": "Загрузка…",
+    "meta": {
+      "description": "Купить {{title}} за {{price}} €. В наличии: {{stock}}",
+      "keywords": "вино, продукт, {{title}}, Domaine Berthuit",
+      "canonical": "http://localhost:5173/products/{{id}}"
+    },
+    "imageAlt": "Фото {{title}}",
+    "priceSuffix": "€",
+    "stockAvailable": "В наличии: {{stock}}",
+    "outOfStock": "Нет в наличии",
+    "description": "Описание",
+    "quantityLabel": "Количество:",
+    "addToCart": "Добавить в корзину",
+    "unavailable": "Недоступно"
+  },
+  "cart": {
+    "meta": {
+      "title": "Ваша корзина - Domaine Berthuit",
+      "description": "Проверьте и подтвердите корзину перед оформлением заказа на Domaine Berthuit.",
+      "canonical": "http://localhost:5173/cart",
+      "robots": "index, follow"
+    },
+    "title": "Ваша корзина",
+    "empty": "Ваша корзина пуста.",
+    "table": {
+      "ariaLabel": "Список товаров в корзине",
+      "headers": {
+        "product": "Товар",
+        "price": "Цена за единицу",
+        "quantity": "Количество",
+        "subtotal": "Промежуточный итог",
+        "action": "Действие"
+      },
+      "removeAria": "Удалить {{title}} из корзины",
+      "remove": "Удалить"
+    },
+    "cards": {
+      "ariaLabel": "Товары (мобильный вид)",
+      "product": "Товар",
+      "price": "Цена за единицу",
+      "quantity": "Количество",
+      "subtotal": "Промежуточный итог",
+      "remove": "Удалить",
+      "removeAria": "Удалить {{title}} из корзины"
+    },
+    "summary": {
+      "ariaLabel": "Итог заказа",
+      "total": "Итого: {{total}} €",
+      "submit": "Оформить заказ"
+    },
+    "alerts": {
+      "success": "Заказ успешно оформлен!",
+      "error": "Ошибка при оформлении заказа"
+    }
+  },
+  "orders": {
+    "meta": {
+      "title": "Мои заказы | Domaine Berthuit",
+      "description": "Отслеживайте историю своих заказов в Domaine Berthuit. Полная сводка и статистика покупок."
+    },
+    "loading": "Загрузка…",
+    "title": "Мои заказы",
+    "stats": {
+      "ariaLabel": "Статистика заказов",
+      "week": { "label": "На этой неделе" },
+      "month": { "label": "В этом месяце" },
+      "year": { "label": "В этом году" },
+      "all": { "label": "За всё время" },
+      "orders": "{{count}} заказ",
+      "orders_plural": "{{count}} заказов",
+      "total": "Итого"
+    },
+    "list": {
+      "ariaLabel": "Список заказов",
+      "orderId": "Заказ №{{id}}",
+      "total": "Итого",
+      "empty": "У вас пока нет заказов."
     }
   }
 }
