@@ -123,16 +123,6 @@
       }
     }
   },
-  "profile": {
-    "title": "Mi perfil",
-    "firstName": "Nombre",
-    "lastName": "Apellido",
-    "address": "Dirección",
-    "phone": "Teléfono",
-    "save": "Guardar",
-    "export": "Exportar mis datos por correo",
-    "delete": "Eliminar mi cuenta"
-  },
   "idle": {
     "logoutMessage": "Has sido desconectado por inactividad."
   },
@@ -344,6 +334,37 @@
       "orderId": "Pedido #{{id}}",
       "total": "Total",
       "empty": "Aún no tienes pedidos."
+    }
+  },
+  "profile": {
+    "meta": {
+      "title": "Perfil de usuario - Domaine Berthuit",
+      "description": "Gestiona tu información personal en Domaine Berthuit. Edita, exporta o elimina tu perfil."
+    },
+    "title": "Mi Perfil",
+    "firstName": "Nombre",
+    "lastName": "Apellido",
+    "address": "Dirección",
+    "phone": "Teléfono",
+    "placeholders": {
+      "firstName": "Ej.: María",
+      "lastName": "Ej.: García",
+      "address": "Ej.: Calle París 10, 75000 París",
+      "phone": "Ej.: +33 6 12 34 56 78"
+    },
+    "save": "Guardar",
+    "export": "Exportar mis datos por correo",
+    "delete": "Eliminar mi cuenta",
+    "confirmDelete": "Esta acción es irreversible. ¿Eliminar tu cuenta?",
+    "success": "¡Perfil actualizado con éxito!",
+    "errors": {
+      "firstName": "Nombre inválido (2–30 letras).",
+      "lastName": "Apellido inválido (2–30 letras).",
+      "address": "Dirección inválida (3–100 caracteres).",
+      "phone": "Teléfono inválido (7–15 dígitos, “+” permitido).",
+      "default": "Error al actualizar",
+      "export": "Error al exportar",
+      "delete": "Error al eliminar la cuenta"
     }
   }
 }

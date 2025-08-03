@@ -3,9 +3,11 @@ import api from '../api/api';
 import { useDispatch } from 'react-redux';
 import { logout } from '../store/authSlice';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import './Profile.scss';
 
 export default function Profile() {
+  const { t } = useTranslation();
   const [user, setUser] = useState({});
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
@@ -17,14 +19,14 @@ export default function Profile() {
   const phoneRegex = /^\+?[0-9 ]{7,15}$/;
 
   useEffect(() => {
-    document.title = "Profil utilisateur - Domaine Berthuit";
+    document.title = t('profile.meta.title');
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'Gérez vos informations personnelles sur Domaine Berthuit. Modifiez, exportez ou supprimez votre profil.');
+      metaDescription.setAttribute('content', t('profile.meta.description'));
     } else {
       const desc = document.createElement('meta');
       desc.name = 'description';
-      desc.content = 'Gérez vos informations personnelles sur Domaine Berthuit. Modifiez, exportez ou supprimez votre profil.';
+      desc.content = t('profile.meta.description');
       document.head.appendChild(desc);
     }
 
@@ -36,7 +38,7 @@ export default function Profile() {
           navigate('/login');
         }
       });
-  }, [dispatch, navigate]);
+  }, [dispatch, navigate, t]);
 
   const handleSave = async e => {
     e.preventDefault();
@@ -44,110 +46,110 @@ export default function Profile() {
     setMessage('');
 
     if (user.first_name && !nameRegex.test(user.first_name)) {
-      setError('Prénom invalide (2–30 lettres).');
+      setError(t('profile.errors.firstName'));
       return;
     }
     if (user.last_name && !nameRegex.test(user.last_name)) {
-      setError('Nom invalide (2–30 lettres).');
+      setError(t('profile.errors.lastName'));
       return;
     }
     if (user.address && !addressRx.test(user.address)) {
-      setError('Adresse invalide (3–100 caractères).');
+      setError(t('profile.errors.address'));
       return;
     }
     if (user.phone && !phoneRegex.test(user.phone)) {
-      setError('Téléphone invalide (7–15 chiffres, “+” autorisé).');
+      setError(t('profile.errors.phone'));
       return;
     }
 
     try {
       await api.put('/users/me', user);
-      setMessage('Profil mis à jour avec succès !');
+      setMessage(t('profile.success'));
     } catch (err) {
-      setError(err.response?.data?.error || 'Erreur lors de la mise à jour');
+      setError(err.response?.data?.error || t('profile.errors.default'));
     }
   };
 
   const handleExport = async () => {
     try {
       const { data } = await api.post('/users/me/export-mail');
-      setMessage(data.message);
+      setMessage(data.message || t('profile.export.success'));
     } catch (err) {
-      setError(err.response?.data?.error || 'Erreur lors de l’export');
+      setError(err.response?.data?.error || t('profile.errors.export'));
     }
   };
 
   const handleDelete = async () => {
-    if (!window.confirm('Cette action est irréversible. Supprimer votre compte ?')) return;
+    if (!window.confirm(t('profile.confirmDelete'))) return;
     try {
       await api.delete('/users/me');
       dispatch(logout());
       navigate('/');
     } catch (err) {
-      setError(err.response?.data?.error || 'Erreur lors de la suppression');
+      setError(err.response?.data?.error || t('profile.errors.delete'));
     }
   };
 
   return (
     <main className="profile-page" role="main">
       <header>
-        <h1>Mon Profil</h1>
+        <h1>{t('profile.title')}</h1>
       </header>
       {message && <div className="notification success" role="status">{message}</div>}
       {error && <div className="notification error" role="alert">{error}</div>}
 
       <form onSubmit={handleSave} className="profile-form">
-        <label htmlFor="first_name">Prénom
+        <label htmlFor="first_name">{t('profile.firstName')}
           <input
             id="first_name"
             type="text"
             value={user.first_name || ''}
             onChange={e => setUser({ ...user, first_name: e.target.value })}
-            placeholder="Ex : Marie"
+            placeholder={t('profile.placeholders.firstName')}
           />
         </label>
 
-        <label htmlFor="last_name">Nom
+        <label htmlFor="last_name">{t('profile.lastName')}
           <input
             id="last_name"
             type="text"
             value={user.last_name || ''}
             onChange={e => setUser({ ...user, last_name: e.target.value })}
-            placeholder="Ex : Dupont"
+            placeholder={t('profile.placeholders.lastName')}
           />
         </label>
 
-        <label htmlFor="address">Adresse
+        <label htmlFor="address">{t('profile.address')}
           <input
             id="address"
             type="text"
             value={user.address || ''}
             onChange={e => setUser({ ...user, address: e.target.value })}
-            placeholder="Ex : 10 rue de Paris, 75000 Paris"
+            placeholder={t('profile.placeholders.address')}
           />
         </label>
 
-        <label htmlFor="phone">Téléphone
+        <label htmlFor="phone">{t('profile.phone')}
           <input
             id="phone"
             type="tel"
             value={user.phone || ''}
             onChange={e => setUser({ ...user, phone: e.target.value })}
-            placeholder="Ex : +33 6 12 34 56 78"
+            placeholder={t('profile.placeholders.phone')}
           />
         </label>
 
         <button type="submit" className="btn save">
-          Sauvegarder
+          {t('profile.save')}
         </button>
       </form>
 
       <section className="actions">
         <button onClick={handleExport} className="btn export">
-          Exporter mes données par email
+          {t('profile.export')}
         </button>
         <button onClick={handleDelete} className="btn delete">
-          Supprimer mon compte
+          {t('profile.delete')}
         </button>
       </section>
     </main>

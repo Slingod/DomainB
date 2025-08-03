@@ -123,16 +123,6 @@
       }
     }
   },
-  "profile": {
-    "title": "My Profile",
-    "firstName": "First name",
-    "lastName": "Last name",
-    "address": "Address",
-    "phone": "Phone",
-    "save": "Save",
-    "export": "Export my data via email",
-    "delete": "Delete my account"
-  },
   "idle": {
     "logoutMessage": "You have been logged out due to inactivity."
   },
@@ -344,6 +334,37 @@
       "orderId": "Order #{{id}}",
       "total": "Total",
       "empty": "You don’t have any orders yet."
+    }
+  },
+  "profile": {
+    "meta": {
+      "title": "User Profile - Domaine Berthuit",
+      "description": "Manage your personal information on Domaine Berthuit. Edit, export, or delete your profile."
+    },
+    "title": "My Profile",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "address": "Address",
+    "phone": "Phone",
+    "placeholders": {
+      "firstName": "e.g., Marie",
+      "lastName": "e.g., Smith",
+      "address": "e.g., 10 Paris Street, 75000 Paris",
+      "phone": "e.g., +33 6 12 34 56 78"
+    },
+    "save": "Save",
+    "export": "Export my data by email",
+    "delete": "Delete my account",
+    "confirmDelete": "This action is irreversible. Delete your account?",
+    "success": "Profile updated successfully!",
+    "errors": {
+      "firstName": "Invalid first name (2–30 letters).",
+      "lastName": "Invalid last name (2–30 letters).",
+      "address": "Invalid address (3–100 characters).",
+      "phone": "Invalid phone number (7–15 digits, “+” allowed).",
+      "default": "Error while updating",
+      "export": "Error during export",
+      "delete": "Error while deleting the account"
     }
   }
 }

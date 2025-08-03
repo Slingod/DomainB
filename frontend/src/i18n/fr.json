@@ -143,16 +143,6 @@
       }
     }
   },
-  "profile": {
-    "title": "Mon Profil",
-    "firstName": "Prénom",
-    "lastName": "Nom",
-    "address": "Adresse",
-    "phone": "Téléphone",
-    "save": "Sauvegarder",
-    "export": "Exporter mes données par email",
-    "delete": "Supprimer mon compte"
-  },
   "idle": {
     "logoutMessage": "Vous avez été déconnecté(e) pour cause d'inactivité."
   },
@@ -364,6 +354,37 @@
       "orderId": "Commande #{{id}}",
       "total": "Total",
       "empty": "Vous n’avez pas encore de commandes."
+    }
+  },
+  "profile": {
+    "meta": {
+      "title": "Profil utilisateur - Domaine Berthuit",
+      "description": "Gérez vos informations personnelles sur Domaine Berthuit. Modifiez, exportez ou supprimez votre profil."
+    },
+    "title": "Mon Profil",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "address": "Adresse",
+    "phone": "Téléphone",
+    "placeholders": {
+      "firstName": "Ex : Marie",
+      "lastName": "Ex : Dupont",
+      "address": "Ex : 10 rue de Paris, 75000 Paris",
+      "phone": "Ex : +33 6 12 34 56 78"
+    },
+    "save": "Sauvegarder",
+    "export": "Exporter mes données par email",
+    "delete": "Supprimer mon compte",
+    "confirmDelete": "Cette action est irréversible. Supprimer votre compte ?",
+    "success": "Profil mis à jour avec succès !",
+    "errors": {
+      "firstName": "Prénom invalide (2–30 lettres).",
+      "lastName": "Nom invalide (2–30 lettres).",
+      "address": "Adresse invalide (3–100 caractères).",
+      "phone": "Téléphone invalide (7–15 chiffres, “+” autorisé).",
+      "default": "Erreur lors de la mise à jour",
+      "export": "Erreur lors de l’export",
+      "delete": "Erreur lors de la suppression"
     }
   }
 }

@@ -123,16 +123,6 @@
       }
     }
   },
-  "profile": {
-    "title": "我的个人资料",
-    "firstName": "名",
-    "lastName": "姓",
-    "address": "地址",
-    "phone": "电话",
-    "save": "保存",
-    "export": "通过电子邮件导出我的数据",
-    "delete": "删除我的账户"
-  },
   "idle": {
     "logoutMessage": "由于长时间未操作，您已被注销。"
   },
@@ -344,6 +334,37 @@
       "orderId": "订单 #{{id}}",
       "total": "总计",
       "empty": "您还没有任何订单。"
+    }
+  },
+  "profile": {
+    "meta": {
+      "title": "用户资料 - Domaine Berthuit",
+      "description": "在 Domaine Berthuit 管理您的个人信息。编辑、导出或删除您的资料。"
+    },
+    "title": "我的资料",
+    "firstName": "名字",
+    "lastName": "姓氏",
+    "address": "地址",
+    "phone": "电话",
+    "placeholders": {
+      "firstName": "例如：玛丽",
+      "lastName": "例如：张",
+      "address": "例如：巴黎街10号，75000 巴黎",
+      "phone": "例如：+33 6 12 34 56 78"
+    },
+    "save": "保存",
+    "export": "通过电子邮件导出我的数据",
+    "delete": "删除我的账户",
+    "confirmDelete": "此操作不可撤销。是否删除账户？",
+    "success": "资料更新成功！",
+    "errors": {
+      "firstName": "名字无效（2–30个字母）。",
+      "lastName": "姓氏无效（2–30个字母）。",
+      "address": "地址无效（3–100个字符）。",
+      "phone": "电话无效（7–15位数字，可包含“+”）。",
+      "default": "更新时出错",
+      "export": "导出时出错",
+      "delete": "删除账户时出错"
     }
   }
 }
