@@ -9,7 +9,7 @@
     "forgotPassword": "Forgot password?"
   },
   "resetPassword": {
-    "title": "Forgot password?",
+    "title": "Forgot your password?",
     "email": "Your email address",
     "submit": "Send reset link",
     "back": "Back to home"
@@ -22,7 +22,7 @@
     "adminProducts": "Admin Products",
     "adminUsers": "Admin Users",
     "greeting": "Hello",
-    "logout": "Log out"
+    "logout": "Logout"
   },
   "auth": {
     "signup": "Sign up",
@@ -33,13 +33,13 @@
     "contact": "Contact",
     "terms": "Terms of Use",
     "privacy": "Privacy Policy",
-    "alcoholWarning": "Alcohol abuse is dangerous for your health. Drink responsibly."
+    "alcoholWarning": "Excessive drinking is harmful to your health. Consume responsibly."
   },
   "home": {
     "welcome": "Welcome to Domaine Berthuit",
-    "subtitle": "Explore our selection and enjoy a smooth shopping experience.",
+    "subtitle": "Browse our selection and enjoy smooth shopping.",
     "browseShop": "Browse the shop",
-    "qualityProducts": "Quality products selected for you.",
+    "qualityProducts": "High-quality products selected for you.",
     "viewShop": "View shop",
     "security": "Security & GDPR",
     "dataProtection": "Your data is protected and exportable at any time."
@@ -47,13 +47,13 @@
   "cart": {
     "title": "Your Cart",
     "product": "Product",
-    "price": "Unit Price",
+    "price": "Unit price",
     "quantity": "Quantity",
     "subtotal": "Subtotal",
     "action": "Action",
     "remove": "Remove",
     "total": "Total:",
-    "checkout": "Checkout"
+    "checkout": "Place order"
   },
   "terms": {
     "title": "Terms of Use",
@@ -61,39 +61,19 @@
     "toc": {
       "title": "Table of Contents",
       "sections": {
-        "1": {
-          "label": "1. Purpose"
-        },
-        "2": {
-          "label": "2. Services Offered"
-        },
-        "3": {
-          "label": "3. Access and Use"
-        },
-        "4": {
-          "label": "4. User Accounts"
-        },
-        "5": {
-          "label": "5. Reservations and Orders"
-        },
-        "6": {
-          "label": "6. Personal Data"
-        },
-        "7": {
-          "label": "7. Intellectual Property"
-        },
-        "8": {
-          "label": "8. Liability"
-        },
-        "9": {
-          "label": "9. Modification of Terms"
-        },
-        "10": {
-          "label": "10. Applicable Law – Disputes"
-        },
+        "1": { "label": "1. Purpose" },
+        "2": { "label": "2. Services Provided" },
+        "3": { "label": "3. Access and Use" },
+        "4": { "label": "4. User Accounts" },
+        "5": { "label": "5. Bookings and Orders" },
+        "6": { "label": "6. Personal Data" },
+        "7": { "label": "7. Intellectual Property" },
+        "8": { "label": "8. Liability" },
+        "9": { "label": "9. Changes to Terms" },
+        "10": { "label": "10. Governing Law – Disputes" },
         "11": {
           "label": "11. Legal Notice",
-          "content": "See our legal information regarding the publisher, address, email, and SIRET of Domaine Berthuit."
+          "content": "See our legal information regarding the publisher, address, email, and SIRET number of Domaine Berthuit."
         }
       }
     }
@@ -106,12 +86,12 @@
   },
   "privacyPolicy": {
     "title": "Privacy Policy",
-    "intro": "We place great importance on the protection of your personal data.",
+    "intro": "We attach great importance to protecting your personal data.",
     "content": "Detailed content to be completed here..."
   },
   "contact": {
     "title": "Contact Us",
-    "description": "Have a question, a special order, or want to know more about our organic wines? Don’t hesitate to contact us!",
+    "description": "Have a question, a special order, or want to learn more about our organic wines? Don’t hesitate to contact us!",
     "addressLabel": "Address",
     "addressName": "Domaine Berthuit",
     "address": "31 du Minervois\n11700 Pépieux",
@@ -127,7 +107,7 @@
       "name": "Lucas Berthuit",
       "positionLabel": "Position",
       "position": "CEO",
-      "directPhoneLabel": "Direct Line",
+      "directPhoneLabel": "Direct phone",
       "directPhoneRaw": "+33668961834",
       "directPhone": "06 68 96 18 34"
     }
@@ -142,7 +122,7 @@
   },
   "admin": {
     "products": {
-      "new": "+ New Product",
+      "new": "+ New product",
       "search": "Search for a product",
       "searchPlaceholder": "Search for a product...",
       "stock": "In stock:",
@@ -150,9 +130,9 @@
       "delete": "Delete"
     },
     "users": {
-      "title": "User Administration",
-      "search": "User Search",
-      "searchPlaceholder": "Search by ID, username, email, or role…",
+      "title": "User Management",
+      "search": "User search",
+      "searchPlaceholder": "Search by ID, username, email or role…",
       "columns": {
         "id": "ID",
         "username": "Username",
@@ -164,12 +144,12 @@
   },
   "profile": {
     "title": "My Profile",
-    "firstName": "First Name",
-    "lastName": "Last Name",
+    "firstName": "First name",
+    "lastName": "Last name",
     "address": "Address",
     "phone": "Phone",
     "save": "Save",
-    "export": "Export my data by email",
+    "export": "Export my data via email",
     "delete": "Delete my account"
   },
   "idle": {
@@ -182,76 +162,76 @@
     "submit": "Reset",
     "success": "Password successfully reset.",
     "mismatch": "Passwords do not match.",
-    "error": "Error during password reset.",
+    "error": "Error during reset.",
     "back": "Back to home"
   },
   "search": {
-    "label": "Search for a product",
-    "placeholder": "Search for a product...",
+    "label": "Search a product",
+    "placeholder": "Search a product...",
     "button": "Search",
     "ariaLabel": "Product search bar"
   },
   "cgu": {
     "metaTitle": "Terms of Use – Domaine Berthuit",
-    "metaDescription": "Read the Terms of Use of the Domaine Berthuit website. Learn about your rights and responsibilities as a user.",
-    "metaKeywords": "terms, Domaine Berthuit, terms of use, legal notice, booking, privacy policy",
+    "metaDescription": "Read the Terms of Use for Domaine Berthuit. Understand your rights and obligations as a user.",
+    "metaKeywords": "terms, Domaine Berthuit, legal notice, reservation, privacy policy",
     "title": "Terms of Use",
     "toc": {
       "title": "Table of Contents",
       "items": {
         "1": "1. Purpose",
-        "2": "2. Services Offered",
+        "2": "2. Services Provided",
         "3": "3. Access and Use",
         "4": "4. User Accounts",
-        "5": "5. Reservations and Orders",
+        "5": "5. Bookings and Orders",
         "6": "6. Personal Data",
         "7": "7. Intellectual Property",
         "8": "8. Liability",
-        "9": "9. Modification of Terms",
-        "10": "10. Applicable Law – Disputes",
+        "9": "9. Changes to Terms",
+        "10": "10. Governing Law – Disputes",
         "11": "11. Legal Notice"
       }
     },
     "sections": {
       "1": {
         "title": "1. Purpose",
-        "content": "These Terms govern access to and use of the website https://www.domaineberthuit.com, published by Domaine Berthuit. By accessing and browsing the site, the user accepts these terms without reservation."
+        "content": "These terms govern access to and use of the website https://www.domaineberthuit.com, published by Domaine Berthuit. By browsing the site, you fully accept these terms."
       },
       "2": {
-        "title": "2. Services Offered",
-        "content": "The site allows you to discover the wine estate, book tours and tastings, purchase products, and view news."
+        "title": "2. Services Provided",
+        "content": "The site allows users to learn about the vineyard, book visits and tastings, buy products, and view news."
       },
       "3": {
         "title": "3. Access and Use",
-        "content": "Access is free and restricted to adults. The publisher makes every effort to ensure the availability of the site."
+        "content": "Access is free and reserved for adults. The publisher makes every effort to ensure site availability."
       },
       "4": {
         "title": "4. User Accounts",
-        "content": "An account is required for certain features. The user is responsible for the confidentiality of their information."
+        "content": "An account is required for certain features. Users are responsible for the confidentiality of their data."
       },
       "5": {
-        "title": "5. Reservations and Orders",
-        "content": "Reservations may be free or paid. Payments are secured via Stripe."
+        "title": "5. Bookings and Orders",
+        "content": "Bookings may be free or paid. Payments are secured via Stripe."
       },
       "6": {
         "title": "6. Personal Data",
-        "content": "Personal data is collected for the proper functioning of the site. See our Privacy Policy."
+        "content": "Personal data is collected to ensure the site's proper operation. See our Privacy Policy."
       },
       "7": {
         "title": "7. Intellectual Property",
-        "content": "Site content is protected. Any reproduction without authorization is prohibited."
+        "content": "Website content is protected. Any reproduction without permission is prohibited."
       },
       "8": {
         "title": "8. Liability",
-        "content": "The publisher declines all responsibility in the event of interruption, third-party content, or partner failure."
+        "content": "The publisher disclaims liability in case of interruptions, third-party content, or partner failures."
       },
       "9": {
-        "title": "9. Modification of Terms",
-        "content": "The Terms may be modified at any time. They apply as soon as they are published."
+        "title": "9. Changes to Terms",
+        "content": "These terms may be changed at any time. They apply upon publication."
       },
       "10": {
-        "title": "10. Applicable Law – Disputes",
-        "content": "These Terms are governed by French law. Disputes will be subject to French courts."
+        "title": "10. Governing Law – Disputes",
+        "content": "These terms are governed by French law. Disputes will be handled by French courts."
       },
       "11": {
         "title": "11. Legal Notice",
@@ -259,8 +239,31 @@
         "adresse": "Address: XXXXXXXXXXXXXXX",
         "email": "Email: XXXXXXXXXXXXXXX",
         "siret": "SIRET: XXXXXXXXXXXXXXX",
-        "date": "Last updated: July 2025"
+        "date": "Last update: July 2025"
       }
+    }
+  },
+  "signup": {
+    "meta": {
+      "title": "Sign Up - Domaine Berthuit",
+      "description": "Create your account at Domaine Berthuit to order our products online.",
+      "keywords": "signup, account, user, domaine, online store"
+    },
+    "formLabel": "Signup form",
+    "heading": "Create an account",
+    "username": "Username",
+    "usernamePlaceholder": "e.g., MyUsername_01",
+    "email": "Email",
+    "emailPlaceholder": "example@domain.com",
+    "password": "Password",
+    "passwordPlaceholder": "At least 6 characters",
+    "submit": "Sign up",
+    "success": "Signup successful! Please check your email to confirm your account.",
+    "errors": {
+      "username": "Username must be 3–20 characters and contain only letters, numbers, or “_”.",
+      "email": "Please enter a valid email address.",
+      "password": "Password must be at least 6 characters and not contain “<” or “>”.",
+      "default": "Error during signup."
     }
   }
 }

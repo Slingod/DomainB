@@ -262,5 +262,28 @@
         "date": "Dernière mise à jour : Juillet 2025"
       }
     }
+  },
+  "signup": {
+    "meta": {
+      "title": "Inscription - Domaine Berthuit",
+      "description": "Créez votre compte sur Domaine Berthuit pour commander nos produits en ligne.",
+      "keywords": "inscription, compte, utilisateur, domaine, boutique en ligne"
+    },
+    "formLabel": "Formulaire d’inscription",
+    "heading": "Créer un compte",
+    "username": "Pseudo",
+    "usernamePlaceholder": "Ex : MonPseudo_01",
+    "email": "Email",
+    "emailPlaceholder": "exemple@domaine.com",
+    "password": "Mot de passe",
+    "passwordPlaceholder": "Au moins 6 caractères",
+    "submit": "S’inscrire",
+    "success": "Inscription réussie ! Vérifiez votre email pour confirmer votre compte.",
+    "errors": {
+      "username": "Le pseudo doit faire 3–20 caractères et contenir uniquement lettres, chiffres ou “_”.",
+      "email": "Veuillez saisir une adresse email valide.",
+      "password": "Le mot de passe doit avoir au moins 6 caractères et ne pas contenir “<” ou “>”.",
+      "default": "Erreur lors de l’inscription."
+    }
   }
 }
