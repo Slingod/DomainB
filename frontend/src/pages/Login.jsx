@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { useNavigate, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import api from '../api/api';
 import { setCredentials } from '../store/authSlice';
 import './Login.scss';
 
 export default function Login() {
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -20,11 +22,11 @@ export default function Login() {
     setError('');
 
     if (!emailRegex.test(email)) {
-      setError('Veuillez saisir une adresse email valide.');
+      setError(t('login.errors.email'));
       return;
     }
     if (password.length === 0) {
-      setError('Veuillez saisir votre mot de passe.');
+      setError(t('login.errors.password'));
       return;
     }
 
@@ -34,58 +36,58 @@ export default function Login() {
       dispatch(setCredentials({ token, role, username }));
       navigate('/products');
     } catch (err) {
-      setError(err.response?.data?.error || 'Identifiants invalides');
+      setError(err.response?.data?.error || t('login.errors.default'));
     }
   };
 
   return (
     <main className="auth-page">
       <Helmet>
-        <title>Connexion – Domaine Berthuit</title>
+        <title>{t('login.meta.title')}</title>
         <meta
           name="description"
-          content="Connectez-vous à votre compte Domaine Berthuit pour accéder à votre profil, vos commandes et profiter d'une expérience personnalisée."
+          content={t('login.meta.description')}
         />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://www.domaine-berthuit.fr/login" />
       </Helmet>
 
-      <section aria-label="Formulaire de connexion" className="auth-section">
+      <section aria-label={t('login.formLabel')} className="auth-section">
         <form onSubmit={handleSubmit} className="auth-form">
-          <h2>Connexion</h2>
+          <h2>{t('login.title')}</h2>
           {error && <div className="error" role="alert">{error}</div>}
 
           <label htmlFor="email">
-            Email
+            {t('login.email')}
             <input
               id="email"
               type="email"
               value={email}
               onChange={e => setEmail(e.target.value)}
-              placeholder="exemple@domaine.com"
+              placeholder={t('login.emailPlaceholder')}
               required
               autoComplete="email"
             />
           </label>
 
           <label htmlFor="password">
-            Mot de passe
+            {t('login.password')}
             <input
               id="password"
               type="password"
               value={password}
               onChange={e => setPassword(e.target.value)}
-              placeholder="Votre mot de passe"
+              placeholder={t('login.passwordPlaceholder')}
               required
               autoComplete="current-password"
             />
           </label>
 
           <button type="submit" className="btn-primary">
-            Se connecter
+            {t('login.submit')}
           </button>
           <Link to="/forgot-password" className="link">
-            Mot de passe oublié ?
+            {t('login.forgotPassword')}
           </Link>
         </form>
       </section>
