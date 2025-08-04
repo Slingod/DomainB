@@ -166,7 +166,7 @@
             transition: background-color 0.2s ease;
 
             &:hover {
-              background-color: $danger-dark;
+              background-color: color.adjust($danger, $lightness: -10%);
             }
           }
         }

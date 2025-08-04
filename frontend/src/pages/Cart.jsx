@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { updateQuantity, removeFromCart, clearCart } from '../store/cartSlice';
 import api from '../api/api';
 import { useNavigate } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import './Cart.scss';
 import '../styles/buttons.scss';

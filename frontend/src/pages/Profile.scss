@@ -1,3 +1,4 @@
+@use "sass:color";
 @use "../styles/variables" as *;
 @use "../styles/mixins" as *;
 @use "../styles/buttons" as *;
@@ -66,7 +67,7 @@
       color: #fff;
 
       &:hover {
-        background-color: darken($primary, 10%);
+        background-color: color.adjust($primary, $lightness: -10%);
       }
     }
   }
@@ -83,7 +84,7 @@
       color: #fff;
 
       &:hover {
-        background-color: darken($primary, 10%);
+        background-color: color.adjust($primary, $lightness: -10%);
       }
     }
 
@@ -93,7 +94,7 @@
       color: #fff;
 
       &:hover {
-        background-color: darken($danger, 10%);
+        background-color: color.adjust($danger, $lightness: -10%);
       }
     }
   }

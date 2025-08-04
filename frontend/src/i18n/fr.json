@@ -36,6 +36,12 @@
     "alcoholWarning": "L'abus d’alcool est dangereux pour la santé, à consommer avec modération."
   },
   "home": {
+    "meta": {
+      "title": "Accueil – Domaine Berthuit",
+      "description": "Bienvenue sur la boutique en ligne du Domaine Berthuit. Découvrez nos vins bio rouges, blancs et rosés.",
+      "canonical": "https://www.domaine-berthuit.fr/",
+      "robots": "index, follow"
+    },
     "welcome": "Bienvenue au Domaine Berthuit",
     "subtitle": "Explorez notre sélection et profitez de vos achats en toute simplicité.",
     "browseShop": "Parcourez la boutique",
@@ -238,7 +244,9 @@
     "meta": {
       "title": "Inscription - Domaine Berthuit",
       "description": "Créez votre compte sur Domaine Berthuit pour commander nos produits en ligne.",
-      "keywords": "inscription, compte, utilisateur, domaine, boutique en ligne"
+      "keywords": "inscription, compte, utilisateur, domaine, boutique en ligne",
+      "canonical": "https://www.domaine-berthuit.fr/signup",
+      "robots": "index, follow"
     },
     "formLabel": "Formulaire d’inscription",
     "heading": "Créer un compte",
@@ -261,7 +269,8 @@
     "meta": {
       "title": "Nos produits – Domaine Berthuit",
       "description": "Découvrez nos vins bio rouges, blancs et rosés du Domaine Berthuit. Commandez en ligne directement auprès du producteur.",
-      "canonical": "http://localhost:5173/products"
+      "canonical": "https://www.domaine-berthuit.fr/products",
+      "robots": "index, follow"
     },
     "search": {
       "label": "Rechercher un produit",
@@ -281,7 +290,8 @@
     "meta": {
       "description": "Achetez {{title}} au prix de {{price}} €. En stock : {{stock}}",
       "keywords": "vin, produit, {{title}}, Domaine Berthuit",
-      "canonical": "http://localhost:5173/products/{{id}}"
+      "canonical": "https://www.domaine-berthuit.fr/products/{{id}}",
+      "robots": "index, follow"
     },
     "imageAlt": "Photo de {{title}}",
     "priceSuffix": "€",
@@ -296,7 +306,7 @@
     "meta": {
       "title": "Votre Panier - Domaine Berthuit",
       "description": "Consultez et validez votre panier avant de passer commande sur le Domaine Berthuit.",
-      "canonical": "http://localhost:5173/cart",
+      "canonical": "https://www.domaine-berthuit.fr/cart",
       "robots": "index, follow"
     },
     "title": "Votre Panier",
@@ -335,7 +345,9 @@
   "orders": {
     "meta": {
       "title": "Mes Commandes | Domaine Berthuit",
-      "description": "Suivez l'historique de vos commandes sur Domaine Berthuit. Récapitulatif complet et statistiques d'achat."
+      "description": "Suivez l'historique de vos commandes sur Domaine Berthuit. Récapitulatif complet et statistiques d'achat.",
+      "canonical": "https://www.domaine-berthuit.fr/orders",
+      "robots": "noindex, nofollow"
     },
     "loading": "Chargement…",
     "title": "Mes Commandes",
@@ -359,7 +371,9 @@
   "profile": {
     "meta": {
       "title": "Profil utilisateur - Domaine Berthuit",
-      "description": "Gérez vos informations personnelles sur Domaine Berthuit. Modifiez, exportez ou supprimez votre profil."
+      "description": "Gérez vos informations personnelles sur Domaine Berthuit. Modifiez, exportez ou supprimez votre profil.",
+      "canonical": "https://www.domaine-berthuit.fr/profile",
+      "robots": "noindex, nofollow"
     },
     "title": "Mon Profil",
     "firstName": "Prénom",

@@ -36,6 +36,12 @@
     "alcoholWarning": "Чрезмерное употребление алкоголя опасно для здоровья. Употребляйте в умеренных количествах."
   },
   "home": {
+    "meta": {
+      "title": "Главная – Domaine Berthuit",
+      "description": "Добро пожаловать в онлайн-магазин Domaine Berthuit. Откройте для себя наши органические вина – красные, белые и розовые.",
+      "canonical": "https://www.domaine-berthuit.fr/",
+      "robots": "index, follow"
+    },
     "welcome": "Добро пожаловать в Domaine Berthuit",
     "subtitle": "Ознакомьтесь с нашим ассортиментом и наслаждайтесь покупками.",
     "browseShop": "Перейти в магазин",
@@ -216,9 +222,11 @@
   },
   "signup": {
     "meta": {
-      "title": "Регистрация - Domaine Berthuit",
-      "description": "Создайте аккаунт на Domaine Berthuit, чтобы заказывать наши продукты онлайн.",
-      "keywords": "регистрация, аккаунт, пользователь, винодельня, интернет-магазин"
+      "title": "Регистрация – Domaine Berthuit",
+      "description": "Создайте учетную запись на Domaine Berthuit, чтобы заказать органические вина онлайн.",
+      "keywords": "регистрация, аккаунт, пользователь, органическое вино, онлайн-магазин",
+      "canonical": "https://www.domaine-berthuit.fr/signup",
+      "robots": "index, follow"
     },
     "formLabel": "Форма регистрации",
     "heading": "Создать аккаунт",
@@ -240,8 +248,9 @@
   "products": {
     "meta": {
       "title": "Наши продукты – Domaine Berthuit",
-      "description": "Откройте для себя наши органические красные, белые и розовые вина от Domaine Berthuit. Заказывайте онлайн напрямую у производителя.",
-      "canonical": "http://localhost:5173/products"
+      "description": "Ознакомьтесь с ассортиментом органических вин Domaine Berthuit и закажите напрямую у производителя.",
+      "canonical": "https://www.domaine-berthuit.fr/products",
+      "robots": "index, follow"
     },
     "search": {
       "label": "Поиск продукта",
@@ -259,9 +268,10 @@
   "productDetail": {
     "loading": "Загрузка…",
     "meta": {
-      "description": "Купить {{title}} за {{price}} €. В наличии: {{stock}}",
+      "description": "Купите {{title}} по цене {{price}} €. В наличии: {{stock}} шт.",
       "keywords": "вино, продукт, {{title}}, Domaine Berthuit",
-      "canonical": "http://localhost:5173/products/{{id}}"
+      "canonical": "https://www.domaine-berthuit.fr/products/{{id}}",
+      "robots": "index, follow"
     },
     "imageAlt": "Фото {{title}}",
     "priceSuffix": "€",
@@ -274,9 +284,9 @@
   },
   "cart": {
     "meta": {
-      "title": "Ваша корзина - Domaine Berthuit",
-      "description": "Проверьте и подтвердите корзину перед оформлением заказа на Domaine Berthuit.",
-      "canonical": "http://localhost:5173/cart",
+      "title": "Ваша корзина – Domaine Berthuit",
+      "description": "Проверьте и подтвердите ваш заказ перед оформлением покупки в Domaine Berthuit.",
+      "canonical": "https://www.domaine-berthuit.fr/cart",
       "robots": "index, follow"
     },
     "title": "Ваша корзина",
@@ -314,8 +324,10 @@
   },
   "orders": {
     "meta": {
-      "title": "Мои заказы | Domaine Berthuit",
-      "description": "Отслеживайте историю своих заказов в Domaine Berthuit. Полная сводка и статистика покупок."
+      "title": "Мои заказы – Domaine Berthuit",
+      "description": "Просматривайте историю ваших заказов в Domaine Berthuit. Полная информация и статистика покупок.",
+      "canonical": "https://www.domaine-berthuit.fr/orders",
+      "robots": "noindex, nofollow"
     },
     "loading": "Загрузка…",
     "title": "Мои заказы",
@@ -339,7 +351,9 @@
   "profile": {
     "meta": {
       "title": "Профиль пользователя – Domaine Berthuit",
-      "description": "Управляйте своей персональной информацией на Domaine Berthuit. Изменяйте, экспортируйте или удаляйте профиль."
+      "description": "Управляйте своей персональной информацией на Domaine Berthuit. Редактируйте, экспортируйте или удалите свой профиль.",
+      "canonical": "https://www.domaine-berthuit.fr/profile",
+      "robots": "noindex, nofollow"
     },
     "title": "Мой профиль",
     "firstName": "Имя",

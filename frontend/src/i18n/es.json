@@ -36,6 +36,12 @@
     "alcoholWarning": "El abuso del alcohol es peligroso para la salud, consúmelo con moderación."
   },
   "home": {
+    "meta": {
+      "title": "Inicio – Domaine Berthuit",
+      "description": "Bienvenido a la tienda online del Domaine Berthuit. Descubra nuestros vinos ecológicos tintos, blancos y rosados.",
+      "canonical": "https://www.domaine-berthuit.fr/",
+      "robots": "index, follow"
+    },
     "welcome": "Bienvenido a Domaine Berthuit",
     "subtitle": "Explora nuestra selección y disfruta de tus compras con facilidad.",
     "browseShop": "Explorar la tienda",
@@ -216,9 +222,11 @@
   },
   "signup": {
     "meta": {
-      "title": "Registro - Domaine Berthuit",
-      "description": "Crea tu cuenta en Domaine Berthuit para pedir nuestros productos online.",
-      "keywords": "registro, cuenta, usuario, dominio, tienda online"
+      "title": "Registro – Domaine Berthuit",
+      "description": "Cree su cuenta en Domaine Berthuit para comprar nuestros vinos ecológicos en línea.",
+      "keywords": "registro, cuenta, usuario, vino, tienda online",
+      "canonical": "https://www.domaine-berthuit.fr/signup",
+      "robots": "index, follow"
     },
     "formLabel": "Formulario de registro",
     "heading": "Crear una cuenta",
@@ -240,8 +248,9 @@
   "products": {
     "meta": {
       "title": "Nuestros productos – Domaine Berthuit",
-      "description": "Descubre nuestros vinos ecológicos tintos, blancos y rosados del Domaine Berthuit. Haz tu pedido en línea directamente al productor.",
-      "canonical": "http://localhost:5173/products"
+      "description": "Explore los vinos ecológicos del Domaine Berthuit y compre directamente al productor.",
+      "canonical": "https://www.domaine-berthuit.fr/products",
+      "robots": "index, follow"
     },
     "search": {
       "label": "Buscar un producto",
@@ -259,9 +268,10 @@
   "productDetail": {
     "loading": "Cargando…",
     "meta": {
-      "description": "Compra {{title}} por {{price}} €. En stock: {{stock}}",
+      "description": "Compre {{title}} por {{price}} €. En stock: {{stock}} unidades.",
       "keywords": "vino, producto, {{title}}, Domaine Berthuit",
-      "canonical": "http://localhost:5173/products/{{id}}"
+      "canonical": "https://www.domaine-berthuit.fr/products/{{id}}",
+      "robots": "index, follow"
     },
     "imageAlt": "Foto de {{title}}",
     "priceSuffix": "€",
@@ -274,9 +284,9 @@
   },
   "cart": {
     "meta": {
-      "title": "Tu carrito - Domaine Berthuit",
-      "description": "Consulta y confirma tu carrito antes de realizar el pedido en Domaine Berthuit.",
-      "canonical": "http://localhost:5173/cart",
+      "title": "Su carrito – Domaine Berthuit",
+      "description": "Revise y confirme su pedido antes de finalizar la compra en Domaine Berthuit.",
+      "canonical": "https://www.domaine-berthuit.fr/cart",
       "robots": "index, follow"
     },
     "title": "Tu carrito",
@@ -314,8 +324,10 @@
   },
   "orders": {
     "meta": {
-      "title": "Mis Pedidos | Domaine Berthuit",
-      "description": "Sigue el historial de tus pedidos en Domaine Berthuit. Resumen completo y estadísticas de compra."
+      "title": "Mis pedidos – Domaine Berthuit",
+      "description": "Consulte el historial de sus pedidos en Domaine Berthuit. Estadísticas y detalles disponibles.",
+      "canonical": "https://www.domaine-berthuit.fr/orders",
+      "robots": "noindex, nofollow"
     },
     "loading": "Cargando…",
     "title": "Mis Pedidos",
@@ -338,8 +350,10 @@
   },
   "profile": {
     "meta": {
-      "title": "Perfil de usuario - Domaine Berthuit",
-      "description": "Gestiona tu información personal en Domaine Berthuit. Edita, exporta o elimina tu perfil."
+      "title": "Perfil de usuario – Domaine Berthuit",
+      "description": "Gestione su información personal en Domaine Berthuit. Edite, exporte o elimine su perfil.",
+      "canonical": "https://www.domaine-berthuit.fr/profile",
+      "robots": "noindex, nofollow"
     },
     "title": "Mi Perfil",
     "firstName": "Nombre",
