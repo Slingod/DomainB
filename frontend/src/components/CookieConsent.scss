@@ -1,0 +1,38 @@
+.cookie-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cookie-box {
+  background: #fff;
+  color: #333;
+  max-width: 500px;
+  padding: 2rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.cookie-actions {
+  margin-top: 1.5rem;
+}
+
+.cookie-reopen-button {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  background: #eee;
+  border: 1px solid #ccc;
+  padding: 0.6rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  z-index: 9999;
+}

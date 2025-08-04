@@ -14,16 +14,19 @@
     "forgotPassword": "¿Olvidaste tu contraseña?",
     "formLabel": "Formulario de inicio de sesión",
     "errors": {
-      "email": "Introduce una dirección de correo válida.",
-      "password": "Introduce tu contraseña.",
-      "default": "Error de inicio de sesión. Inténtalo de nuevo."
+      "email": "Introduce una dirección de correo electrónico válida.",
+      "password": "Se requiere la contraseña.",
+      "notFound": "Usuario no encontrado.",
+      "default": "Error al iniciar sesión."
     }
   },
   "resetPassword": {
-    "title": "¿Olvidaste tu contraseña?",
-    "email": "Tu dirección de correo electrónico",
-    "submit": "Enviar enlace de restablecimiento",
-    "back": "Volver al inicio"
+    "title": "Restablecer contraseña",
+    "email": "Correo electrónico",
+    "submit": "Enviar",
+    "back": "Volver al inicio",
+    "seoDescription": "Restablece tu contraseña para acceder a tu cuenta de Domaine Berthuit.",
+    "errorGeneric": "Se ha producido un error. Por favor, inténtelo de nuevo más tarde."
   },
   "navbar": {
     "home": "Inicio",
@@ -43,8 +46,20 @@
     "assistance": "Asistencia",
     "contact": "Contacto",
     "terms": "Términos",
+    "sales": "Condiciones Generales de Venta",
     "privacy": "Política de privacidad",
     "alcoholWarning": "El abuso del alcohol es peligroso para la salud, consúmelo con moderación."
+  },
+  "cookies": {
+    "title": "Acceso reservado a adultos",
+    "message": "Este sitio está reservado para mayores de 18 años. Al continuar, aceptas nuestras",
+    "termsLink": "Condiciones de uso",
+    "salesLink": "Condiciones generales de venta",
+    "privacyLink": "política de privacidad",
+    "and": "y",
+    "accept": "Tengo más de 18 años y acepto",
+    "revoke": "Retirar mi consentimiento",
+    "cancel": "Cancelar"
   },
   "home": {
     "meta": {
@@ -86,9 +101,9 @@
   },
   "legal": {
     "company": "Editor: Domaine Berthuit",
-    "address": "Dirección: XXXXXXXXXXXXXXX",
-    "email": "Correo electrónico: XXXXXXXXXXXXXXX",
-    "siret": "SIRET: XXXXXXXXXXXXXXX"
+    "address": "Dirección: 31 BOULEVARD DU MINERVOIS, 11700 PEPIEUX",
+    "email": "Correo electrónico: lucas@domaineberthuit.com",
+    "siret": "SIRET: 987 552 056"
   },
   "privacyPolicy": {
     "title": "Política de privacidad",
@@ -151,7 +166,11 @@
     "success": "Contraseña restablecida con éxito.",
     "mismatch": "Las contraseñas no coinciden.",
     "error": "Error al restablecer la contraseña.",
-    "back": "Volver al inicio"
+    "back": "Volver a la página principal",
+    "meta": {
+      "title": "Restablecimiento de contraseña – Domaine Berthuit",
+      "description": "Elija una nueva contraseña para acceder a su cuenta de Domaine Berthuit."
+    }
   },
   "search": {
     "label": "Buscar un producto",
@@ -160,24 +179,24 @@
     "ariaLabel": "Barra de búsqueda de productos"
   },
   "cgu": {
-    "metaTitle": "Términos y condiciones – Domaine Berthuit",
-    "metaDescription": "Consulta los Términos y Condiciones de uso del sitio Domaine Berthuit. Conoce tus derechos y obligaciones como usuario.",
-    "metaKeywords": "Términos, Domaine Berthuit, condiciones de uso, aviso legal, reservas, política de privacidad",
-    "title": "Términos y condiciones",
+    "metaTitle": "Condiciones Generales de Uso – Domaine Berthuit",
+    "metaDescription": "Consulta las condiciones generales de uso del sitio Domaine Berthuit.",
+    "metaKeywords": "CGU, Domaine Berthuit, condiciones de uso",
+    "title": "Condiciones Generales de Uso",
     "toc": {
-      "title": "Tabla de contenidos",
+      "title": "Tabla de contenido",
       "items": {
-        "1": "1. Objeto",
-        "2": "2. Servicios ofrecidos",
-        "3": "3. Acceso y uso",
-        "4": "4. Cuentas de usuario",
-        "5": "5. Reservas y pedidos",
-        "6": "6. Datos personales",
-        "7": "7. Propiedad intelectual",
-        "8": "8. Responsabilidad",
-        "9": "9. Modificación de los términos",
-        "10": "10. Ley aplicable – Litigios",
-        "11": "11. Aviso legal"
+        "1": "Objeto",
+        "2": "Servicios ofrecidos",
+        "3": "Acceso y uso",
+        "4": "Cuentas de usuario",
+        "5": "Reservas y pedidos",
+        "6": "Datos personales",
+        "7": "Propiedad intelectual",
+        "8": "Responsabilidad",
+        "9": "Modificación de las CGU",
+        "10": "Ley aplicable – Litigios",
+        "11": "Aviso legal"
       }
     },
     "sections": {
@@ -223,11 +242,83 @@
       },
       "11": {
         "title": "11. Aviso legal",
-        "editeur": "Editor: Domaine Berthuit, XXXXXXXXXXXXXXX",
-        "adresse": "Dirección: XXXXXXXXXXXXXXX",
-        "email": "Correo electrónico: XXXXXXXXXXXXXXX",
-        "siret": "SIRET: XXXXXXXXXXXXXXX",
+        "editeur": "Editor: Domaine Berthuit, BERTHUIT LUCAS",
+        "adresse": "Dirección: 31 BOULEVARD DU MINERVOIS, 11700 PEPIEUX",
+        "email": "Correo electrónico: lucas@domaineberthuit.com",
+        "siret": "SIRET: 987 552 056",
         "date": "Última actualización: Julio 2025"
+      }
+    }
+  },
+  "cgv": {
+    "metaTitle": "Condiciones Generales de Venta",
+    "metaDescription": "Lea nuestras condiciones generales de venta.",
+    "metaKeywords": "condiciones de venta, cgv, domaine berthuit",
+    "title": "Condiciones Generales de Venta",
+    "toc": {
+      "title": "Índice",
+      "items": {
+        "1": "Objeto",
+        "2": "Precios",
+        "3": "Pedidos",
+        "4": "Pago",
+        "5": "Entrega",
+        "6": "Derecho de desistimiento",
+        "7": "Garantías",
+        "8": "Responsabilidad",
+        "9": "Protección de datos",
+        "10": "Litigios",
+        "11": "Aviso legal"
+      }
+    },
+    "sections": {
+      "1": {
+        "title": "Objeto",
+        "content": "Estas condiciones rigen la venta de productos en el sitio web de Domaine Berthuit."
+      },
+      "2": {
+        "title": "Precios",
+        "content": "Los precios se indican en euros con todos los impuestos incluidos."
+      },
+      "3": {
+        "title": "Pedidos",
+        "content": "Cualquier pedido implica la aceptación de estas condiciones."
+      },
+      "4": {
+        "title": "Pago",
+        "content": "El pago es exigible en el momento del pedido."
+      },
+      "5": {
+        "title": "Entrega",
+        "content": "Los productos se entregan en la dirección indicada por el cliente."
+      },
+      "6": {
+        "title": "Derecho de desistimiento",
+        "content": "El cliente dispone de 14 días para desistir tras la recepción."
+      },
+      "7": {
+        "title": "Garantías",
+        "content": "Los productos están cubiertos por las garantías legales de conformidad y vicios ocultos."
+      },
+      "8": {
+        "title": "Responsabilidad",
+        "content": "Domaine Berthuit no será responsable en caso de fuerza mayor."
+      },
+      "9": {
+        "title": "Protección de datos",
+        "content": "Los datos personales se tratan de acuerdo con nuestra política de privacidad."
+      },
+      "10": {
+        "title": "Litigios",
+        "content": "Los litigios se someterán a la jurisdicción exclusiva de los tribunales franceses."
+      },
+      "11": {
+        "title": "11. Aviso legal",
+        "editeur": "Editor: Domaine Berthuit, BERTHUIT LUCAS",
+        "adresse": "Dirección: 31 BOULEVARD DU MINERVOIS, 11700 PEPIEUX",
+        "email": "Correo electrónico: lucas@domaineberthuit.com",
+        "siret": "SIRET: 987 552 056",
+        "date": "Última actualización: julio de 2025"
       }
     }
   },
@@ -248,12 +339,12 @@
     "password": "Contraseña",
     "passwordPlaceholder": "Al menos 6 caracteres",
     "submit": "Registrarse",
-    "success": "¡Registro exitoso! Revisa tu correo para confirmar tu cuenta.",
+    "success": "¡Registro exitoso! Por favor, revisa tu correo electrónico para confirmar tu cuenta.",
     "errors": {
-      "username": "El nombre de usuario debe tener entre 3 y 20 caracteres y solo puede contener letras, números o “_”.",
-      "email": "Por favor, introduce una dirección de correo válida.",
+      "username": "El nombre de usuario debe tener entre 3 y 20 caracteres y solo contener letras, números o “_”.",
+      "email": "Introduce una dirección de correo electrónico válida.",
       "password": "La contraseña debe tener al menos 6 caracteres y no contener “<” ni “>”.",
-      "default": "Error al registrarse."
+      "default": "Error durante el registro."
     }
   },
   "products": {

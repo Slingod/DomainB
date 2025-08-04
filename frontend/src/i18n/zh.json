@@ -15,15 +15,18 @@
     "formLabel": "登录表单",
     "errors": {
       "email": "请输入有效的电子邮箱地址。",
-      "password": "请输入您的密码。",
-      "default": "登录失败，请重试。"
+      "password": "密码是必填项。",
+      "notFound": "未找到用户。",
+      "default": "登录时出错。"
     }
   },
   "resetPassword": {
-    "title": "忘记密码？",
-    "email": "您的电子邮件地址",
-    "submit": "发送重置链接",
-    "back": "返回首页"
+    "title": "重置密码",
+    "email": "电子邮箱",
+    "submit": "提交",
+    "back": "返回首页",
+    "seoDescription": "重置密码以访问您的 Domaine Berthuit 帐户。",
+    "errorGeneric": "发生错误，请稍后再试。"
   },
   "navbar": {
     "home": "首页",
@@ -43,8 +46,20 @@
     "assistance": "帮助",
     "contact": "联系",
     "terms": "使用条款",
+    "sales": "销售条款",
     "privacy": "隐私政策",
     "alcoholWarning": "酗酒有害健康，请适量饮用。"
+  },
+  "cookies": {
+    "title": "仅限成年人访问",
+    "message": "本网站仅供18岁以上用户使用。继续访问即表示您同意我们的",
+    "termsLink": "使用条款",
+    "salesLink": "销售条款",
+    "privacyLink": "隐私政策",
+    "and": "和",
+    "accept": "我已年满18岁并同意",
+    "revoke": "撤回我的同意",
+    "cancel": "取消"
   },
   "home": {
     "meta": {
@@ -86,9 +101,9 @@
   },
   "legal": {
     "company": "出版者：Domaine Berthuit",
-    "address": "地址：XXXXXXXXXXXXXXX",
-    "email": "电子邮件：XXXXXXXXXXXXXXX",
-    "siret": "SIRET：XXXXXXXXXXXXXXX"
+    "address": "地址：31 BOULEVARD DU MINERVOIS, 11700 PEPIEUX",
+    "email": "电子邮件：lucas@domaineberthuit.com",
+    "siret": "SIRET：987 552 056"
   },
   "privacyPolicy": {
     "title": "隐私政策",
@@ -144,14 +159,18 @@
     "logoutMessage": "由于长时间未操作，您已被注销。"
   },
   "reset": {
-    "title": "重置您的密码",
+    "title": "重设您的密码",
     "newPassword": "新密码",
     "confirmPassword": "确认密码",
-    "submit": "重置",
-    "success": "密码重置成功。",
-    "mismatch": "密码不匹配。",
-    "error": "重置过程中出错。",
-    "back": "返回首页"
+    "submit": "重设",
+    "success": "密码重设成功。",
+    "mismatch": "两次输入的密码不一致。",
+    "error": "重设密码时发生错误。",
+    "back": "返回主页",
+    "meta": {
+      "title": "重设密码 – Domaine Berthuit",
+      "description": "选择一个新密码以访问您的 Domaine Berthuit 帐户。"
+    }
   },
   "search": {
     "label": "搜索产品",
@@ -161,23 +180,23 @@
   },
   "cgu": {
     "metaTitle": "使用条款 – Domaine Berthuit",
-    "metaDescription": "阅读 Domaine Berthuit 网站的使用条款，了解您的权利与义务。",
-    "metaKeywords": "使用条款, Domaine Berthuit, 法律信息, 预订, 隐私政策",
+    "metaDescription": "查看 Domaine Berthuit 网站的使用条款。",
+    "metaKeywords": "使用条款, Domaine Berthuit, 条件",
     "title": "使用条款",
     "toc": {
       "title": "目录",
       "items": {
-        "1": "1. 目的",
-        "2": "2. 提供服务",
-        "3": "3. 访问与使用",
-        "4": "4. 用户账户",
-        "5": "5. 预订与订单",
-        "6": "6. 个人数据",
-        "7": "7. 知识产权",
-        "8": "8. 责任",
-        "9": "9. 条款修改",
-        "10": "10. 适用法律 – 争议",
-        "11": "11. 法律声明"
+        "1": "目的",
+        "2": "提供的服务",
+        "3": "访问和使用",
+        "4": "用户账户",
+        "5": "预订和订单",
+        "6": "个人数据",
+        "7": "知识产权",
+        "8": "责任",
+        "9": "使用条款修改",
+        "10": "适用法律 – 争议",
+        "11": "法律声明"
       }
     },
     "sections": {
@@ -223,10 +242,82 @@
       },
       "11": {
         "title": "11. 法律声明",
-        "editeur": "出版者：Domaine Berthuit，XXXXXXXXXXXXXXX",
-        "adresse": "地址：XXXXXXXXXXXXXXX",
-        "email": "电子邮件：XXXXXXXXXXXXXXX",
-        "siret": "SIRET：XXXXXXXXXXXXXXX",
+        "editeur": "出版者：Domaine Berthuit，BERTHUIT LUCAS",
+        "adresse": "地址：31 BOULEVARD DU MINERVOIS, 11700 PEPIEUX",
+        "email": "电子邮件：lucas@domaineberthuit.com",
+        "siret": "SIRET：987 552 056",
+        "date": "最后更新：2025年7月"
+      }
+    }
+  },
+  "cgv": {
+    "metaTitle": "销售条款",
+    "metaDescription": "阅读我们的销售条款。",
+    "metaKeywords": "销售条款, cgv, domaine berthuit",
+    "title": "销售条款",
+    "toc": {
+      "title": "目录",
+      "items": {
+        "1": "目的",
+        "2": "价格",
+        "3": "订单",
+        "4": "付款",
+        "5": "配送",
+        "6": "撤销权",
+        "7": "保修",
+        "8": "责任",
+        "9": "数据保护",
+        "10": "争议",
+        "11": "法律声明"
+      }
+    },
+    "sections": {
+      "1": {
+        "title": "目的",
+        "content": "本条款适用于在 Domaine Berthuit 网站上的产品销售。"
+      },
+      "2": {
+        "title": "价格",
+        "content": "价格以欧元为单位，含税。"
+      },
+      "3": {
+        "title": "订单",
+        "content": "下订单即表示同意本条款。"
+      },
+      "4": {
+        "title": "付款",
+        "content": "下订单时必须付款。"
+      },
+      "5": {
+        "title": "配送",
+        "content": "产品将配送至客户提供的地址。"
+      },
+      "6": {
+        "title": "撤销权",
+        "content": "客户在收到货物后有14天的撤销权。"
+      },
+      "7": {
+        "title": "保修",
+        "content": "产品享有法定合规性和隐蔽缺陷的保修。"
+      },
+      "8": {
+        "title": "责任",
+        "content": "如遇不可抗力，Domaine Berthuit 不承担责任。"
+      },
+      "9": {
+        "title": "数据保护",
+        "content": "个人数据根据隐私政策处理。"
+      },
+      "10": {
+        "title": "争议",
+        "content": "争议由法国法院专属处理。"
+      },
+      "11": {
+        "title": "11. 法律声明",
+        "editeur": "发布者：Domaine Berthuit，卢卡斯·贝尔蒂",
+        "adresse": "地址：31 BOULEVARD DU MINERVOIS, 11700 PEPIEUX",
+        "email": "电子邮件：lucas@domaineberthuit.com",
+        "siret": "SIRET：987 552 056",
         "date": "最后更新：2025年7月"
       }
     }
@@ -248,12 +339,12 @@
     "password": "密码",
     "passwordPlaceholder": "至少6个字符",
     "submit": "注册",
-    "success": "注册成功！请查收邮件以验证账户。",
+    "success": "注册成功！请检查您的电子邮件以确认账户。",
     "errors": {
-      "username": "用户名需为3-20个字符，只能包含字母、数字或“_”。",
-      "email": "请输入有效的电子邮件地址。",
-      "password": "密码至少为6个字符，且不能包含“<”或“>”。",
-      "default": "注册时出错。"
+      "username": "用户名必须为3到20个字符，仅包含字母、数字或“_”。",
+      "email": "请输入有效的电子邮箱地址。",
+      "password": "密码必须至少6个字符，且不能包含“<”或“>”。",
+      "default": "注册过程中发生错误。"
     }
   },
   "products": {

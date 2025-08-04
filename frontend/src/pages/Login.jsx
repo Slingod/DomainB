@@ -17,6 +17,12 @@ export default function Login() {
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+  const errorTranslations = {
+    'User not found': t('login.errors.notFound'),
+    'Invalid credentials': t('login.errors.default'),
+    'Unauthorized': t('login.errors.default')
+  };
+
   const handleSubmit = async e => {
     e.preventDefault();
     setError('');
@@ -25,6 +31,7 @@ export default function Login() {
       setError(t('login.errors.email'));
       return;
     }
+
     if (password.length === 0) {
       setError(t('login.errors.password'));
       return;
@@ -36,7 +43,8 @@ export default function Login() {
       dispatch(setCredentials({ token, role, username }));
       navigate('/products');
     } catch (err) {
-      setError(err.response?.data?.error || t('login.errors.default'));
+      const serverMsg = err.response?.data?.error;
+      setError(errorTranslations[serverMsg] || t('login.errors.default'));
     }
   };
 
@@ -86,6 +94,7 @@ export default function Login() {
           <button type="submit" className="btn-primary">
             {t('login.submit')}
           </button>
+
           <Link to="/forgot-password" className="link">
             {t('login.forgotPassword')}
           </Link>

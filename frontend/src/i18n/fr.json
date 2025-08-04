@@ -15,15 +15,18 @@
     "formLabel": "Formulaire de connexion",
     "errors": {
       "email": "Veuillez saisir une adresse email valide.",
-      "password": "Veuillez saisir votre mot de passe.",
-      "default": "Erreur de connexion. Veuillez réessayer."
+      "password": "Le mot de passe est requis.",
+      "notFound": "Utilisateur non trouvé.",
+      "default": "Erreur lors de la connexion."
     }
   },
   "resetPassword": {
-    "title": "Mot de passe oublié ?",
-    "email": "Votre adresse email",
-    "submit": "Envoyer le lien de réinitialisation",
-    "back": "Retour à l'accueil"
+    "title": "Réinitialiser le mot de passe",
+    "email": "Adresse e-mail",
+    "submit": "Envoyer",
+    "back": "Retour à l’accueil",
+    "seoDescription": "Réinitialisez votre mot de passe pour accéder à votre compte Domaine Berthuit.",
+    "errorGeneric": "Une erreur est survenue. Veuillez réessayer plus tard."
   },
   "navbar": {
     "home": "Accueil",
@@ -43,8 +46,20 @@
     "assistance": "Assistance",
     "contact": "Contact",
     "terms": "CGU",
+    "sales": "Conditions Générales de Vente",
     "privacy": "Politique de confidentialité",
     "alcoholWarning": "L'abus d’alcool est dangereux pour la santé, à consommer avec modération."
+  },
+  "cookies": {
+    "title": "Accès réservé aux adultes",
+    "message": "Ce site est réservé aux personnes majeures (18+). En poursuivant, vous acceptez nos",
+    "termsLink": "CGU",
+    "salesLink": "CGV",
+    "privacyLink": "politique de confidentialité",
+    "and": "et",
+    "accept": "J’ai plus de 18 ans et j’accepte",
+    "revoke": "Retirer mon consentement",
+    "cancel": "Annuler"
   },
   "home": {
     "meta": {
@@ -106,9 +121,9 @@
   },
   "legal": {
     "company": "Éditeur : Domaine Berthuit",
-    "address": "Adresse : XXXXXXXXXXXXXXX",
-    "email": "Email : XXXXXXXXXXXXXXX",
-    "siret": "SIRET : XXXXXXXXXXXXXXX"
+    "address": "Adresse : 31 BOULEVARD DU MINERVOIS, 11700 PEPIEUX",
+    "email": "Email : lucas@domaineberthuit.com",
+    "siret": "SIRET : 987 552 056"
   },
   "privacyPolicy": {
     "title": "Politique de confidentialité",
@@ -171,7 +186,11 @@
     "success": "Mot de passe réinitialisé avec succès.",
     "mismatch": "Les mots de passe ne correspondent pas.",
     "error": "Erreur lors de la réinitialisation.",
-    "back": "Retour à l'accueil"
+    "back": "Retour à l'accueil",
+    "meta": {
+      "title": "Réinitialisation de mot de passe – Domaine Berthuit",
+      "description": "Choisissez un nouveau mot de passe pour accéder à votre compte Domaine Berthuit."
+    }
   },
   "search": {
     "label": "Rechercher un produit",
@@ -187,17 +206,17 @@
     "toc": {
       "title": "Table des matières",
       "items": {
-        "1": "1. Objet",
-        "2": "2. Services proposés",
-        "3": "3. Accès et utilisation",
-        "4": "4. Comptes utilisateurs",
-        "5": "5. Réservations et commandes",
-        "6": "6. Données personnelles",
-        "7": "7. Propriété intellectuelle",
-        "8": "8. Responsabilité",
-        "9": "9. Modification des CGU",
-        "10": "10. Loi applicable – Litiges",
-        "11": "11. Mentions légales"
+        "1": "Objet",
+        "2": "Services proposés",
+        "3": "Accès et utilisation",
+        "4": "Comptes utilisateurs",
+        "5": "Réservations et commandes",
+        "6": "Données personnelles",
+        "7": "Propriété intellectuelle",
+        "8": "Responsabilité",
+        "9": "Modification des CGU",
+        "10": "Loi applicable – Litiges",
+        "11": "Mentions légales"
       }
     },
     "sections": {
@@ -243,11 +262,83 @@
       },
       "11": {
         "title": "11. Mentions légales",
-        "editeur": "Éditeur : Domaine Berthuit, XXXXXXXXXXXXXXX",
-        "adresse": "Adresse : XXXXXXXXXXXXXXX",
-        "email": "Email : XXXXXXXXXXXXXXX",
-        "siret": "SIRET : XXXXXXXXXXXXXXX",
+        "editeur": "Éditeur : Domaine Berthuit, BERTHUIT LUCAS",
+        "adresse": "Adresse : Adresse : 31 BOULEVARD DU MINERVOIS, 11700 PEPIEUX",
+        "email": "Email :  lucas@domaineberthuit.com",
+        "siret": "SIRET : 987 552 056",
         "date": "Dernière mise à jour : Juillet 2025"
+      }
+    }
+  },
+  "cgv": {
+    "metaTitle": "Conditions Générales de Vente",
+    "metaDescription": "Lisez nos conditions générales de vente.",
+    "metaKeywords": "conditions générales de vente, CGV, domaine berthuit",
+    "title": "Conditions Générales de Vente",
+    "toc": {
+      "title": "Table des matières",
+      "items": {
+        "1": "Objet",
+        "2": "Prix",
+        "3": "Commandes",
+        "4": "Paiement",
+        "5": "Livraison",
+        "6": "Droit de rétractation",
+        "7": "Garanties",
+        "8": "Responsabilité",
+        "9": "Protection des données",
+        "10": "Litiges",
+        "11": "Mentions légales"
+      }
+    },
+    "sections": {
+      "1": {
+        "title": "Objet",
+        "content": "Les présentes conditions régissent les ventes de produits sur le site Domaine Berthuit."
+      },
+      "2": {
+        "title": "Prix",
+        "content": "Les prix sont indiqués en euros toutes taxes comprises."
+      },
+      "3": {
+        "title": "Commandes",
+        "content": "Toute commande suppose l’adhésion aux présentes conditions."
+      },
+      "4": {
+        "title": "Paiement",
+        "content": "Le paiement est exigible immédiatement à la commande."
+      },
+      "5": {
+        "title": "Livraison",
+        "content": "Les produits sont livrés à l’adresse indiquée par le client."
+      },
+      "6": {
+        "title": "Droit de rétractation",
+        "content": "Le client dispose de 14 jours pour se rétracter après réception."
+      },
+      "7": {
+        "title": "Garanties",
+        "content": "Les produits bénéficient des garanties légales de conformité et des vices cachés."
+      },
+      "8": {
+        "title": "Responsabilité",
+        "content": "La responsabilité de Domaine Berthuit ne saurait être engagée en cas de force majeure."
+      },
+      "9": {
+        "title": "Protection des données",
+        "content": "Les données personnelles sont traitées conformément à notre politique de confidentialité."
+      },
+      "10": {
+        "title": "Litiges",
+        "content": "Les litiges seront soumis à la compétence exclusive des tribunaux français."
+      },
+      "11": {
+        "title": "Mentions légales",
+        "societe": "Domaine Berthuit, éditeur du site.",
+        "adresse": "31 BOULEVARD DU MINERVOIS, 11700 PEPIEUX",
+        "email": "lucas@domaineberthuit.com",
+        "siret": "SIRET : 987 552 056",
+        "date": "Dernière mise à jour : Août 2025"
       }
     }
   },

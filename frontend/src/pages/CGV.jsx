@@ -1,28 +1,26 @@
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
-import './CGU.scss';
+import './CGV.scss';
 
-export default function CGU() {
+export default function CGV() {
   const { t } = useTranslation();
-  const tocItems = t('cgu.toc.items', { returnObjects: true });
-  const sections = t('cgu.sections', { returnObjects: true });
 
   return (
-    <main className="page cgu-page">
+    <main className="page cgv-page">
       <Helmet>
-        <title>{t('cgu.metaTitle')}</title>
-        <meta name="description" content={t('cgu.metaDescription')} />
-        <meta name="keywords" content={t('cgu.metaKeywords')} />
+        <title>{t('cgv.metaTitle')}</title>
+        <meta name="description" content={t('cgv.metaDescription')} />
+        <meta name="keywords" content={t('cgv.metaKeywords')} />
         <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://www.domaineberthuit.com/cgu" />
+        <link rel="canonical" href="https://www.domaineberthuit.com/cgv" />
       </Helmet>
 
-      <h1>{t('cgu.title')}</h1>
+      <h1>{t('cgv.title')}</h1>
 
       <nav className="toc">
-        <h2>{t('cgu.toc.title')}</h2>
+        <h2>{t('cgv.toc.title')}</h2>
         <ul>
-          {Object.entries(tocItems).map(([key, label]) => (
+          {Object.entries(t('cgv.toc.items', { returnObjects: true })).map(([key, label]) => (
             <li key={key}>
               <a href={`#section-${key}`}>{label}</a>
             </li>
@@ -30,13 +28,13 @@ export default function CGU() {
         </ul>
       </nav>
 
-      {Object.entries(sections).map(([key, section]) => (
+      {Object.entries(t('cgv.sections', { returnObjects: true })).map(([key, section]) => (
         <section id={`section-${key}`} key={key}>
           <h2>{section.title}</h2>
           {section.content && <p>{section.content}</p>}
           {key === '11' && (
             <>
-              <p><strong>{section.editeur}</strong></p>
+              <p><strong>{section.societe}</strong></p>
               <p><strong>{section.adresse}</strong></p>
               <p><strong>{section.email}</strong></p>
               <p><strong>{section.siret}</strong></p>

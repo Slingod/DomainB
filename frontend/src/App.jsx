@@ -1,10 +1,12 @@
 import { Routes, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import { useState, useEffect } from 'react';
 
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import IdleTimer from './components/IdleTimer';
 import ProtectedRoute from './components/ProtectedRoute';
+import CookieConsent from './components/CookieConsent';
 
 import Home from './pages/Home';
 import Products from './pages/Products';
@@ -21,11 +23,21 @@ import AdminUsers from './pages/AdminUsers';
 import ForgotPassword from './components/ForgotPassword';
 import ResetPassword from './components/ResetPassword';
 
+import CGV from './pages/CGV';
 import CGU from './pages/CGU';
 import Contact from './pages/Contact';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 
 export default function App() {
+  const [cookiesAccepted, setCookiesAccepted] = useState(
+    localStorage.getItem('cookieConsent') === 'true'
+  );
+
+  useEffect(() => {
+    const accepted = localStorage.getItem('cookieConsent') === 'true';
+    setCookiesAccepted(accepted);
+  }, []);
+
   return (
     <>
       {/* SEO Meta Global */}
@@ -42,79 +54,83 @@ export default function App() {
       <Navbar />
       <IdleTimer timeout={15 * 60 * 1000} />
 
-      <main className="page-content">
-        <Routes>
-          {/* Pages publiques */}
-          <Route path="/" element={<Home />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/products/:id" element={<ProductDetail />} />
+      {/* Consentement cookies obligatoire */}
+      <CookieConsent onAccept={() => setCookiesAccepted(true)} />
 
-          {/* Authentification */}
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
+          <main className="page-content">
+      <Routes>
+        {/* Pages publiques */}
+        <Route path="/" element={<Home />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/products/:id" element={<ProductDetail />} />
 
-          {/* Informations légales */}
-          <Route path="/cgu" element={<CGU />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        {/* Authentification */}
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
 
-          {/* Espace membres */}
-          <Route
-            path="/cart"
-            element={
-              <ProtectedRoute roles={['member', 'moderator', 'admin']}>
-                <Cart />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/orders"
-            element={
-              <ProtectedRoute roles={['member', 'moderator', 'admin']}>
-                <Orders />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/profile"
-            element={
-              <ProtectedRoute roles={['member', 'moderator', 'admin']}>
-                <Profile />
-              </ProtectedRoute>
-            }
-          />
+        {/* Informations légales */}
+        <Route path="/cgu" element={<CGU />} />
+        <Route path="/cgv" element={<CGV />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
 
-          {/* Modération */}
-          <Route
-            path="/moderation"
-            element={
-              <ProtectedRoute roles={['moderator', 'admin']}>
-                <Moderation />
-              </ProtectedRoute>
-            }
-          />
-
-          {/* Administration */}
-          <Route
-            path="/admin/products"
-            element={
-              <ProtectedRoute roles={['admin']}>
-                <AdminProducts />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/users"
-            element={
-              <ProtectedRoute roles={['admin']}>
-                <AdminUsers />
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
-      </main>
+        {/* Pages protégées (accessibles uniquement après consentement cookies) */}
+        {cookiesAccepted && (
+          <>
+            <Route
+              path="/cart"
+              element={
+                <ProtectedRoute roles={['member', 'moderator', 'admin']}>
+                  <Cart />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/orders"
+              element={
+                <ProtectedRoute roles={['member', 'moderator', 'admin']}>
+                  <Orders />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute roles={['member', 'moderator', 'admin']}>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/moderation"
+              element={
+                <ProtectedRoute roles={['moderator', 'admin']}>
+                  <Moderation />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/products"
+              element={
+                <ProtectedRoute roles={['admin']}>
+                  <AdminProducts />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/users"
+              element={
+                <ProtectedRoute roles={['admin']}>
+                  <AdminUsers />
+                </ProtectedRoute>
+              }
+            />
+          </>
+        )}
+      </Routes>
+    </main>
 
       <Footer />
     </>

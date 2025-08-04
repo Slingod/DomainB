@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import api from '../api/api';
@@ -23,6 +23,16 @@ export default function ForgotPassword() {
     }
   };
 
+  // UX : auto-hide success/error messages after 5s
+  useEffect(() => {
+    if (status.message) {
+      const timer = setTimeout(() => {
+        setStatus({ message: '', error: false });
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [status]);
+
   return (
     <div className="forgot-password-container">
       <Helmet>
@@ -31,6 +41,7 @@ export default function ForgotPassword() {
           name="description"
           content={t('resetPassword.seoDescription')}
         />
+        <meta name="robots" content="noindex, nofollow" />
       </Helmet>
 
       <div className="forgot-password-card" role="main">

@@ -11,6 +11,7 @@ export default function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
 
   const usernameRegex = /^[a-zA-Z0-9_]{3,20}$/;
@@ -20,6 +21,7 @@ export default function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setSuccess(false);
 
     if (!usernameRegex.test(username)) {
       setError(t('signup.errors.username'));
@@ -36,8 +38,11 @@ export default function Signup() {
 
     try {
       await api.post('/auth/signup', { username, email, password });
-      alert(t('signup.success'));
-      navigate('/login');
+      setSuccess(true);
+      setTimeout(() => {
+        setSuccess(false);
+        navigate('/login');
+      }, 5000);
     } catch (err) {
       setError(err.response?.data?.error || t('signup.errors.default'));
     }
@@ -49,12 +54,15 @@ export default function Signup() {
         <title>{t('signup.meta.title')}</title>
         <meta name="description" content={t('signup.meta.description')} />
         <meta name="keywords" content={t('signup.meta.keywords')} />
-        <link rel="canonical" href="http://localhost:5173/signup" />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://www.domaine-berthuit.fr/signup" />
       </Helmet>
 
       <section className="auth-form" aria-label={t('signup.formLabel')}>
         <h2>{t('signup.heading')}</h2>
-        {error && <div className="error" role="alert">{error}</div>}
+
+        {error && <div className="error-message" role="alert">{error}</div>}
+        {success && <div className="success-message" role="status">{t('signup.success')}</div>}
 
         <form onSubmit={handleSubmit} noValidate>
           <label htmlFor="username">

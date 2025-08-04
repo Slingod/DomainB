@@ -47,6 +47,7 @@ export default function Footer() {
           <ul>
             <li><Link to="/contact">{t('footer.contact')}</Link></li>
             <li><Link to="/cgu">{t('footer.terms')}</Link></li>
+            <li><Link to="/cgv">{t('footer.sales')}</Link></li> 
             <li><Link to="/privacy-policy">{t('footer.privacy')}</Link></li>
           </ul>
         </div>

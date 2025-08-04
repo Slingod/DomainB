@@ -15,15 +15,18 @@
     "formLabel": "Login form",
     "errors": {
       "email": "Please enter a valid email address.",
-      "password": "Please enter your password.",
-      "default": "Login failed. Please try again."
+      "password": "Password is required.",
+      "notFound": "User not found.",
+      "default": "Login error."
     }
   },
   "resetPassword": {
-    "title": "Forgot your password?",
-    "email": "Your email address",
-    "submit": "Send reset link",
-    "back": "Back to home"
+    "title": "Reset Password",
+    "email": "Email address",
+    "submit": "Submit",
+    "back": "Back to homepage",
+    "seoDescription": "Reset your password to access your Domaine Berthuit account.",
+    "errorGeneric": "An error occurred. Please try again later."
   },
   "navbar": {
     "home": "Home",
@@ -43,8 +46,20 @@
     "assistance": "Support",
     "contact": "Contact",
     "terms": "Terms of Use",
+    "sales": "Terms of Sale",
     "privacy": "Privacy Policy",
     "alcoholWarning": "Excessive drinking is harmful to your health. Consume responsibly."
+  },
+  "cookies": {
+    "title": "Adults Only Access",
+    "message": "This website is reserved for adults (18+). By continuing, you accept our",
+    "termsLink": "Terms of Use",
+    "salesLink": "Terms of Sale",
+    "privacyLink": "privacy policy",
+    "and": "and",
+    "accept": "I am over 18 and I accept",
+    "revoke": "Withdraw my consent",
+    "cancel": "Cancel"
   },
   "home": {
     "meta": {
@@ -86,9 +101,9 @@
   },
   "legal": {
     "company": "Publisher: Domaine Berthuit",
-    "address": "Address: XXXXXXXXXXXXXXX",
-    "email": "Email: XXXXXXXXXXXXXXX",
-    "siret": "SIRET: XXXXXXXXXXXXXXX"
+    "address": "Address: 31 BOULEVARD DU MINERVOIS, 11700 PEPIEUX",
+    "email": "Email: lucas@domaineberthuit.com",
+    "siret": "SIRET: 987 552 056"
   },
   "privacyPolicy": {
     "title": "Privacy Policy",
@@ -150,8 +165,12 @@
     "submit": "Reset",
     "success": "Password successfully reset.",
     "mismatch": "Passwords do not match.",
-    "error": "Error during reset.",
-    "back": "Back to home"
+    "error": "An error occurred while resetting the password.",
+    "back": "Back to homepage",
+    "meta": {
+      "title": "Password Reset – Domaine Berthuit",
+      "description": "Choose a new password to access your Domaine Berthuit account."
+    }
   },
   "search": {
     "label": "Search a product",
@@ -167,17 +186,17 @@
     "toc": {
       "title": "Table of Contents",
       "items": {
-        "1": "1. Purpose",
-        "2": "2. Services Provided",
-        "3": "3. Access and Use",
-        "4": "4. User Accounts",
-        "5": "5. Bookings and Orders",
-        "6": "6. Personal Data",
-        "7": "7. Intellectual Property",
-        "8": "8. Liability",
-        "9": "9. Changes to Terms",
-        "10": "10. Governing Law – Disputes",
-        "11": "11. Legal Notice"
+        "1": "Purpose",
+        "2": "Offered services",
+        "3": "Access and use",
+        "4": "User accounts",
+        "5": "Bookings and orders",
+        "6": "Personal data",
+        "7": "Intellectual property",
+        "8": "Liability",
+        "9": "Modification of the TOS",
+        "10": "Applicable law – Disputes",
+        "11": "Legal notice"
       }
     },
     "sections": {
@@ -223,11 +242,83 @@
       },
       "11": {
         "title": "11. Legal Notice",
-        "editeur": "Publisher: Domaine Berthuit, XXXXXXXXXXXXXXX",
-        "adresse": "Address: XXXXXXXXXXXXXXX",
-        "email": "Email: XXXXXXXXXXXXXXX",
-        "siret": "SIRET: XXXXXXXXXXXXXXX",
+        "editeur": "Publisher: Domaine Berthuit, BERTHUIT LUCAS",
+        "adresse": "Address: 31 BOULEVARD DU MINERVOIS, 11700 PEPIEUX",
+        "email": "Email: lucas@domaineberthuit.com",
+        "siret": "SIRET: 987 552 056",
         "date": "Last update: July 2025"
+      }
+    }
+  },
+  "cgv": {
+    "metaTitle": "Terms and Conditions of Sale",
+    "metaDescription": "Read our terms and conditions of sale.",
+    "metaKeywords": "terms of sale, cgv, domaine berthuit",
+    "title": "Terms and Conditions of Sale",
+    "toc": {
+      "title": "Table of Contents",
+      "items": {
+        "1": "Purpose",
+        "2": "Prices",
+        "3": "Orders",
+        "4": "Payment",
+        "5": "Delivery",
+        "6": "Right of withdrawal",
+        "7": "Warranties",
+        "8": "Liability",
+        "9": "Data protection",
+        "10": "Disputes",
+        "11": "Legal Notice"
+      }
+    },
+    "sections": {
+      "1": {
+        "title": "Purpose",
+        "content": "These terms govern the sale of products on Domaine Berthuit's website."
+      },
+      "2": {
+        "title": "Prices",
+        "content": "Prices are listed in euros, all taxes included."
+      },
+      "3": {
+        "title": "Orders",
+        "content": "Placing an order implies acceptance of these terms."
+      },
+      "4": {
+        "title": "Payment",
+        "content": "Payment is required at the time of order."
+      },
+      "5": {
+        "title": "Delivery",
+        "content": "Products are delivered to the address provided by the customer."
+      },
+      "6": {
+        "title": "Right of withdrawal",
+        "content": "Customers have 14 days to withdraw after delivery."
+      },
+      "7": {
+        "title": "Warranties",
+        "content": "Products are covered by legal guarantees of conformity and hidden defects."
+      },
+      "8": {
+        "title": "Liability",
+        "content": "Domaine Berthuit cannot be held liable in cases of force majeure."
+      },
+      "9": {
+        "title": "Data protection",
+        "content": "Personal data is processed in accordance with our privacy policy."
+      },
+      "10": {
+        "title": "Disputes",
+        "content": "Disputes are subject to the exclusive jurisdiction of French courts."
+      },
+      "11": {
+        "title": "11. Legal Notice",
+        "editeur": "Publisher: Domaine Berthuit, BERTHUIT LUCAS",
+        "adresse": "Address: 31 BOULEVARD DU MINERVOIS, 11700 PEPIEUX",
+        "email": "Email: lucas@domaineberthuit.com",
+        "siret": "SIRET: 987 552 056",
+        "date": "Last updated: July 2025"
       }
     }
   },
@@ -248,12 +339,12 @@
     "password": "Password",
     "passwordPlaceholder": "At least 6 characters",
     "submit": "Sign up",
-    "success": "Signup successful! Please check your email to confirm your account.",
+    "success": "Registration successful! Please check your email to confirm your account.",
     "errors": {
       "username": "Username must be 3–20 characters and contain only letters, numbers, or “_”.",
       "email": "Please enter a valid email address.",
       "password": "Password must be at least 6 characters and not contain “<” or “>”.",
-      "default": "Error during signup."
+      "default": "An error occurred during registration."
     }
   },
   "products": {
