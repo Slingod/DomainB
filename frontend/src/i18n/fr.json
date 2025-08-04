@@ -1,12 +1,23 @@
 {
   "login": {
+    "meta": {
+      "title": "Connexion - Domaine Berthuit",
+      "description": "Connectez-vous à votre compte Domaine Berthuit pour accéder à votre espace personnel.",
+      "keywords": "connexion, compte, domaine, vin, boutique"
+    },
     "title": "Connexion",
     "email": "Email",
     "emailPlaceholder": "exemple@domaine.com",
     "password": "Mot de passe",
     "passwordPlaceholder": "Votre mot de passe",
     "submit": "Se connecter",
-    "forgotPassword": "Mot de passe oublié ?"
+    "forgotPassword": "Mot de passe oublié ?",
+    "formLabel": "Formulaire de connexion",
+    "errors": {
+      "email": "Veuillez saisir une adresse email valide.",
+      "password": "Veuillez saisir votre mot de passe.",
+      "default": "Erreur de connexion. Veuillez réessayer."
+    }
   },
   "resetPassword": {
     "title": "Mot de passe oublié ?",
@@ -300,14 +311,16 @@
     "description": "Description",
     "quantityLabel": "Quantité :",
     "addToCart": "Ajouter au panier",
-    "unavailable": "Indisponible"
+    "unavailable": "Indisponible",
+    "addedSuccess": "Produit ajouté au panier !"
   },
   "cart": {
     "meta": {
       "title": "Votre Panier - Domaine Berthuit",
       "description": "Consultez et validez votre panier avant de passer commande sur le Domaine Berthuit.",
       "canonical": "https://www.domaine-berthuit.fr/cart",
-      "robots": "index, follow"
+      "robots": "index, follow",
+      "keywords": "panier, commande, vin, Domaine Berthuit, boutique en ligne"
     },
     "title": "Votre Panier",
     "empty": "Votre panier est vide.",

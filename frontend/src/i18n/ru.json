@@ -1,12 +1,23 @@
 {
   "login": {
+    "meta": {
+      "title": "Вход - Domaine Berthuit",
+      "description": "Войдите в свой аккаунт Domaine Berthuit, чтобы получить доступ к личному кабинету.",
+      "keywords": "вход, аккаунт, domaine, вино, магазин"
+    },
     "title": "Вход",
     "email": "Электронная почта",
-    "emailPlaceholder": "primer@domaine.com",
+    "emailPlaceholder": "пример@домен.com",
     "password": "Пароль",
     "passwordPlaceholder": "Ваш пароль",
     "submit": "Войти",
-    "forgotPassword": "Забыли пароль?"
+    "forgotPassword": "Забыли пароль?",
+    "formLabel": "Форма входа",
+    "errors": {
+      "email": "Пожалуйста, введите действительный адрес электронной почты.",
+      "password": "Пожалуйста, введите пароль.",
+      "default": "Ошибка входа. Попробуйте еще раз."
+    }
   },
   "resetPassword": {
     "title": "Забыли пароль?",
@@ -280,14 +291,16 @@
     "description": "Описание",
     "quantityLabel": "Количество:",
     "addToCart": "Добавить в корзину",
-    "unavailable": "Недоступно"
+    "unavailable": "Недоступно",
+    "addedSuccess": "Товар добавлен в корзину!"
   },
   "cart": {
     "meta": {
       "title": "Ваша корзина – Domaine Berthuit",
       "description": "Проверьте и подтвердите ваш заказ перед оформлением покупки в Domaine Berthuit.",
       "canonical": "https://www.domaine-berthuit.fr/cart",
-      "robots": "index, follow"
+      "robots": "index, follow",
+      "keywords": "корзина, заказ, вино, Domaine Berthuit, интернет-магазин"
     },
     "title": "Ваша корзина",
     "empty": "Ваша корзина пуста.",

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateQuantity, removeFromCart, clearCart } from '../store/cartSlice';
 import api from '../api/api';
@@ -13,6 +13,7 @@ export default function Cart() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const items = useSelector(state => state.cart.items);
+  const [successMsgVisible, setSuccessMsgVisible] = useState(false);
 
   const total = items
     .reduce((sum, i) => sum + i.price * i.quantity, 0)
@@ -39,8 +40,11 @@ export default function Cart() {
     try {
       await api.post('/orders', payload);
       dispatch(clearCart());
-      alert(t('cart.alerts.success'));
-      navigate('/orders');
+      setSuccessMsgVisible(true);
+      setTimeout(() => {
+        setSuccessMsgVisible(false);
+        navigate('/orders');
+      }, 5000);
     } catch (err) {
       alert(err.response?.data?.error || t('cart.alerts.error'));
     }
@@ -51,11 +55,18 @@ export default function Cart() {
       <Helmet>
         <title>{t('cart.meta.title')}</title>
         <meta name="description" content={t('cart.meta.description')} />
+        <meta name="keywords" content="panier, commande, vin, Domaine Berthuit, boutique en ligne" />
         <meta name="robots" content={t('cart.meta.robots')} />
         <link rel="canonical" href={t('cart.meta.canonical')} />
       </Helmet>
 
       <h1 id="page-title" className="page-title">{t('cart.title')}</h1>
+
+      {successMsgVisible && (
+        <div className="cart-success-message">
+          {t('cart.alerts.success')}
+        </div>
+      )}
 
       {items.length === 0 ? (
         <p className="empty">{t('cart.empty')}</p>

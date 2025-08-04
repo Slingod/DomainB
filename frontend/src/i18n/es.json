@@ -1,12 +1,23 @@
 {
   "login": {
+    "meta": {
+      "title": "Iniciar sesión - Domaine Berthuit",
+      "description": "Inicia sesión en tu cuenta Domaine Berthuit para acceder a tu espacio personal.",
+      "keywords": "iniciar sesión, cuenta, dominio, vino, tienda"
+    },
     "title": "Iniciar sesión",
     "email": "Correo electrónico",
     "emailPlaceholder": "ejemplo@dominio.com",
     "password": "Contraseña",
     "passwordPlaceholder": "Tu contraseña",
-    "submit": "Iniciar sesión",
-    "forgotPassword": "¿Olvidaste tu contraseña?"
+    "submit": "Entrar",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "formLabel": "Formulario de inicio de sesión",
+    "errors": {
+      "email": "Introduce una dirección de correo válida.",
+      "password": "Introduce tu contraseña.",
+      "default": "Error de inicio de sesión. Inténtalo de nuevo."
+    }
   },
   "resetPassword": {
     "title": "¿Olvidaste tu contraseña?",
@@ -280,14 +291,16 @@
     "description": "Descripción",
     "quantityLabel": "Cantidad:",
     "addToCart": "Añadir al carrito",
-    "unavailable": "No disponible"
+    "unavailable": "No disponible",
+    "addedSuccess": "¡Producto añadido al carrito!"
   },
   "cart": {
     "meta": {
       "title": "Su carrito – Domaine Berthuit",
       "description": "Revise y confirme su pedido antes de finalizar la compra en Domaine Berthuit.",
       "canonical": "https://www.domaine-berthuit.fr/cart",
-      "robots": "index, follow"
+      "robots": "index, follow",
+      "keywords": "carrito, pedido, vino, Domaine Berthuit, tienda online"
     },
     "title": "Tu carrito",
     "empty": "Tu carrito está vacío.",

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import api from '../api/api';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../store/cartSlice';
@@ -11,15 +11,21 @@ export default function ProductDetail() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [qty, setQty] = useState(1);
+  const [addedMessage, setAddedMessage] = useState('');
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { t } = useTranslation();
 
   useEffect(() => {
     api.get(`/products/${id}`).then(res => setProduct(res.data));
   }, [id]);
 
-  if (!product) return <p style={{ textAlign: 'center', padding: '2rem' }}>{t('productDetail.loading')}</p>;
+  if (!product) {
+    return (
+      <p style={{ textAlign: 'center', padding: '2rem' }}>
+        {t('productDetail.loading')}
+      </p>
+    );
+  }
 
   const handleAdd = () => {
     dispatch(addToCart({
@@ -29,7 +35,8 @@ export default function ProductDetail() {
       image_url: product.image_url,
       quantity: qty
     }));
-    navigate('/cart');
+    setAddedMessage(t('productDetail.addedSuccess'));
+    setTimeout(() => setAddedMessage(''), 5000);
   };
 
   return (
@@ -44,8 +51,15 @@ export default function ProductDetail() {
             stock: product.stock
           })}
         />
-        <meta name="keywords" content={t('productDetail.meta.keywords', { title: product.title })} />
-        <link rel="canonical" href={t('productDetail.meta.canonical', { id: product.id })} />
+        <meta
+          name="keywords"
+          content={t('productDetail.meta.keywords', { title: product.title })}
+        />
+        <meta name="robots" content="index, follow" />
+        <link
+          rel="canonical"
+          href={t('productDetail.meta.canonical', { id: product.id })}
+        />
       </Helmet>
 
       {product.image_url && (
@@ -61,6 +75,12 @@ export default function ProductDetail() {
 
       <section className="details">
         <h1 itemProp="name">{product.title}</h1>
+
+        {addedMessage && (
+          <div className="add-message success">
+            {addedMessage}
+          </div>
+        )}
 
         <div className="price" itemProp="offers" itemScope itemType="https://schema.org/Offer">
           <span itemProp="price">{product.price.toFixed(2)}</span> {t('productDetail.priceSuffix')}
@@ -99,7 +119,9 @@ export default function ProductDetail() {
           disabled={product.stock === 0}
           className="btn-add"
         >
-          {product.stock === 0 ? t('productDetail.unavailable') : t('productDetail.addToCart')}
+          {product.stock === 0
+            ? t('productDetail.unavailable')
+            : t('productDetail.addToCart')}
         </button>
       </section>
     </main>

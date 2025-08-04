@@ -100,7 +100,17 @@
   .card-list {
     display: none;
   }
-
+  
+  .cart-success-message {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: 500;
+  }
+  
   @include respond(sm) {
     .table-wrapper {
       table {

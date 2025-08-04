@@ -1,12 +1,23 @@
 {
   "login": {
+    "meta": {
+      "title": "Login - Domaine Berthuit",
+      "description": "Log in to your Domaine Berthuit account to access your personal space.",
+      "keywords": "login, account, domaine, wine, store"
+    },
     "title": "Login",
     "email": "Email",
     "emailPlaceholder": "example@domain.com",
     "password": "Password",
     "passwordPlaceholder": "Your password",
     "submit": "Log in",
-    "forgotPassword": "Forgot password?"
+    "forgotPassword": "Forgot password?",
+    "formLabel": "Login form",
+    "errors": {
+      "email": "Please enter a valid email address.",
+      "password": "Please enter your password.",
+      "default": "Login failed. Please try again."
+    }
   },
   "resetPassword": {
     "title": "Forgot your password?",
@@ -280,14 +291,16 @@
     "description": "Description",
     "quantityLabel": "Quantity:",
     "addToCart": "Add to cart",
-    "unavailable": "Unavailable"
+    "unavailable": "Unavailable",
+    "addedSuccess": "Product added to cart!"
   },
   "cart": {
     "meta": {
       "title": "Your Cart – Domaine Berthuit",
       "description": "Review and confirm your order before checkout at Domaine Berthuit.",
       "canonical": "https://www.domaine-berthuit.fr/cart",
-      "robots": "index, follow"
+      "robots": "index, follow",
+      "keywords": "cart, order, wine, Domaine Berthuit, online store"
     },
     "title": "Your Cart",
     "empty": "Your cart is empty.",

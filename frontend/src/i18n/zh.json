@@ -1,12 +1,23 @@
 {
   "login": {
+    "meta": {
+      "title": "登录 - Domaine Berthuit",
+      "description": "登录您的 Domaine Berthuit 账户以访问您的个人空间。",
+      "keywords": "登录, 账户, 葡萄酒, Domaine, 商店"
+    },
     "title": "登录",
-    "email": "电子邮件",
-    "emailPlaceholder": "example@domaine.com",
+    "email": "电子邮箱",
+    "emailPlaceholder": "示例@域名.com",
     "password": "密码",
     "passwordPlaceholder": "您的密码",
     "submit": "登录",
-    "forgotPassword": "忘记密码？"
+    "forgotPassword": "忘记密码？",
+    "formLabel": "登录表单",
+    "errors": {
+      "email": "请输入有效的电子邮箱地址。",
+      "password": "请输入您的密码。",
+      "default": "登录失败，请重试。"
+    }
   },
   "resetPassword": {
     "title": "忘记密码？",
@@ -280,14 +291,16 @@
     "description": "产品描述",
     "quantityLabel": "数量：",
     "addToCart": "加入购物车",
-    "unavailable": "不可用"
+    "unavailable": "不可用",
+    "addedSuccess": "商品已加入购物车！"
   },
   "cart": {
     "meta": {
       "title": "购物车 – Domaine Berthuit",
       "description": "在 Domaine Berthuit 查看并确认您的订单。",
       "canonical": "https://www.domaine-berthuit.fr/cart",
-      "robots": "index, follow"
+      "robots": "index, follow",
+      "keywords": "购物车, 下单, 葡萄酒, Domaine Berthuit, 在线商店"
     },
     "title": "您的购物车",
     "empty": "您的购物车是空的。",
