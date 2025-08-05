@@ -3,10 +3,13 @@
 
 .orders-page {
   padding: 2rem 1rem;
-  max-width: 800px;
+  max-width: 100%;        // ✅ Empêche de dépasser la largeur écran
+  width: 100%;
   margin: 0 auto;
+  box-sizing: border-box; // ✅ Évite que le padding s'ajoute à la largeur
   font-family: $font-main;
   color: $text-main;
+  flex: 1; // ✅ Pour pousser le footer vers le bas
 
   h1 {
     font-size: 1.75rem;
@@ -17,7 +20,8 @@
 
   .stats {
     display: flex;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 1rem;
     margin-bottom: 2rem;
 
@@ -27,6 +31,9 @@
       padding: 1rem;
       text-align: center;
       box-shadow: $shadow-sm;
+      min-width: 140px;
+      flex: 1 1 140px;
+      max-width: 200px;
 
       .stat-label {
         font-size: 0.9rem;
@@ -90,7 +97,6 @@
     padding: 1rem;
 
     .stats {
-      grid-template-columns: 1fr 1fr;
       gap: 0.5rem;
     }
 

@@ -5,10 +5,12 @@
 
 .admin-users-page {
   padding: 1rem;
-  max-width: 1000px;
   margin: 0 auto;
+  max-width: 100%;
+  box-sizing: border-box; // ✅ Empêche le débordement à cause du padding
   font-family: $font-main;
   color: $text-main;
+  flex: 1; // ✅ Pour pousser le footer
 
   .page-title {
     font-size: 1.5rem;
@@ -24,12 +26,13 @@
 
     input {
       width: 100%;
-      max-width: 400px;
+      max-width: 100%; // ✅ Évite de dépasser sur petits écrans
       padding: 0.6rem 1rem;
       font-size: 1rem;
       border: 1px solid $border-color;
       border-radius: $radius;
       transition: border-color 0.2s;
+      box-sizing: border-box;
 
       &:focus {
         border-color: $primary;
