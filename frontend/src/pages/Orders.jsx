@@ -74,6 +74,7 @@ export default function Orders() {
         <title>{t('orders.meta.title')}</title>
         <meta name="description" content={t('orders.meta.description')} />
         <meta name="robots" content="noindex, nofollow" />
+        <link rel="canonical" href="https://www.domaine-berthuit.fr/mes-commandes" />
       </Helmet>
 
       <header>
@@ -98,12 +99,13 @@ export default function Orders() {
         {orders.map((o) => (
           <article key={o.id} className="order-card">
             <header className="order-header">
-              {t('orders.list.orderId', { id: o.id })} – {new Date(o.created_at).toLocaleString()}
+              {t('orders.list.orderId', { id: o.id })} –{' '}
+              {new Date(o.created_at).toLocaleString()}
             </header>
             <ul className="items">
               {o.items.map((it, idx) => (
                 <li key={idx}>
-                  {it.title} × {it.quantity}
+                  {it.title} × {it.quantity} — {(it.quantity * it.unit_price).toFixed(2)}€
                 </li>
               ))}
             </ul>

@@ -34,8 +34,8 @@ exports.listUsers = (req, res) => {
   const users = db.prepare(`
     SELECT 
       id, username, email, first_name, last_name,
-      address,         -- add
-      phone,           -- add
+      address,
+      phone,
       role, created_at
     FROM users
     ORDER BY created_at DESC
@@ -57,6 +57,17 @@ exports.exportUserData = (req, res) => {
     WHERE user_id = ?
   `).all(req.user.id);
 
+  for (const order of orders) {
+    const items = db.prepare(`
+      SELECT oi.product_id, p.title, oi.quantity, oi.unit_price
+      FROM order_items oi
+      JOIN products p ON p.id = oi.product_id
+      WHERE oi.order_id = ?
+    `).all(order.id);
+
+    order.items = items;
+  }
+
   res.setHeader('Content-Disposition', 'attachment; filename="user-data.json"');
   res.json({ user, orders });
 };
@@ -73,6 +84,17 @@ exports.exportUserDataByEmail = async (req, res) => {
       SELECT id, total_price AS total, created_at
       FROM orders WHERE user_id = ?
     `).all(req.user.id);
+
+    for (const order of orders) {
+      const items = db.prepare(`
+        SELECT oi.product_id, p.title, oi.quantity, oi.unit_price
+        FROM order_items oi
+        JOIN products p ON p.id = oi.product_id
+        WHERE oi.order_id = ?
+      `).all(order.id);
+
+      order.items = items;
+    }
 
     const payload = { user, orders };
     const jsonString = JSON.stringify(payload, null, 2);
@@ -101,7 +123,6 @@ exports.exportUserDataByEmail = async (req, res) => {
 exports.moderateUpdate = (req, res) => {
   const { email, address, phone } = req.body;
 
-  // Récupération du rôle de la cible
   const targetUser = db.prepare('SELECT id, role FROM users WHERE id = ?')
     .get(req.params.id);
 
@@ -112,7 +133,6 @@ exports.moderateUpdate = (req, res) => {
   const targetRole = String(targetUser.role).toLowerCase();
   const actorRole  = String(req.user.role).toLowerCase();
 
-  // Un modérateur ne peut modifier que les membres simples
   if (actorRole === 'moderator' && targetRole !== 'member') {
     return res.status(403).json({
       error: 'Vous ne pouvez modifier que les membres simples.'
@@ -141,18 +161,15 @@ exports.moderateUpdate = (req, res) => {
   res.json({ message: 'Utilisateur modifié avec succès.' });
 };
 
-
 // Admin only — changer le rôle d’un utilisateur
 exports.updateUserRole = (req, res) => {
   const { role: newRole } = req.body;
   const userId = req.params.id;
 
-  // Empêcher l’admin de se rétrograder lui-même
   if (req.user.id.toString() === userId) {
     return res.status(400).json({ error: "Vous ne pouvez pas changer votre propre rôle." });
   }
 
-  // Rôles autorisés
   const roles = ['member','moderator','admin'];
   if (!roles.includes(newRole)) {
     return res.status(400).json({ error: 'Rôle invalide.' });

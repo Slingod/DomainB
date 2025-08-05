@@ -1,9 +1,6 @@
--- ----------------------------------------------------
--- Schéma de base de données pour Domaine Berthuit
--- ----------------------------------------------------
-
--- 1) Table des utilisateurs
-CREATE TABLE IF NOT EXISTS users (
+PRAGMA foreign_keys=OFF;
+BEGIN TRANSACTION;
+CREATE TABLE users (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   username       TEXT    NOT NULL UNIQUE,
   email          TEXT    NOT NULL UNIQUE,
@@ -17,9 +14,7 @@ CREATE TABLE IF NOT EXISTS users (
   created_at     DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated_at     DATETIME DEFAULT CURRENT_TIMESTAMP
 );
-
--- 2) Table des produits
-CREATE TABLE IF NOT EXISTS products (
+CREATE TABLE products (
   id          INTEGER PRIMARY KEY AUTOINCREMENT,
   title       TEXT    NOT NULL,
   description TEXT,
@@ -29,18 +24,14 @@ CREATE TABLE IF NOT EXISTS products (
   created_at  DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated_at  DATETIME
 );
-
--- 3) Table des commandes (avec total_price)
-CREATE TABLE IF NOT EXISTS orders (
+CREATE TABLE orders (
   id          INTEGER PRIMARY KEY AUTOINCREMENT,
   user_id     INTEGER,
   total_price REAL    NOT NULL,
   created_at  DATETIME DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE SET NULL
 );
-
--- 4) Table des lignes de commande
-CREATE TABLE IF NOT EXISTS order_items (
+CREATE TABLE order_items (
   id         INTEGER PRIMARY KEY AUTOINCREMENT,
   order_id   INTEGER NOT NULL,
   product_id INTEGER,
@@ -49,21 +40,19 @@ CREATE TABLE IF NOT EXISTS order_items (
   FOREIGN KEY(order_id)   REFERENCES orders(id) ON DELETE CASCADE,
   FOREIGN KEY(product_id) REFERENCES products(id) ON DELETE SET NULL
 );
-
--- 5) Table des tokens de vérification d'email
-CREATE TABLE IF NOT EXISTS email_verifications (
+CREATE TABLE email_verifications (
   id         INTEGER PRIMARY KEY AUTOINCREMENT,
   user_id    INTEGER NOT NULL,
   token      TEXT    NOT NULL UNIQUE,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
 );
-
--- 6) Table des tokens de réinitialisation de mot de passe
-CREATE TABLE IF NOT EXISTS password_resets (
+CREATE TABLE password_resets (
   id         INTEGER PRIMARY KEY AUTOINCREMENT,
   user_id    INTEGER NOT NULL,
   token      TEXT    NOT NULL UNIQUE,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
 );
+DELETE FROM sqlite_sequence;
+COMMIT;
