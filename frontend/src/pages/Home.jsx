@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
@@ -9,14 +9,27 @@ export default function Home() {
   const { token } = useSelector(state => state.auth);
   const { t } = useTranslation();
 
+  const images = [
+    '/home_page.webp',
+    '/home_page2.webp',
+    '/home_page3.webp'
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex(prevIndex => (prevIndex + 1) % images.length);
+    }, 15000); // 15 secondes
+
+    return () => clearInterval(interval);
+  }, [images.length]);
+
   return (
-    <main className="home-page">
+    <main className="home-page" role="main">
       <Helmet>
         <title>{`${t('home.welcome')} – Domaine Berthuit`}</title>
-        <meta
-          name="description"
-          content={t('home.subtitle')}
-        />
+        <meta name="description" content={t('home.subtitle')} />
         <meta
           name="keywords"
           content="vin, domaine, boutique en ligne, ecommerce, panier, commande, rgpd, sécurisé"
@@ -25,6 +38,20 @@ export default function Home() {
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://www.domaine-berthuit.fr/" />
       </Helmet>
+
+      {/* Carousel background */}
+      <div className="background-image" role="presentation" aria-hidden="true">
+        {images.map((src, index) => (
+          <img
+            key={index}
+            src={src}
+            alt={`Fond ${index + 1} – Domaine Berthuit`}
+            className={index === currentIndex ? 'active' : ''}
+            loading="lazy"
+          />
+        ))}
+        <div className="overlay" aria-hidden="true" />
+      </div>
 
       <header className="home-hero">
         <h1>{t('home.welcome')}</h1>

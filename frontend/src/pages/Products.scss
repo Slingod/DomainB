@@ -7,11 +7,41 @@ $max-2xl: $breakpoint-2xl - 1px;
 $max-4k: $breakpoint-4k - 1px;
 
 .products-page {
+  position: relative;
+  z-index: 1;
   padding: 2rem 1rem;
   max-width: 1600px;
   margin: 0 auto;
   font-family: $font-main;
   background-color: $gray-light;
+  overflow: hidden;
+
+  .background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -2;
+    width: 100%;
+    height: 100%;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.15); // Légère opacité blanche
+      z-index: 1;
+    }
+  }
 }
 
 .search-bar {

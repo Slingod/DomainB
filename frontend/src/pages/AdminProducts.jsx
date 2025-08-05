@@ -3,13 +3,20 @@ import { Helmet } from 'react-helmet-async';
 import api from '../api/api';
 import './AdminProducts.scss';
 
+const localImages = [
+  { url: '/hiver.webp', alt: 'ciel_Hiver' },
+  { url: '/gout.webp', alt: 'le_gout_des_autres' },
+  { url: '/dany.webp', alt: 'dany_jo' },
+  { url: '/coteau.webp', alt: 'petit_coteau' },
+  { url: '/lum.webp', alt: 'lum_del_pais' }
+];
+
 export default function AdminProducts() {
-  const [products, setProducts]     = useState([]);
-  const [filtered, setFiltered]     = useState([]);
-  const [editing, setEditing]       = useState(null);
+  const [products, setProducts] = useState([]);
+  const [filtered, setFiltered] = useState([]);
+  const [editing, setEditing] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Chargement initial
   useEffect(() => {
     api.get('/products').then(res => {
       setProducts(res.data);
@@ -17,23 +24,20 @@ export default function AdminProducts() {
     });
   }, []);
 
-  // Filtrage en temps réel
   useEffect(() => {
     const term = searchTerm.trim().toLowerCase();
-    setFiltered(
-      products.filter(p =>
-        p.title.toLowerCase().includes(term)
-      )
-    );
+    setFiltered(products.filter(p => p.title.toLowerCase().includes(term)));
   }, [searchTerm, products]);
 
   const saveProduct = async p => {
+    const selected = localImages.find(img => img.url === p.image_url);
     const payload = {
       title: p.title,
       description: p.description,
       price: p.price,
       image_url: p.image_url,
-      stock: p.stock,
+      image_alt: selected ? selected.alt : '',
+      stock: p.stock
     };
 
     if (p.id) {
@@ -47,10 +51,22 @@ export default function AdminProducts() {
     setEditing(null);
   };
 
-  const deleteProduct = async id => {
-    if (window.confirm('Supprimer ce produit ?')) {
+  const deleteProduct = async (id) => {
+    if (!window.confirm('Supprimer ce produit ?')) return;
+
+    try {
       await api.delete(`/products/${id}`);
       setProducts(products.filter(p => p.id !== id));
+    } catch (error) {
+      if (error.response?.status === 400) {
+        alert(
+          error.response.data?.error ||
+          "Impossible de supprimer ce produit car il est lié à des commandes existantes."
+        );
+      } else {
+        alert("Une erreur inattendue est survenue lors de la suppression.");
+        console.error(error);
+      }
     }
   };
 
@@ -68,10 +84,15 @@ export default function AdminProducts() {
           <h1>Gestion des produits</h1>
           <button
             className="btn primary new-btn"
-            onClick={() => setEditing({
-              title: '', description: '', price: 0,
-              image_url: '', stock: 0
-            })}
+            onClick={() =>
+              setEditing({
+                title: '',
+                description: '',
+                price: 0,
+                image_url: '',
+                stock: 0
+              })
+            }
           >
             + Nouveau produit
           </button>
@@ -100,7 +121,7 @@ export default function AdminProducts() {
                   <div className="product-thumb-wrapper">
                     <img
                       src={p.image_url}
-                      alt={`Produit : ${p.title}`}
+                      alt={p.image_alt || `Produit : ${p.title}`}
                       className="product-thumb"
                       itemProp="image"
                     />
@@ -112,9 +133,7 @@ export default function AdminProducts() {
                     <span itemProp="price">{p.price.toFixed(2)}</span> €
                     <meta itemProp="priceCurrency" content="EUR" />
                   </span>
-                  <span
-                    className={`stock-badge ${p.stock > 0 ? 'in-stock' : 'out-of-stock'}`}
-                  >
+                  <span className={`stock-badge ${p.stock > 0 ? 'in-stock' : 'out-of-stock'}`}>
                     {p.stock > 0 ? `En stock : ${p.stock}` : 'Rupture de stock'}
                   </span>
                 </div>
@@ -138,7 +157,6 @@ export default function AdminProducts() {
               </div>
             </li>
           ))}
-
           {filtered.length === 0 && (
             <li className="no-results">Aucun produit ne correspond.</li>
           )}
@@ -148,7 +166,10 @@ export default function AdminProducts() {
       {editing && (
         <div className="modal-overlay" role="dialog" aria-modal="true">
           <form
-            onSubmit={e => { e.preventDefault(); saveProduct(editing); }}
+            onSubmit={e => {
+              e.preventDefault();
+              saveProduct(editing);
+            }}
             className="modal"
           >
             <h2>{editing.id ? 'Modifier' : 'Nouveau'} produit</h2>
@@ -178,21 +199,31 @@ export default function AdminProducts() {
                 type="number"
                 step="0.01"
                 value={editing.price}
-                onChange={e =>
-                  setEditing({ ...editing, price: parseFloat(e.target.value) })
-                }
+                onChange={e => setEditing({ ...editing, price: parseFloat(e.target.value) })}
                 required
               />
             </label>
 
             <label>
-              URL de l'image
-              <input
-                type="url"
-                value={editing.image_url || ''}
-                onChange={e => setEditing({ ...editing, image_url: e.target.value })}
-                placeholder="https://..."
-              />
+              Image du produit
+              <select
+                value={editing.image_url}
+                onChange={e => {
+                  const selected = localImages.find(img => img.url === e.target.value);
+                  setEditing({
+                    ...editing,
+                    image_url: selected?.url || '',
+                    image_alt: selected?.alt || ''
+                  });
+                }}
+              >
+                <option value="">-- Choisir une image --</option>
+                {localImages.map(img => (
+                  <option key={img.url} value={img.url}>
+                    {img.alt}
+                  </option>
+                ))}
+              </select>
             </label>
 
             <label>
@@ -201,9 +232,7 @@ export default function AdminProducts() {
                 type="number"
                 min="0"
                 value={editing.stock}
-                onChange={e =>
-                  setEditing({ ...editing, stock: parseInt(e.target.value, 10) || 0 })
-                }
+                onChange={e => setEditing({ ...editing, stock: parseInt(e.target.value, 10) || 0 })}
                 required
               />
             </label>

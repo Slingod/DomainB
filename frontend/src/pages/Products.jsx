@@ -38,6 +38,16 @@ export default function Products() {
         <link rel="canonical" href={t('products.meta.canonical')} />
       </Helmet>
 
+      {/* ✅ Fond visuel avec overlay */}
+      <div className="background-image" role="presentation" aria-hidden="true">
+        <img
+          src="/shop.webp"
+          alt="Présentation artistique de nos produits Domaine Berthuit"
+          loading="lazy"
+        />
+        <div className="overlay" aria-hidden="true" />
+      </div>
+
       <section className="search-bar" aria-label={t('products.search.ariaLabel')}>
         <label htmlFor="search-input" className="sr-only">
           {t('products.search.label')}

@@ -66,6 +66,26 @@ exports.updateProduct = (req, res) => {
 
 // 5) Supprimer un produit (admin)
 exports.deleteProduct = (req, res) => {
-  db.prepare('DELETE FROM products WHERE id = ?').run(req.params.id);
-  res.json({ message: 'Produit supprimé.' });
+  try {
+    const stmt = db.prepare('DELETE FROM products WHERE id = ?');
+    const result = stmt.run(req.params.id);
+
+    if (result.changes === 0) {
+      return res.status(404).json({ error: 'Produit introuvable.' });
+    }
+
+    res.json({ message: 'Produit supprimé.' });
+  } catch (err) {
+    if (
+      err.code === 'SQLITE_CONSTRAINT' || 
+      err.code === 'SQLITE_CONSTRAINT_FOREIGNKEY'
+    ) {
+      return res.status(400).json({
+        error: "Impossible de supprimer ce produit car il est lié à des commandes existantes."
+      });
+    }
+
+    console.error('Erreur lors de la suppression du produit :', err);
+    res.status(500).json({ error: 'Erreur interne du serveur.' });
+  }
 };

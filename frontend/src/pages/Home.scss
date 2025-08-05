@@ -3,33 +3,77 @@
 @use "../styles/buttons" as *;
 
 .home-page {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 3rem 1rem;
   background: $gray-light;
+  overflow: hidden;
+  z-index: 1;
+
+  .background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+
+    img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    img.active {
+      opacity: 1;
+      z-index: -1;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.1); // éclaircissement
+      z-index: 1;
+    }
+  }
 
   .home-hero {
     text-align: center;
     max-width: 600px;
+    z-index: 2;
 
     h1 {
       font-size: 2.5rem;
       margin-bottom: 0.5rem;
       color: $heading-color;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
     }
 
     p {
       font-size: 1.125rem;
       margin-bottom: 1.5rem;
-      color: $text-muted;
+      color: #f5f5f5; // texte clair
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
     }
 
     .btn-primary {
       @extend .btn;
-      // Ajoute .primary dans le JSX, pas ici
       padding: 0.75rem 1.5rem;
       font-size: 1rem;
+    }
+
+    a {
+      color: #e0e0ff;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
     }
   }
 
@@ -40,6 +84,7 @@
     margin-top: 4rem;
     width: 100%;
     max-width: 1000px;
+    z-index: 2;
 
     .feature {
       background: #fff;
@@ -62,7 +107,6 @@
 
       .btn-secondary {
         @extend .btn;
-        // Ajoute .secondary dans le JSX
         padding: 0.5rem 1rem;
         font-size: 0.9rem;
       }

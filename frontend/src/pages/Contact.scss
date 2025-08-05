@@ -1,8 +1,25 @@
 .contact-page {
+  position: relative;
+  min-height: 100vh;
   padding: 2rem;
-  max-width: 960px;
-  margin: 0 auto;
-  text-align: center;
+  background-image: url('/contact_background.webp');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  .contact-overlay {
+    background-color: rgba(255, 255, 255, 0.92); // léger voile blanc transparent
+    padding: 2rem;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 960px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    text-align: center;
+  }
 
   h1 {
     font-size: 2.2rem;
@@ -42,7 +59,8 @@
         gap: 0.5rem;
       }
 
-      p, address {
+      p,
+      address {
         font-size: 0.95rem;
         line-height: 1.6;
         margin: 0.5rem 0;
@@ -62,6 +80,16 @@
           text-decoration: underline;
         }
       }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .contact-overlay {
+      padding: 1.5rem 1rem;
+    }
+
+    .contact-cards {
+      grid-template-columns: 1fr;
     }
   }
 }
