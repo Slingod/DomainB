@@ -5,14 +5,14 @@
   font-size: 0.9rem;
   width: 100%;
   box-sizing: border-box;
-
-  // 🧩 Important pour layout flex : évite que le footer soit écrasé ou chevauché
   flex-shrink: 0;
+  position: relative;
 
   .footer-lang-selector-topright {
     position: absolute;
     top: 1rem;
     right: 1rem;
+    z-index: 1001;
 
     .selected {
       background: #555;
@@ -23,6 +23,7 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
 
       img {
         width: 24px;
@@ -34,12 +35,15 @@
 
     .options {
       margin-top: 0.4rem;
-      background: #555;
+      background: #444;
       border-radius: 4px;
       padding: 0.4rem 0;
       position: absolute;
+      top: 110%;
       right: 0;
       list-style: none;
+      z-index: 9999; // très haut pour passer au-dessus de tout
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 
       li {
         padding: 0.4rem 0.8rem;
@@ -47,6 +51,11 @@
         display: flex;
         align-items: center;
         gap: 0.5rem;
+        transition: background 0.2s;
+
+        &:hover {
+          background: #666;
+        }
 
         img {
           width: 24px;
@@ -122,13 +131,19 @@
     color: #ddd;
   }
 
-  // 📱 Petit bonus responsive pour écrans très petits
   @media (max-width: 480px) {
     padding: 2rem 1rem 2rem;
 
     .footer-lang-selector-topright {
-      position: static;
-      margin-bottom: 1rem;
+      top: 1rem;
+      right: 1rem;
+      position: absolute;
+      z-index: 1001;
+
+      .options {
+        top: 110%;
+        right: 0;
+      }
     }
 
     .footer-content {
