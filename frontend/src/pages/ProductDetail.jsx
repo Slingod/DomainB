@@ -13,7 +13,7 @@ export default function ProductDetail() {
   const [qty, setQty] = useState(1);
   const [addedMessage, setAddedMessage] = useState('');
   const dispatch = useDispatch();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     api.get(`/products/${id}`).then(res => setProduct(res.data));
@@ -93,16 +93,14 @@ export default function ProductDetail() {
             : t('productDetail.outOfStock')}
         </p>
 
-        {product.description && (
-          <section className="description" itemProp="description">
-            {product.description
-              .split(/(?=Terroirs|Assemblage|Méthode|Vinification|Embotteillage|Degré|Origine)/)
-              .map((line, i) => (
-                <p key={i} className={line.includes(':') ? 'line-block' : 'line-intro'}>
-                  {line.trim()}
-                </p>
-              ))}
-          </section>
+        {product.description && typeof product.description === 'object' && (
+          <section
+            className="description"
+            itemProp="description"
+            dangerouslySetInnerHTML={{
+              __html: product.description[i18n.language] || product.description.fr || ''
+            }}
+          />
         )}
 
         <form className="actions" onSubmit={(e) => e.preventDefault()} aria-label="Ajout au panier">

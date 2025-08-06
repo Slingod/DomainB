@@ -2,66 +2,102 @@ const db = require('../db');
 
 // 1) Lister tous les produits
 exports.listProducts = (req, res) => {
-  const products = db.prepare('SELECT * FROM products').all();
-  res.json(products);
+  try {
+    const products = db.prepare('SELECT * FROM products').all();
+
+    products.forEach(p => {
+      try {
+        p.description = JSON.parse(p.description || '{}');
+      } catch {
+        p.description = {};
+      }
+    });
+
+    res.json(products);
+  } catch (error) {
+    console.error('Erreur lors de la récupération des produits :', error);
+    res.status(500).json({ error: 'Erreur serveur lors de la récupération des produits.' });
+  }
 };
 
 // 2) Récupérer un produit par son ID
 exports.getProduct = (req, res) => {
-  const p = db
-    .prepare('SELECT * FROM products WHERE id = ?')
-    .get(req.params.id);
-  if (!p) {
-    return res.status(404).json({ error: 'Produit introuvable.' });
+  try {
+    const p = db.prepare('SELECT * FROM products WHERE id = ?').get(req.params.id);
+
+    if (!p) {
+      return res.status(404).json({ error: 'Produit introuvable.' });
+    }
+
+    try {
+      p.description = JSON.parse(p.description || '{}');
+    } catch {
+      p.description = {};
+    }
+
+    res.json(p);
+  } catch (error) {
+    console.error('Erreur lors de la récupération du produit :', error);
+    res.status(500).json({ error: 'Erreur serveur lors de la récupération du produit.' });
   }
-  res.json(p);
 };
 
 // 3) Créer un nouveau produit (admin)
 exports.createProduct = (req, res) => {
   const { title, description, price, image_url, stock } = req.body;
 
-  const info = db
-    .prepare(`
-      INSERT INTO products
-        (title, description, price, image_url, stock)
+  try {
+    const descJson = JSON.stringify(description || {});
+
+    const info = db.prepare(`
+      INSERT INTO products (title, description, price, image_url, stock)
       VALUES (?, ?, ?, ?, ?)
-    `)
-    .run(
+    `).run(
       title,
-      description,
+      descJson,
       price,
       image_url || null,
       Number(stock) || 0
     );
 
-  res.status(201).json({ id: info.lastInsertRowid });
+    res.status(201).json({ id: info.lastInsertRowid });
+  } catch (error) {
+    console.error('Erreur lors de la création du produit :', error);
+    res.status(500).json({ error: 'Erreur serveur lors de la création du produit.' });
+  }
 };
 
 // 4) Mettre à jour un produit existant (admin)
 exports.updateProduct = (req, res) => {
   const { title, description, price, image_url, stock } = req.body;
 
-  db.prepare(`
-    UPDATE products
-    SET
-      title = ?,
-      description = ?,
-      price = ?,
-      image_url = ?,
-      stock = ?,
-      updated_at = CURRENT_TIMESTAMP
-    WHERE id = ?
-  `).run(
-    title,
-    description,
-    price,
-    image_url || null,
-    Number(stock) || 0,
-    req.params.id
-  );
+  try {
+    const descJson = JSON.stringify(description || {});
 
-  res.json({ message: 'Produit modifié.' });
+    db.prepare(`
+      UPDATE products
+      SET
+        title = ?,
+        description = ?,
+        price = ?,
+        image_url = ?,
+        stock = ?,
+        updated_at = CURRENT_TIMESTAMP
+      WHERE id = ?
+    `).run(
+      title,
+      descJson,
+      price,
+      image_url || null,
+      Number(stock) || 0,
+      req.params.id
+    );
+
+    res.json({ message: 'Produit modifié.' });
+  } catch (error) {
+    console.error('Erreur lors de la mise à jour du produit :', error);
+    res.status(500).json({ error: 'Erreur serveur lors de la mise à jour du produit.' });
+  }
 };
 
 // 5) Supprimer un produit (admin)

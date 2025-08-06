@@ -33,7 +33,7 @@ export default function AdminProducts() {
     const selected = localImages.find(img => img.url === p.image_url);
     const payload = {
       title: p.title,
-      description: p.description,
+      description: p.description, // i18n format
       price: p.price,
       image_url: p.image_url,
       image_alt: selected ? selected.alt : '',
@@ -87,7 +87,13 @@ export default function AdminProducts() {
             onClick={() =>
               setEditing({
                 title: '',
-                description: '',
+                description: {
+                  fr: '',
+                  en: '',
+                  es: '',
+                  ru: '',
+                  zh: '',
+                },
                 price: 0,
                 image_url: '',
                 stock: 0
@@ -184,14 +190,27 @@ export default function AdminProducts() {
               />
             </label>
 
-            <label>
-              Description
-              <textarea
-                value={editing.description}
-                onChange={e => setEditing({ ...editing, description: e.target.value })}
-                rows="3"
-              />
-            </label>
+            <fieldset>
+              <legend>Description (par langue)</legend>
+              {['fr', 'en', 'es', 'ru', 'zh'].map(lang => (
+                <label key={lang}>
+                  {lang.toUpperCase()}
+                  <textarea
+                    value={editing.description?.[lang] || ''}
+                    onChange={e =>
+                      setEditing({
+                        ...editing,
+                        description: {
+                          ...editing.description,
+                          [lang]: e.target.value
+                        }
+                      })
+                    }
+                    rows="3"
+                  />
+                </label>
+              ))}
+            </fieldset>
 
             <label>
               Prix (€)
