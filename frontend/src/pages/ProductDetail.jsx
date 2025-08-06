@@ -94,9 +94,15 @@ export default function ProductDetail() {
         </p>
 
         {product.description && (
-          <p className="description" itemProp="description">
-            {product.description}
-          </p>
+          <section className="description" itemProp="description">
+            {product.description
+              .split(/(?=Terroirs|Assemblage|Méthode|Vinification|Embotteillage|Degré|Origine)/)
+              .map((line, i) => (
+                <p key={i} className={line.includes(':') ? 'line-block' : 'line-intro'}>
+                  {line.trim()}
+                </p>
+              ))}
+          </section>
         )}
 
         <form className="actions" onSubmit={(e) => e.preventDefault()} aria-label="Ajout au panier">

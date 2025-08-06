@@ -36,7 +36,8 @@
     "adminProducts": "Admin Produits",
     "adminUsers": "Admin Utilisateurs",
     "greeting": "Bonjour",
-    "logout": "Déconnexion"
+    "logout": "Déconnexion",
+    "contact": "Contact"
   },
   "auth": {
     "signup": "Inscription",
@@ -51,7 +52,7 @@
     "alcoholWarning": "L'abus d’alcool est dangereux pour la santé, à consommer avec modération."
   },
   "cookies": {
-    "title": "Accès réservé aux adultes",
+    "title": "Accès réservé aux personnes majeures",
     "message": "Ce site est réservé aux personnes majeures (18+). En poursuivant, vous acceptez nos",
     "termsLink": "CGU",
     "salesLink": "CGV",

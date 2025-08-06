@@ -36,7 +36,8 @@
     "adminProducts": "Admin Productos",
     "adminUsers": "Admin Usuarios",
     "greeting": "Hola",
-    "logout": "Cerrar sesión"
+    "logout": "Cerrar sesión",
+    "contact": "Contacto"
   },
   "auth": {
     "signup": "Registro",
@@ -52,7 +53,7 @@
   },
   "cookies": {
     "title": "Acceso reservado a adultos",
-    "message": "Este sitio está reservado para mayores de 18 años. Al continuar, aceptas nuestras",
+    "message": "Este sitio está reservado para personas adultas (18+). Al continuar, usted acepta nuestra",
     "termsLink": "Condiciones de uso",
     "salesLink": "Condiciones generales de venta",
     "privacyLink": "política de privacidad",

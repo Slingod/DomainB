@@ -49,6 +49,15 @@ export default function Navbar() {
         {t('navbar.products')}
       </Link>
 
+      <Link to="/contact" className="nav-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none"
+             viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"
+             style={{ marginRight: '6px', verticalAlign: 'middle' }}>
+          <path d="M21 8V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v1m18 0v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8m18 0L12 13 3 8" />
+        </svg>
+        {t('navbar.contact')}
+      </Link>
+
       {token && (
         <>
           <Link to="/cart" className="nav-link">
@@ -64,14 +73,12 @@ export default function Navbar() {
 
           <Link to="/orders" className="nav-link">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none"
-                viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"
-                style={{ marginRight: '6px', verticalAlign: 'middle' }}>
+                 viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"
+                 style={{ marginRight: '6px', verticalAlign: 'middle' }}>
               <path d="M9 12h6M9 16h6" />
               <path d="M20 7V4a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v3m16 0v13l-4-2-4 2-4-2-4 2V7" />
             </svg>
-            <span className="nav-link-text">
-              {t('navbar.orders')}
-            </span>
+            <span className="nav-link-text">{t('navbar.orders')}</span>
           </Link>
         </>
       )}

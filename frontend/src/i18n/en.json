@@ -36,7 +36,8 @@
     "adminProducts": "Admin Products",
     "adminUsers": "Admin Users",
     "greeting": "Hello",
-    "logout": "Logout"
+    "logout": "Logout",
+    "contact": "Contact"
   },
   "auth": {
     "signup": "Sign up",
@@ -51,8 +52,8 @@
     "alcoholWarning": "Excessive drinking is harmful to your health. Consume responsibly."
   },
   "cookies": {
-    "title": "Adults Only Access",
-    "message": "This website is reserved for adults (18+). By continuing, you accept our",
+    "title": "Restricted to adults",
+    "message": "This site is restricted to adults (18+). By continuing, you accept our",
     "termsLink": "Terms of Use",
     "salesLink": "Terms of Sale",
     "privacyLink": "privacy policy",

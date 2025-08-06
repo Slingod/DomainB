@@ -10,8 +10,8 @@ $max-4k: $breakpoint-4k - 1px;
   position: relative;
   z-index: 1;
   padding: 2rem 1rem;
-  max-width: 1600px;
-  margin: 0 auto;
+  min-height: 100vh;
+  width: 100%; // ✅ force la pleine largeur pour le fond
   font-family: $font-main;
   background-color: $gray-light;
   overflow: hidden;
@@ -38,9 +38,15 @@ $max-4k: $breakpoint-4k - 1px;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(255, 255, 255, 0.15); // Légère opacité blanche
+      background: rgba(255, 255, 255, 0.15);
       z-index: 1;
     }
+  }
+
+  // ✅ conteneur de contenu centré (produits + barre de recherche)
+  .products-container {
+    max-width: 1600px;
+    margin: 0 auto;
   }
 }
 

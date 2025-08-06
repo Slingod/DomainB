@@ -36,7 +36,8 @@
     "adminProducts": "管理产品",
     "adminUsers": "管理用户",
     "greeting": "您好",
-    "logout": "登出"
+    "logout": "登出",
+    "contact": "联系我们"
   },
   "auth": {
     "signup": "注册",
@@ -52,7 +53,7 @@
   },
   "cookies": {
     "title": "仅限成年人访问",
-    "message": "本网站仅供18岁以上用户使用。继续访问即表示您同意我们的",
+    "message": "本网站仅限年满 18 岁的成年人访问。继续浏览即表示您同意我们的",
     "termsLink": "使用条款",
     "salesLink": "销售条款",
     "privacyLink": "隐私政策",

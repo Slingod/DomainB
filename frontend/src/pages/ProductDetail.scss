@@ -2,84 +2,109 @@
 @use "../styles/mixins" as *;
 
 .product-detail {
-  max-width: 500px;
-  margin: 1rem auto;
+  max-width: 1000px;
+  margin: 2rem auto;
   background: $gray-light;
-  border-radius: $radius;
+  border-radius: $radius-lg;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   font-family: $font-main;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
   overflow: hidden;
+  gap: 2rem;
+  padding: 2rem;
 
   .image-wrapper {
-    width: 100%;
+    flex: 1;
     display: flex;
-    justify-content: center;
     align-items: center;
-    padding: 1.5rem;
+    justify-content: center;
 
     img.product-detail-image {
-      max-width: 100%;
-      max-height: 300px;
+      width: 100%;
+      max-width: 400px;
+      height: auto;
+      max-height: 500px;
       object-fit: contain;
       border-radius: $radius;
     }
   }
 
   .details {
-    width: 100%;
-    padding: 1.5rem;
-    text-align: center;
-    box-sizing: border-box;
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-right: 1rem;
 
     h1 {
-      font-size: 1.5rem;
+      font-size: 2rem;
       font-weight: 600;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.75rem;
       color: $heading-color;
     }
 
     .price {
-      font-size: 1.25rem;
+      font-size: 1.5rem;
       color: $success-text;
       font-weight: 600;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.25rem;
     }
 
     .stock {
-      font-size: 0.95rem;
+      font-size: 1rem;
       color: $text-muted;
-      margin-bottom: 0.75rem;
+      margin-bottom: 1.25rem;
     }
 
     .description {
-      font-size: 0.95rem;
-      color: $text-light;
-      line-height: 1.5;
+      background: #fff;
+      padding: 1rem;
+      border-radius: $radius;
+      border: 1px solid $gray;
+      color: $text-main;
+      font-size: 1rem;
+      line-height: 1.6;
       margin-bottom: 1.5rem;
+      max-height: 400px;
+      overflow-y: auto;
+
+      .line-intro {
+        font-style: italic;
+        font-weight: 500;
+        margin-bottom: 1rem;
+        color: $text-light;
+      }
+
+      .line-block {
+        margin-bottom: 0.5rem;
+
+        &::before {
+          content: "• ";
+          color: $primary;
+          font-weight: bold;
+        }
+      }
     }
 
     .actions {
       display: flex;
-      justify-content: center;
       align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 1.25rem;
+      gap: 1rem;
+      margin-bottom: 1rem;
 
       label {
         font-weight: 500;
         color: $text-main;
       }
 
-      input[type='number'] {
+      input[type="number"] {
         width: 60px;
         padding: 0.4rem;
-        border: 1px solid $border-color;
-        border-radius: $radius;
         font-size: 1rem;
         text-align: center;
+        border: 1px solid $border-color;
+        border-radius: $radius;
 
         &:focus {
           outline: none;
@@ -91,7 +116,7 @@
 
     .btn-add {
       background-color: $primary;
-      color: #fff; // au lieu de $text-inverse
+      color: #fff;
       padding: 0.6rem 1.25rem;
       border: none;
       border-radius: $radius;
@@ -117,13 +142,15 @@
       border-radius: $radius;
       font-weight: 500;
       font-size: 0.95rem;
-  text-align: center;
-  animation: fadeIn 0.3s ease-in-out;
+      text-align: center;
+      animation: fadeIn 0.3s ease-in-out;
 
-  &.success {
-    background-color: $success-bg;
-    color: $success-text;
-    border: 1px solid $success-border;
+      &.success {
+        background-color: $success-bg;
+        color: $success-text;
+        border: 1px solid $success-border;
+      }
+    }
   }
 }
 
@@ -138,34 +165,33 @@
   }
 }
 
-  }
-}
-
-@media (max-width: 600px) {
+@media (max-width: 800px) {
   .product-detail {
-    margin: 2rem auto;
+    flex-direction: column;
+    padding: 1rem;
 
-    .details {
-      padding: 1rem;
+    .image-wrapper {
+      margin-bottom: 1.5rem;
 
-      h1 {
-        font-size: 1.25rem;
-      }
-
-      .price {
-        font-size: 1.1rem;
-      }
-
-      .description {
-        font-size: 0.9rem;
+      img.product-detail-image {
+        max-height: 300px;
       }
     }
 
-    .image-wrapper {
-      padding: 1rem;
+    .details {
+      padding: 0;
 
-      img.product-detail-image {
-        max-height: 220px;
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .price {
+        font-size: 1.25rem;
+      }
+
+      .description {
+        font-size: 0.95rem;
+        max-height: 300px;
       }
     }
   }
