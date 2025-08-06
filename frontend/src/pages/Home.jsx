@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import './Home.scss';
 
@@ -20,8 +20,7 @@ export default function Home() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex(prevIndex => (prevIndex + 1) % images.length);
-    }, 15000); // 15 secondes
-
+    }, 15000);
     return () => clearInterval(interval);
   }, [images.length]);
 
@@ -30,16 +29,12 @@ export default function Home() {
       <Helmet>
         <title>{`${t('home.welcome')} – Domaine Berthuit`}</title>
         <meta name="description" content={t('home.subtitle')} />
-        <meta
-          name="keywords"
-          content="vin, domaine, boutique en ligne, ecommerce, panier, commande, rgpd, sécurisé"
-        />
+        <meta name="keywords" content="vin, domaine, boutique en ligne, ecommerce, panier, commande, rgpd, sécurisé" />
         <meta name="author" content="Domaine Berthuit" />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://www.domaine-berthuit.fr/" />
       </Helmet>
 
-      {/* Carousel background */}
       <div className="background-image" role="presentation" aria-hidden="true">
         {images.map((src, index) => (
           <img
@@ -63,7 +58,7 @@ export default function Home() {
         )}
       </header>
 
-      <section className="home-features" aria-label={t('home.featuresLabel')}>
+      <section className="home-features darken-bg" aria-label={t('home.featuresLabel')}>
         <article className="feature">
           <h2>🛒 {t('home.browseShop')}</h2>
           <p>{t('home.qualityProducts')}</p>
@@ -76,6 +71,24 @@ export default function Home() {
           <h2>🔒 {t('home.security')}</h2>
           <p>{t('home.dataProtection')}</p>
         </article>
+      </section>
+
+      <section className="home-poem">
+        <h2>{t('home.poemTitle')}</h2>
+        <blockquote>
+          {t('home.poem.line1')}<br />
+          {t('home.poem.line2')}<br /><br />
+          {t('home.poem.line3')}<br />
+          {t('home.poem.line4')}<br /><br />
+          {t('home.poem.line5')}<br />
+          {t('home.poem.line6')}<br />
+          {t('home.poem.line7')}<br /><br />
+          {t('home.poem.line8')}<br />
+          {t('home.poem.line9')}<br />
+          {t('home.poem.line10')}<br />
+          {t('home.poem.line11')}<br />
+          {t('home.poem.line12')}<br />
+        </blockquote>
       </section>
     </main>
   );

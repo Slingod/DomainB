@@ -61,11 +61,14 @@
       gap: 1rem;
       padding: 0.75rem 0;
       border-bottom: 1px solid $gray;
+      flex-wrap: wrap;
 
       .info {
         display: flex;
         align-items: center;
         gap: 1rem;
+        flex: 1;
+        flex-wrap: wrap;
 
         .product-thumb-wrapper {
           width: 80px;
@@ -119,6 +122,7 @@
         display: flex;
         gap: 0.5rem;
         flex-shrink: 0;
+        flex-wrap: wrap;
 
         .btn {
           @extend .btn;
@@ -150,14 +154,16 @@
     justify-content: center;
     align-items: center;
     padding: 1rem;
+    overflow-y: auto;
 
     .modal {
       background: #fff;
       padding: 1.5rem;
       border-radius: $radius;
       width: 100%;
-      max-width: 480px;
+      max-height: 90vh;
       box-shadow: $shadow-lg;
+      overflow-y: auto;
 
       h2 {
         margin-top: 0;
@@ -173,7 +179,8 @@
         margin-bottom: 0.75rem;
 
         input,
-        textarea {
+        textarea,
+        select {
           margin-top: 0.25rem;
           padding: 0.5rem;
           border: 1px solid $border-color;
@@ -186,6 +193,19 @@
             outline: none;
           }
         }
+      }
+
+      .quill-block {
+        margin-bottom: 1rem;
+
+        .ql-container {
+          min-height: 120px;
+        }
+      }
+      
+      .quill-block .ql-container {
+        max-height: 300px;
+        overflow-y: auto;
       }
 
       .modal-actions {
@@ -215,13 +235,20 @@
   }
 
   @include respond(sm) {
-    .product-item {
-      flex-direction: column;
-      align-items: flex-start;
+    .product-list {
+      .product-item {
+        flex-direction: column;
+        align-items: flex-start;
 
-      .actions {
-        width: 100%;
-        justify-content: flex-end;
+        .info {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .actions {
+          width: 100%;
+          justify-content: flex-end;
+        }
       }
     }
   }

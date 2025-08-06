@@ -75,7 +75,22 @@
     "qualityProducts": "Quality products selected for you.",
     "viewShop": "View the shop",
     "security": "Security & GDPR",
-    "dataProtection": "Your data is protected and exportable at any time."
+    "dataProtection": "Your data is protected and exportable at any time.",
+    "poemTitle": "The Domaine's Poem",
+    "poem": {
+      "line1": "It’s a harsh but grand land,",
+      "line2": "Where a sea of vines stretches between two mountains.",
+      "line3": "A land of light and people,",
+      "line4": "With elders who speak, seated on their bench.",
+      "line5": "Behind every vine lies a memory,",
+      "line6": "The sum of doubts and a thousand hopes,",
+      "line7": "The memory of labor, joy, and laughter.",
+      "line8": "Me, a kid from elsewhere come here,",
+      "line9": "I listen to the frozen words whispered by the cers wind,",
+      "line10": "My eyes drowned in the crimson of the summer sun,",
+      "line11": "I walk from mailheuls to gobelets,",
+      "line12": "I try, I sow, I live, I write in wine the stories from here."
+    }
   },
   "terms": {
     "title": "Terms of Use",

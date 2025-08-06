@@ -60,7 +60,9 @@ export default function Cart() {
         <link rel="canonical" href={t('cart.meta.canonical')} />
       </Helmet>
 
-      <h1 id="page-title" className="page-title">{t('cart.title')}</h1>
+      <div className="title-wrapper">
+        <h1 id="page-title">{t('cart.title')}</h1>
+      </div>
 
       {successMsgVisible && (
         <div className="cart-success-message">

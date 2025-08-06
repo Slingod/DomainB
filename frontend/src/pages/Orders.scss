@@ -2,20 +2,30 @@
 @use "../styles/mixins" as *;
 
 .orders-page {
+  position: relative;
+  min-height: 100vh;
   padding: 2rem 1rem;
-  max-width: 100%;        // ✅ Empêche de dépasser la largeur écran
+  max-width: 100%;
   width: 100%;
   margin: 0 auto;
-  box-sizing: border-box; // ✅ Évite que le padding s'ajoute à la largeur
+  box-sizing: border-box;
   font-family: $font-main;
   color: $text-main;
-  flex: 1; // ✅ Pour pousser le footer vers le bas
+  background-image: url('/orderpage.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
 
   h1 {
     font-size: 1.75rem;
     margin-bottom: 1.5rem;
     color: $heading-color;
     text-align: center;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 1rem;
+    border-radius: $radius;
+    display: inline-block;
   }
 
   .stats {
@@ -26,7 +36,7 @@
     margin-bottom: 2rem;
 
     .stat-card {
-      background: $gray-light;
+      background: rgba(255, 255, 255, 0.9);
       border-radius: $radius;
       padding: 1rem;
       text-align: center;
@@ -57,7 +67,7 @@
 
   .orders-list {
     .order-card {
-      background: #fff;
+      background: rgba(255, 255, 255, 0.9);
       border-radius: $radius;
       padding: 1rem;
       margin-bottom: 1rem;
@@ -90,6 +100,12 @@
       text-align: center;
       color: $text-muted;
       margin-top: 2rem;
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 2rem;
+      border-radius: $radius;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
     }
   }
 
@@ -103,5 +119,20 @@
     .order-card {
       padding: 0.75rem;
     }
+  }
+}
+
+.title-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+
+  h1 {
+    font-size: 1.75rem;
+    color: $heading-color;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 1rem;
+    border-radius: $radius;
+    display: inline-block;
   }
 }

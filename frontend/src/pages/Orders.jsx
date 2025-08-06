@@ -77,7 +77,7 @@ export default function Orders() {
         <link rel="canonical" href="https://www.domaine-berthuit.fr/mes-commandes" />
       </Helmet>
 
-      <header>
+      <header className="title-wrapper">
         <h1>{t('orders.title')}</h1>
       </header>
 

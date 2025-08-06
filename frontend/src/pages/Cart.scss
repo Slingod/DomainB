@@ -4,11 +4,16 @@
 @use "sass:color";
 
 .cart-page {
-  max-width: 800px;
-  margin: 2rem auto;
-  padding: 0 1rem;
+  position: relative;
+  min-height: 100vh;
+  padding: 2rem 1rem;
   font-family: $font-main;
   color: $text-main;
+  background-image: url('/cartpage.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
 
   h1 {
     font-size: 2rem;
@@ -21,11 +26,19 @@
     text-align: center;
     color: $text-muted;
     font-size: 1.1rem;
+    background-color: rgba(255, 255, 255, 0.85);
+    padding: 2rem;
+    border-radius: $radius;
+    max-width: 600px;
+    margin: 2rem auto;
   }
 
   .table-wrapper {
     overflow-x: auto;
     margin-bottom: 1.5rem;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 1rem;
+    border-radius: $radius;
 
     table {
       width: 100%;
@@ -77,6 +90,10 @@
     align-items: center;
     flex-wrap: wrap;
     gap: 1rem;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 1rem;
+    border-radius: $radius;
+    margin-top: 1rem;
 
     .total {
       font-size: 1.25rem;
@@ -100,7 +117,7 @@
   .card-list {
     display: none;
   }
-  
+
   .cart-success-message {
     background-color: #d4edda;
     color: #155724;
@@ -110,12 +127,10 @@
     text-align: center;
     font-weight: 500;
   }
-  
+
   @include respond(sm) {
     .table-wrapper {
-      table {
-        display: none;
-      }
+      display: none;
     }
 
     .card-list {
@@ -182,5 +197,20 @@
         }
       }
     }
+  }
+}
+
+.title-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+
+  h1 {
+    font-size: 1.75rem;
+    color: $heading-color;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 1rem;
+    border-radius: $radius;
+    display: inline-block;
   }
 }

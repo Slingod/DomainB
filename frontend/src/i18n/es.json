@@ -75,7 +75,22 @@
     "qualityProducts": "Productos de calidad seleccionados para ti.",
     "viewShop": "Ver tienda",
     "security": "Seguridad y RGPD",
-    "dataProtection": "Tus datos están protegidos y exportables en cualquier momento."
+    "dataProtection": "Tus datos están protegidos y exportables en cualquier momento.",
+    "poemTitle": "El poema del Domaine",
+    "poem": {
+      "line1": "Es una tierra dura pero grandiosa,",
+      "line2": "Donde entre dos montañas se extiende un mar de viñas.",
+      "line3": "Una tierra de luz y de gente,",
+      "line4": "Con sus ancianos que hablan, sentados en su banco.",
+      "line5": "Detrás de cada cepa se esconde una memoria,",
+      "line6": "La suma de dudas y mil esperanzas,",
+      "line7": "El recuerdo del trabajo, la alegría, las risas.",
+      "line8": "Yo, un chaval de otro lugar llegado aquí,",
+      "line9": "Escucho las palabras heladas que susurra el cers,",
+      "line10": "Mis ojos ahogados en el carmesí del sol de verano,",
+      "line11": "Voy de mailheuls a gobelets,",
+      "line12": "Pruebo, siembro, vivo, y escribo en vino historias de aquí."
+    }
   },
   "terms": {
     "title": "Términos y condiciones de uso",

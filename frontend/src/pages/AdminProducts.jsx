@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import api from '../api/api';
 import './AdminProducts.scss';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const localImages = [
   { url: '/hiver.webp', alt: 'ciel_Hiver' },
@@ -16,12 +18,17 @@ export default function AdminProducts() {
   const [filtered, setFiltered] = useState([]);
   const [editing, setEditing] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     api.get('/products').then(res => {
       setProducts(res.data);
       setFiltered(res.data);
     });
+  }, []);
+
+  useEffect(() => {
+    setMounted(true);
   }, []);
 
   useEffect(() => {
@@ -33,7 +40,7 @@ export default function AdminProducts() {
     const selected = localImages.find(img => img.url === p.image_url);
     const payload = {
       title: p.title,
-      description: p.description, // i18n format
+      description: p.description,
       price: p.price,
       image_url: p.image_url,
       image_alt: selected ? selected.alt : '',
@@ -51,7 +58,7 @@ export default function AdminProducts() {
     setEditing(null);
   };
 
-  const deleteProduct = async (id) => {
+  const deleteProduct = async id => {
     if (!window.confirm('Supprimer ce produit ?')) return;
 
     try {
@@ -59,12 +66,9 @@ export default function AdminProducts() {
       setProducts(products.filter(p => p.id !== id));
     } catch (error) {
       if (error.response?.status === 400) {
-        alert(
-          error.response.data?.error ||
-          "Impossible de supprimer ce produit car il est lié à des commandes existantes."
-        );
+        alert(error.response.data?.error || 'Impossible de supprimer ce produit car il est lié à des commandes existantes.');
       } else {
-        alert("Une erreur inattendue est survenue lors de la suppression.");
+        alert('Une erreur inattendue est survenue lors de la suppression.');
         console.error(error);
       }
     }
@@ -87,13 +91,7 @@ export default function AdminProducts() {
             onClick={() =>
               setEditing({
                 title: '',
-                description: {
-                  fr: '',
-                  en: '',
-                  es: '',
-                  ru: '',
-                  zh: '',
-                },
+                description: { fr: '', en: '', es: '', ru: '', zh: '' },
                 price: 0,
                 image_url: '',
                 stock: 0
@@ -121,7 +119,7 @@ export default function AdminProducts() {
       <section className="product-management" aria-label="Liste des produits">
         <ul className="product-list">
           {filtered.map(p => (
-            <li key={p.id} className="product-item" itemScope itemType="https://schema.org/Product">
+            <li key={p.id} className="product-item">
               <div className="info">
                 {p.image_url && (
                   <div className="product-thumb-wrapper">
@@ -129,34 +127,27 @@ export default function AdminProducts() {
                       src={p.image_url}
                       alt={p.image_alt || `Produit : ${p.title}`}
                       className="product-thumb"
-                      itemProp="image"
                     />
                   </div>
                 )}
                 <div className="text-info">
-                  <strong className="title" itemProp="name">{p.title}</strong>
-                  <span className="price" itemProp="offers" itemScope itemType="https://schema.org/Offer">
-                    <span itemProp="price">{p.price.toFixed(2)}</span> €
-                    <meta itemProp="priceCurrency" content="EUR" />
-                  </span>
+                  <strong className="title">{p.title}</strong>
+                  <span className="price">{p.price.toFixed(2)} €</span>
                   <span className={`stock-badge ${p.stock > 0 ? 'in-stock' : 'out-of-stock'}`}>
                     {p.stock > 0 ? `En stock : ${p.stock}` : 'Rupture de stock'}
                   </span>
                 </div>
               </div>
-
               <div className="actions">
                 <button
                   onClick={() => setEditing(p)}
                   className="btn warning"
-                  aria-label={`Modifier le produit ${p.title}`}
                 >
                   Modifier
                 </button>
                 <button
                   onClick={() => deleteProduct(p.id)}
                   className="btn danger"
-                  aria-label={`Supprimer le produit ${p.title}`}
                 >
                   Supprimer
                 </button>
@@ -192,23 +183,24 @@ export default function AdminProducts() {
 
             <fieldset>
               <legend>Description (par langue)</legend>
-              {['fr', 'en', 'es', 'ru', 'zh'].map(lang => (
-                <label key={lang}>
-                  {lang.toUpperCase()}
-                  <textarea
+              {mounted && ['fr', 'en', 'es', 'ru', 'zh'].map(lang => (
+                <div key={lang} className="quill-block">
+                  <label>{lang.toUpperCase()}</label>
+                  <ReactQuill
+                    theme="snow"
                     value={editing.description?.[lang] || ''}
-                    onChange={e =>
-                      setEditing({
-                        ...editing,
+                    onChange={(value) =>
+                      setEditing(prev => ({
+                        ...prev,
                         description: {
-                          ...editing.description,
-                          [lang]: e.target.value
+                          ...prev.description,
+                          [lang]: value
                         }
-                      })
+                      }))
                     }
-                    rows="3"
+                    placeholder={`Description ${lang.toUpperCase()}...`}
                   />
-                </label>
+                </div>
               ))}
             </fieldset>
 

@@ -35,6 +35,7 @@
     "orders": "Commandes",
     "adminProducts": "Admin Produits",
     "adminUsers": "Admin Utilisateurs",
+    "moderation": "Modération",
     "greeting": "Bonjour",
     "logout": "Déconnexion",
     "contact": "Contact"
@@ -75,7 +76,22 @@
     "qualityProducts": "Des produits de qualité sélectionnés pour vous.",
     "viewShop": "Voir la boutique",
     "security": "Sécurité & RGPD",
-    "dataProtection": "Vos données sont protégées et exportables à tout moment."
+    "dataProtection": "Vos données sont protégées et exportables à tout moment.",
+    "poemTitle": "Le Poème du Domaine",
+    "poem": {
+      "line1": "C’est un pays rude mais grandiose,",
+      "line2": "Où entre deux montagnes s’étend une mer de vignes.",
+      "line3": "Une terre de lumière et de gens,",
+      "line4": "Avec ses anciens qui parlent, assis sur leur banc.",
+      "line5": "Derrière chaque cep se cache une mémoire,",
+      "line6": "La somme de doutes et de mille espoirs,",
+      "line7": "Le souvenir du travail, de la joie, des rires.",
+      "line8": "Moi, minot d’ailleurs venu là,",
+      "line9": "J’écoute les mots gelés que murmure le cers,",
+      "line10": "Mes yeux noyés dans l’incarnat du soleil d’été,",
+      "line11": "Je vais de mailheuls en gobelets,",
+      "line12": "J’essai, je sème, je vis, J’écris en vin des histoires d’ici."
+    }
   },
   "terms": {
     "title": "Conditions Générales d’Utilisation",
