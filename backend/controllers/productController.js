@@ -3,7 +3,18 @@ const db = require('../db');
 // 1) Lister tous les produits
 exports.listProducts = (req, res) => {
   try {
-    const products = db.prepare('SELECT * FROM products').all();
+    const includeHidden = req.query.include_hidden === 'true';
+    const isAdmin = req.user && req.user.role === 'admin';
+
+    // const isAdmin = true; // 👈 Activer ça SEULEMENT pour debug rapide
+
+    let products;
+
+    if (isAdmin && includeHidden) {
+      products = db.prepare('SELECT * FROM products').all(); // Tous les produits
+    } else {
+      products = db.prepare('SELECT * FROM products WHERE is_visible = 1').all(); // Uniquement visibles
+    }
 
     products.forEach(p => {
       try {
@@ -44,20 +55,30 @@ exports.getProduct = (req, res) => {
 
 // 3) Créer un nouveau produit (admin)
 exports.createProduct = (req, res) => {
-  const { title, description, price, image_url, stock } = req.body;
+  const {
+    title,
+    description,
+    price,
+    image_url,
+    stock,
+    is_visible = true,
+    is_summer_product = false
+  } = req.body;
 
   try {
     const descJson = JSON.stringify(description || {});
 
     const info = db.prepare(`
-      INSERT INTO products (title, description, price, image_url, stock)
-      VALUES (?, ?, ?, ?, ?)
+      INSERT INTO products (title, description, price, image_url, stock, is_visible, is_summer_product)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
     `).run(
       title,
       descJson,
       price,
       image_url || null,
-      Number(stock) || 0
+      Number(stock) || 0,
+      is_visible ? 1 : 0,
+      is_summer_product ? 1 : 0
     );
 
     res.status(201).json({ id: info.lastInsertRowid });
@@ -69,7 +90,15 @@ exports.createProduct = (req, res) => {
 
 // 4) Mettre à jour un produit existant (admin)
 exports.updateProduct = (req, res) => {
-  const { title, description, price, image_url, stock } = req.body;
+  const {
+    title,
+    description,
+    price,
+    image_url,
+    stock,
+    is_visible = true,
+    is_summer_product = false
+  } = req.body;
 
   try {
     const descJson = JSON.stringify(description || {});
@@ -82,6 +111,8 @@ exports.updateProduct = (req, res) => {
         price = ?,
         image_url = ?,
         stock = ?,
+        is_visible = ?,
+        is_summer_product = ?,
         updated_at = CURRENT_TIMESTAMP
       WHERE id = ?
     `).run(
@@ -90,6 +121,8 @@ exports.updateProduct = (req, res) => {
       price,
       image_url || null,
       Number(stock) || 0,
+      is_visible ? 1 : 0,
+      is_summer_product ? 1 : 0,
       req.params.id
     );
 

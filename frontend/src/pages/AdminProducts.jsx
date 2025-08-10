@@ -21,9 +21,14 @@ export default function AdminProducts() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    api.get('/products').then(res => {
-      setProducts(res.data);
-      setFiltered(res.data);
+    api.get('/products?include_hidden=true').then(res => {
+      const withDefaults = res.data.map(p => ({
+        ...p,
+        is_visible: p.is_visible ?? true,
+        is_summer_product: p.is_summer_product ?? false
+      }));
+      setProducts(withDefaults);
+      setFiltered(withDefaults);
     });
   }, []);
 
@@ -44,7 +49,9 @@ export default function AdminProducts() {
       price: p.price,
       image_url: p.image_url,
       image_alt: selected ? selected.alt : '',
-      stock: p.stock
+      stock: p.stock,
+      is_visible: p.is_visible,
+      is_summer_product: p.is_summer_product
     };
 
     if (p.id) {
@@ -53,8 +60,14 @@ export default function AdminProducts() {
       await api.post('/products', payload);
     }
 
-    const refreshed = await api.get('/products');
-    setProducts(refreshed.data);
+    const refreshed = await api.get('/products?include_hidden=true');
+    const withDefaults = refreshed.data.map(p => ({
+      ...p,
+      is_visible: p.is_visible ?? true,
+      is_summer_product: p.is_summer_product ?? false
+    }));
+    setProducts(withDefaults);
+    setFiltered(withDefaults);
     setEditing(null);
   };
 
@@ -72,6 +85,27 @@ export default function AdminProducts() {
         console.error(error);
       }
     }
+  };
+
+    const toggleVisibility = async (product) => {
+    const updated = { ...product, is_visible: !product.is_visible };
+    const payload = {
+      ...updated,
+      description: updated.description,
+      image_alt: product.image_alt || ''
+    };
+
+    await api.put(`/products/${product.id}`, payload);
+
+    // 👇 ICI on récupère TOUS les produits même désactivés (admin)
+    const refreshed = await api.get('/products?include_hidden=true');
+    const withDefaults = refreshed.data.map(p => ({
+      ...p,
+      is_visible: p.is_visible ?? true,
+      is_summer_product: p.is_summer_product ?? false
+    }));
+    setProducts(withDefaults);
+    setFiltered(withDefaults);
   };
 
   return (
@@ -94,7 +128,9 @@ export default function AdminProducts() {
                 description: { fr: '', en: '', es: '', ru: '', zh: '' },
                 price: 0,
                 image_url: '',
-                stock: 0
+                stock: 0,
+                is_visible: true,
+                is_summer_product: false
               })
             }
           >
@@ -117,47 +153,76 @@ export default function AdminProducts() {
       </section>
 
       <section className="product-management" aria-label="Liste des produits">
-        <ul className="product-list">
-          {filtered.map(p => (
-            <li key={p.id} className="product-item">
-              <div className="info">
-                {p.image_url && (
-                  <div className="product-thumb-wrapper">
-                    <img
-                      src={p.image_url}
-                      alt={p.image_alt || `Produit : ${p.title}`}
-                      className="product-thumb"
-                    />
+          <ul className="product-list">
+            {filtered.map(p => (
+              <li
+                key={p.id}
+                className={`product-item ${!p.is_visible ? 'disabled-product' : ''}`}
+              >
+                <div className="info">
+                  {p.image_url && (
+                    <div className="product-thumb-wrapper">
+                      <img
+                        src={p.image_url}
+                        alt={p.image_alt || `Produit : ${p.title}`}
+                        className="product-thumb"
+                      />
+                    </div>
+                  )}
+                  <div className="text-info">
+                    <strong className="title">
+                      {p.title}
+                      {!p.is_visible && (
+                        <span className="invisible-tag"> (désactivé)</span>
+                      )}
+                    </strong>
+                    <span className="price">{p.price.toFixed(2)} €</span>
+                    <span
+                      className={`stock-badge ${
+                        p.stock > 0 ? 'in-stock' : 'out-of-stock'
+                      }`}
+                    >
+                      {p.stock > 0
+                        ? `En stock : ${p.stock}`
+                        : 'Rupture de stock'}
+                    </span>
+                    {p.is_summer_product && (
+                      <span className="badge summer">☀️ Estival</span>
+                    )}
                   </div>
-                )}
-                <div className="text-info">
-                  <strong className="title">{p.title}</strong>
-                  <span className="price">{p.price.toFixed(2)} €</span>
-                  <span className={`stock-badge ${p.stock > 0 ? 'in-stock' : 'out-of-stock'}`}>
-                    {p.stock > 0 ? `En stock : ${p.stock}` : 'Rupture de stock'}
-                  </span>
                 </div>
-              </div>
-              <div className="actions">
-                <button
-                  onClick={() => setEditing(p)}
-                  className="btn warning"
-                >
-                  Modifier
-                </button>
-                <button
-                  onClick={() => deleteProduct(p.id)}
-                  className="btn danger"
-                >
-                  Supprimer
-                </button>
-              </div>
-            </li>
-          ))}
-          {filtered.length === 0 && (
-            <li className="no-results">Aucun produit ne correspond.</li>
-          )}
-        </ul>
+                <div className="actions">
+                  <button
+                    onClick={() =>
+                      setEditing({
+                        ...p,
+                        is_visible: p.is_visible ?? true,
+                        is_summer_product: p.is_summer_product ?? false
+                      })
+                    }
+                    className="btn warning"
+                  >
+                    Modifier
+                  </button>
+                  <button
+                    onClick={() => deleteProduct(p.id)}
+                    className="btn danger"
+                  >
+                    Supprimer
+                  </button>
+                  <button
+                    onClick={() => toggleVisibility(p)}
+                    className={`btn ${p.is_visible ? 'secondary' : 'success'}`}
+                  >
+                    {p.is_visible ? 'Désactiver' : 'Activer'}
+                  </button>
+                </div>
+              </li>
+            ))}
+            {filtered.length === 0 && (
+              <li className="no-results">Aucun produit ne correspond.</li>
+            )}
+          </ul>
       </section>
 
       {editing && (
@@ -218,7 +283,7 @@ export default function AdminProducts() {
             <label>
               Image du produit
               <select
-                value={editing.image_url}
+                value={editing.image_url || ''}
                 onChange={e => {
                   const selected = localImages.find(img => img.url === e.target.value);
                   setEditing({
@@ -245,6 +310,24 @@ export default function AdminProducts() {
                 value={editing.stock}
                 onChange={e => setEditing({ ...editing, stock: parseInt(e.target.value, 10) || 0 })}
                 required
+              />
+            </label>
+
+            <label>
+              Visible pour les utilisateurs
+              <input
+                type="checkbox"
+                checked={!!editing.is_visible}
+                onChange={e => setEditing({ ...editing, is_visible: e.target.checked })}
+              />
+            </label>
+
+            <label>
+              Produit estival ☀️
+              <input
+                type="checkbox"
+                checked={!!editing.is_summer_product}
+                onChange={e => setEditing({ ...editing, is_summer_product: e.target.checked })}
               />
             </label>
 

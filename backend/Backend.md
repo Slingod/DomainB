@@ -86,3 +86,15 @@ WHERE email = 'test.test@gmail.com';
 SQL
 
 sqlite3 database.sqlite "SELECT id, username, email, role FROM users WHERE email='test.test@gmail.com';"
+
+Pour Voir la BDD côté Backend
+slingo@DESKTOP-F4FM3H9:~/Ends/my-shop/backend$ cd /home/slingo/Ends/my-shop/backend
+sqlite3 database.sqlite
+SQLite version 3.45.1 2024-01-30 16:01:20
+Enter ".help" for usage hints.
+sqlite> SELECT id, title, is_visible FROM products;
+1|CIEL D’HIVER 2024|1
+3|DANY & JO 2024|1
+4|LE GOÛT DES AUTRES 2024|1
+5|PETIT COTEAU 2024|1
+6|LUM DEL PAIS 2024|1

@@ -136,6 +136,12 @@
           }
         }
       }
+
+      // 👉 Produit désactivé visuellement
+      &.disabled-product {
+        opacity: 0.5;
+        filter: grayscale(0.6);
+      }
     }
 
     .no-results {
@@ -143,6 +149,13 @@
       color: $text-muted;
       margin: 2rem 0;
     }
+  }
+
+  .invisible-tag {
+    color: $error-text;
+    font-weight: normal;
+    font-size: 0.85rem;
+    margin-left: 4px;
   }
 
   .modal-overlay {
@@ -202,7 +215,7 @@
           min-height: 120px;
         }
       }
-      
+
       .quill-block .ql-container {
         max-height: 300px;
         overflow-y: auto;

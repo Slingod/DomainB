@@ -26,6 +26,8 @@ CREATE TABLE IF NOT EXISTS products (
   price       REAL    NOT NULL,
   image_url   TEXT,
   stock       INTEGER NOT NULL DEFAULT 0,
+  is_summer_product BOOLEAN DEFAULT FALSE,
+  is_visible  BOOLEAN DEFAULT TRUE,
   created_at  DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated_at  DATETIME
 );
