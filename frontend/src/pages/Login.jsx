@@ -20,10 +20,12 @@ export default function Login() {
   const errorTranslations = {
     'User not found': t('login.errors.notFound'),
     'Invalid credentials': t('login.errors.default'),
-    'Unauthorized': t('login.errors.default')
+    'Identifiants invalides': t('login.errors.default'),
+    'Unauthorized': t('login.errors.default'),
+    'Bad CSRF token': t('login.errors.csrf') || 'Sécurité CSRF : rechargez la page et réessayez.'
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
 
@@ -31,19 +33,39 @@ export default function Login() {
       setError(t('login.errors.email'));
       return;
     }
-
     if (password.length === 0) {
       setError(t('login.errors.password'));
       return;
     }
 
     try {
-      const { data } = await api.post('/auth/login', { email, password });
-      const { token, role, username } = data;
-      dispatch(setCredentials({ token, role, username }));
-      navigate('/products');
+      // Login : les cookies httpOnly sont posés par le serveur
+      await api.post('/auth/login', { email, password });
+
+      // Vérifie & récupère l'utilisateur courant via le cookie access_token
+      const me = await api.get('/auth/me');
+      const user = me.data?.user;
+
+      // Conserve un "token" truthy pour ne pas casser ton store (placeholder)
+      dispatch(setCredentials({
+        token: 'cookie',
+        role: user?.role,
+        username: user?.username || user?.email
+      }));
+
+      navigate('/');
     } catch (err) {
+      const status = err.response?.status;
       const serverMsg = err.response?.data?.error;
+
+      if (status === 403) {
+        setError(errorTranslations['Bad CSRF token']);
+        return;
+      }
+      if (status === 401) {
+        setError(errorTranslations['Invalid credentials']);
+        return;
+      }
       setError(errorTranslations[serverMsg] || t('login.errors.default'));
     }
   };
@@ -52,10 +74,7 @@ export default function Login() {
     <main className="auth-page">
       <Helmet>
         <title>{t('login.meta.title')}</title>
-        <meta
-          name="description"
-          content={t('login.meta.description')}
-        />
+        <meta name="description" content={t('login.meta.description')} />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://www.domaine-berthuit.fr/login" />
       </Helmet>

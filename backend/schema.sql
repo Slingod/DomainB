@@ -69,3 +69,21 @@ CREATE TABLE IF NOT EXISTS password_resets (
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
 );
+
+-- 7) Table des refresh tokens (cookies httpOnly)
+CREATE TABLE IF NOT EXISTS refresh_tokens (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id    INTEGER NOT NULL,
+  token_hash TEXT    NOT NULL UNIQUE,
+  expires_at INTEGER NOT NULL, -- epoch seconds
+  created_at INTEGER NOT NULL DEFAULT (strftime('%s','now')),
+  revoked_at INTEGER,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- Index utiles
+CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
+CREATE INDEX IF NOT EXISTS idx_products_visible ON products(is_visible);
+CREATE INDEX IF NOT EXISTS idx_orders_user ON orders(user_id);
+CREATE INDEX IF NOT EXISTS idx_order_items_order ON order_items(order_id);
+CREATE INDEX IF NOT EXISTS idx_refresh_user ON refresh_tokens(user_id);

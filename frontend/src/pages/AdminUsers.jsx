@@ -1,49 +1,50 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Helmet } from 'react-helmet-async';
 import api from '../api/api';
-import { useDispatch } from 'react-redux';
-import { logout } from '../store/authSlice';
-import { useNavigate } from 'react-router-dom';
 import './AdminUsers.scss';
 
 export default function AdminUsers() {
-  const [users, setUsers]             = useState([]);
-  const [filtered, setFiltered]       = useState([]);
-  const [searchTerm, setSearchTerm]   = useState('');
-  const [editId, setEditId]           = useState(null);
-  const [form, setForm]               = useState({
-    email: '', first_name: '', last_name: '',
-    address: '', phone: '', role: 'member'
+  const [users, setUsers] = useState([]);
+  const [filtered, setFiltered] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [editId, setEditId] = useState(null);
+  const [error, setError] = useState('');
+  const [form, setForm] = useState({
+    email: '', first_name: '', last_name: '', address: '', phone: '', role: 'member'
   });
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
   const fetchUsers = useCallback(async () => {
+    setError('');
     try {
       const { data } = await api.get('/users');
       setUsers(data);
       setFiltered(data);
     } catch (err) {
-      if (err.response?.status === 401) {
-        dispatch(logout());
-        navigate('/login');
-      }
-    }
-  }, [dispatch, navigate]);
+      const status = err.response?.status;
+      const code   = err.response?.data?.error;
 
-  useEffect(() => {
-    fetchUsers();
-  }, [fetchUsers]);
+      if (status === 403) {
+        setError('Accès refusé : réservé aux administrateurs.');
+      } else if (status === 401 && code === 'missing_token') {
+        setError('Veuillez vous connecter pour accéder à cette page.');
+      } else {
+        setError('Erreur lors du chargement des utilisateurs.');
+      }
+      setUsers([]);
+      setFiltered([]);
+    }
+  }, []);
+
+  useEffect(() => { fetchUsers(); }, [fetchUsers]);
 
   useEffect(() => {
     const term = searchTerm.trim().toLowerCase();
     setFiltered(
       users.filter(u =>
         u.id.toString().includes(term) ||
-        u.username.toLowerCase().includes(term) ||
-        u.email.toLowerCase().includes(term) ||
-        u.role.toLowerCase().includes(term)
+        (u.username || '').toLowerCase().includes(term) ||
+        (u.email || '').toLowerCase().includes(term) ||
+        (u.role || '').toLowerCase().includes(term)
       )
     );
   }, [searchTerm, users]);
@@ -66,14 +67,17 @@ export default function AdminUsers() {
       setEditId(null);
       fetchUsers();
     } catch (err) {
-      alert(err.response?.data?.error || 'Erreur lors de la modification.');
+      setError(err.response?.data?.error || 'Erreur lors de la modification.');
     }
   };
 
   const deleteUser = async (id) => {
-    if (window.confirm('Supprimer cet utilisateur ?')) {
+    if (!window.confirm('Supprimer cet utilisateur ?')) return;
+    try {
       await api.delete(`/users/${id}`);
       fetchUsers();
+    } catch (err) {
+      setError(err.response?.data?.error || 'Erreur lors de la suppression.');
     }
   };
 
@@ -81,14 +85,13 @@ export default function AdminUsers() {
     <main className="admin-users-page">
       <Helmet>
         <title>Admin - Utilisateurs | Domaine Berthuit</title>
-        <meta name="description" content="Interface d'administration pour gérer les utilisateurs du Domaine Berthuit : recherche, modification, suppression." />
+        <meta name="description" content="Administration des utilisateurs." />
         <meta name="robots" content="noindex, nofollow" />
         <link rel="canonical" href="http://localhost:5173/admin/users" />
       </Helmet>
 
-      <header>
-        <h1 className="page-title">Administration des utilisateurs</h1>
-      </header>
+      <header><h1 className="page-title">Administration des utilisateurs</h1></header>
+      {error && <div className="error" role="alert" style={{marginBottom:12}}>{error}</div>}
 
       <section className="search-bar" aria-label="Recherche d'utilisateur">
         <label htmlFor="search" className="sr-only">Recherche utilisateur</label>
@@ -104,13 +107,7 @@ export default function AdminUsers() {
       <section className="table-wrapper" aria-label="Liste des utilisateurs">
         <table className="users-table">
           <thead>
-            <tr>
-              <th>ID</th>
-              <th>Pseudo</th>
-              <th>Email</th>
-              <th>Rôle</th>
-              <th>Actions</th>
-            </tr>
+            <tr><th>ID</th><th>Pseudo</th><th>Email</th><th>Rôle</th><th>Actions</th></tr>
           </thead>
           <tbody>
             {filtered.map(u => (
@@ -126,9 +123,7 @@ export default function AdminUsers() {
               </tr>
             ))}
             {filtered.length === 0 && (
-              <tr>
-                <td colSpan="5" className="no-results">Aucun utilisateur ne correspond.</td>
-              </tr>
+              <tr><td colSpan="5" className="no-results">Aucun utilisateur.</td></tr>
             )}
           </tbody>
         </table>
@@ -149,19 +144,14 @@ export default function AdminUsers() {
                   />
                 </label>
               ))}
-
               <label className="field-group">
                 <span>Rôle</span>
-                <select
-                  value={form.role}
-                  onChange={e => setForm({ ...form, role: e.target.value })}
-                >
+                <select value={form.role} onChange={e => setForm({ ...form, role: e.target.value })}>
                   <option value="member">Member</option>
                   <option value="moderator">Moderator</option>
                   <option value="admin">Admin</option>
                 </select>
               </label>
-
               <div className="modal-actions">
                 <button className="btn save" onClick={saveEdit}>Enregistrer</button>
                 <button className="btn cancel" onClick={() => setEditId(null)}>Annuler</button>

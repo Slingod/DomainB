@@ -17,7 +17,12 @@
       "email": "Veuillez saisir une adresse email valide.",
       "password": "Le mot de passe est requis.",
       "notFound": "Utilisateur non trouvé.",
-      "default": "Erreur lors de la connexion."
+      "default": "Erreur lors de la connexion.",
+      "login": {
+        "errors": {
+          "csrf": "Sécurité CSRF : rechargez la page et réessayez."
+        }
+      }
     }
   },
   "resetPassword": {

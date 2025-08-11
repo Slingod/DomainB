@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import api from '../api/api';
-import { useDispatch } from 'react-redux';
-import { logout } from '../store/authSlice';
-import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import './Orders.scss';
 
@@ -23,7 +20,7 @@ function computeStats(orders) {
 
   orders.forEach((o) => {
     const date = new Date(o.created_at);
-    const amount = o.total;
+    const amount = Number(o.total || 0);
     stats.all.total += amount;
     if (date >= startOfYear) {
       stats.year.count++;
@@ -45,26 +42,39 @@ function computeStats(orders) {
 export default function Orders() {
   const [orders, setOrders] = useState([]);
   const [stats, setStats] = useState(null);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const [error, setError] = useState('');
   const { t } = useTranslation();
 
   useEffect(() => {
-    api
-      .get('/orders/my')
-      .then((res) => {
-        setOrders(res.data);
-        setStats(computeStats(res.data));
-      })
-      .catch((err) => {
-        if (err.response?.status === 401) {
-          dispatch(logout());
-          navigate('/login');
-        }
-      });
-  }, [dispatch, navigate]);
+    let mounted = true;
 
-  if (stats === null) {
+    (async () => {
+      setError('');
+      try {
+        const { data } = await api.get('/orders/my');
+        if (!mounted) return;
+        setOrders(data);
+        setStats(computeStats(data));
+      } catch (err) {
+        const status = err.response?.status;
+        const code   = err.response?.data?.error;
+
+        if (status === 401 && code === 'missing_token') {
+          setError(t('orders.errors.loginRequired') || 'Veuillez vous connecter pour voir vos commandes.');
+        } else if (status === 403) {
+          setError(t('orders.errors.forbidden') || 'Accès refusé.');
+        } else {
+          setError(t('orders.errors.loadFailed') || 'Impossible de charger vos commandes.');
+        }
+        setOrders([]);
+        setStats({ week:{count:0,total:0}, month:{count:0,total:0}, year:{count:0,total:0}, all:{count:0,total:0} });
+      }
+    })();
+
+    return () => { mounted = false; };
+  }, [t]);
+
+  if (!stats) {
     return <p className="orders-page">{t('orders.loading')}</p>;
   }
 
@@ -80,6 +90,8 @@ export default function Orders() {
       <header className="title-wrapper">
         <h1>{t('orders.title')}</h1>
       </header>
+
+      {error && <div className="error" role="alert" style={{ marginBottom: 12 }}>{error}</div>}
 
       <section className="stats" aria-label={t('orders.stats.ariaLabel')}>
         {['week', 'month', 'year', 'all'].map((key) => (
@@ -99,8 +111,7 @@ export default function Orders() {
         {orders.map((o) => (
           <article key={o.id} className="order-card">
             <header className="order-header">
-              {t('orders.list.orderId', { id: o.id })} –{' '}
-              {new Date(o.created_at).toLocaleString()}
+              {t('orders.list.orderId', { id: o.id })} – {new Date(o.created_at).toLocaleString()}
             </header>
             <ul className="items">
               {o.items.map((it, idx) => (
@@ -110,12 +121,12 @@ export default function Orders() {
               ))}
             </ul>
             <footer className="order-footer">
-              {t('orders.list.total')}: {o.total.toFixed(2)}€
+              {t('orders.list.total')}: {Number(o.total || 0).toFixed(2)}€
             </footer>
           </article>
         ))}
 
-        {orders.length === 0 && (
+        {orders.length === 0 && !error && (
           <p className="no-orders">{t('orders.list.empty')}</p>
         )}
       </section>

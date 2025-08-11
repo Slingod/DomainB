@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import api from '../api/api';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../store/cartSlice';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
+import DOMPurify from 'dompurify';
 import './ProductDetail.scss';
 
 export default function ProductDetail() {
@@ -12,13 +13,82 @@ export default function ProductDetail() {
   const [product, setProduct] = useState(null);
   const [qty, setQty] = useState(1);
   const [addedMessage, setAddedMessage] = useState('');
+  const [error, setError] = useState('');
   const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
 
+  // Chargement produit
   useEffect(() => {
-    api.get(`/products/${id}`).then(res => setProduct(res.data));
-  }, [id]);
+    let mounted = true;
+    setError('');
+    api
+      .get(`/products/${encodeURIComponent(id)}`)
+      .then(res => { if (mounted) setProduct(res.data); })
+      .catch(() => { if (mounted) setError(t('productDetail.loadError')); });
+    return () => { mounted = false; };
+  }, [id, t]);
 
+  // Description robuste (objet OU string JSON OU string brut)
+  const safeDescription = useMemo(() => {
+    if (!product || product.description == null) return '';
+
+    let html = '';
+    const rawDesc = product.description;
+
+    try {
+      // Si c'est un string JSON -> on parse
+      if (typeof rawDesc === 'string') {
+        const parsed = JSON.parse(rawDesc);
+        if (parsed && typeof parsed === 'object') {
+          html = parsed[i18n.language] || parsed.fr || '';
+        } else {
+          // string non-JSON de type texte simple
+          html = String(rawDesc);
+        }
+      } else if (typeof rawDesc === 'object') {
+        // déjà un objet { fr, en, ... }
+        html = rawDesc[i18n.language] || rawDesc.fr || '';
+      } else {
+        html = String(rawDesc ?? '');
+      }
+    } catch {
+      // string non JSON → on l'utilise tel quel
+      html = String(rawDesc ?? '');
+    }
+
+    return DOMPurify.sanitize(html, {
+      ALLOWED_TAGS: [
+        'p','br','ul','ol','li','b','i','strong','em','a','img','h2','h3','h4'
+      ],
+      ALLOWED_ATTR: {
+        a: ['href','title','target','rel'],
+        img: ['src','alt','title']
+      },
+      RETURN_TRUSTED_TYPE: false
+    });
+  }, [product, i18n.language]);
+
+  // Valeurs sûres même si product n’est pas encore chargé
+  const price = useMemo(
+    () => (product && Number.isFinite(+product.price) ? +product.price : 0),
+    [product]
+  );
+  const stock = useMemo(
+    () => (product && Number.isFinite(+product.stock) ? +product.stock : 0),
+    [product]
+  );
+
+  const canonicalHref = useMemo(() => {
+    try {
+      return t('productDetail.meta.canonical', { id: product?.id ?? '' });
+    } catch {
+      return product?.id ? `/products/${product.id}` : '/';
+    }
+  }, [t, product]);
+
+  if (error) {
+    return <p style={{ textAlign: 'center', padding: '2rem' }}>{error}</p>;
+  }
   if (!product) {
     return (
       <p style={{ textAlign: 'center', padding: '2rem' }}>
@@ -28,12 +98,13 @@ export default function ProductDetail() {
   }
 
   const handleAdd = () => {
+    const quantity = Number.isFinite(qty) ? qty : 1;
     dispatch(addToCart({
       id: product.id,
       title: product.title,
-      price: product.price,
+      price: price,
       image_url: product.image_url,
-      quantity: qty
+      quantity
     }));
     setAddedMessage(t('productDetail.addedSuccess'));
     setTimeout(() => setAddedMessage(''), 5000);
@@ -47,8 +118,8 @@ export default function ProductDetail() {
           name="description"
           content={t('productDetail.meta.description', {
             title: product.title,
-            price: product.price.toFixed(2),
-            stock: product.stock
+            price: price.toFixed(2),
+            stock: stock
           })}
         />
         <meta
@@ -56,10 +127,7 @@ export default function ProductDetail() {
           content={t('productDetail.meta.keywords', { title: product.title })}
         />
         <meta name="robots" content="index, follow" />
-        <link
-          rel="canonical"
-          href={t('productDetail.meta.canonical', { id: product.id })}
-        />
+        <link rel="canonical" href={canonicalHref} />
       </Helmet>
 
       {product.image_url && (
@@ -69,6 +137,7 @@ export default function ProductDetail() {
             alt={t('productDetail.imageAlt', { title: product.title })}
             className="product-detail-image"
             itemProp="image"
+            loading="lazy"
           />
         </figure>
       )}
@@ -77,29 +146,27 @@ export default function ProductDetail() {
         <h1 itemProp="name">{product.title}</h1>
 
         {addedMessage && (
-          <div className="add-message success">
+          <div className="add-message success" role="status" aria-live="polite">
             {addedMessage}
           </div>
         )}
 
         <div className="price" itemProp="offers" itemScope itemType="https://schema.org/Offer">
-          <span itemProp="price">{product.price.toFixed(2)}</span> {t('productDetail.priceSuffix')}
+          <span itemProp="price">{price.toFixed(2)}</span> {t('productDetail.priceSuffix')}
           <meta itemProp="priceCurrency" content="EUR" />
         </div>
 
         <p className="stock">
-          {product.stock > 0
-            ? t('productDetail.stockAvailable', { stock: product.stock })
+          {stock > 0
+            ? t('productDetail.stockAvailable', { stock })
             : t('productDetail.outOfStock')}
         </p>
 
-        {product.description && typeof product.description === 'object' && (
+        {safeDescription && (
           <section
             className="description"
             itemProp="description"
-            dangerouslySetInnerHTML={{
-              __html: product.description[i18n.language] || product.description.fr || ''
-            }}
+            dangerouslySetInnerHTML={{ __html: safeDescription }}
           />
         )}
 
@@ -109,21 +176,22 @@ export default function ProductDetail() {
             id="qty"
             type="number"
             min="1"
-            max={product.stock}
+            max={stock}
             value={qty}
             onChange={e => {
               const v = Number(e.target.value);
-              setQty(v < 1 ? 1 : v > product.stock ? product.stock : v);
+              if (!Number.isFinite(v)) return;
+              setQty(v < 1 ? 1 : v > stock ? stock : v);
             }}
           />
         </form>
 
         <button
           onClick={handleAdd}
-          disabled={product.stock === 0}
+          disabled={stock === 0}
           className="btn-add"
         >
-          {product.stock === 0
+          {stock === 0
             ? t('productDetail.unavailable')
             : t('productDetail.addToCart')}
         </button>
