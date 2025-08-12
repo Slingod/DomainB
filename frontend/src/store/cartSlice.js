@@ -1,65 +1,82 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getUserId } from '../utils/auth';
 
+// Clé de stockage du panier par utilisateur (ou "guest")
 const getCartKey = () => {
-  const userId = getUserId() || 'guest';
-  return `cart-${userId}`;
+  const username = localStorage.getItem('username') || 'guest';
+  return `cart_${username}`;
 };
 
 const loadCart = () => {
   try {
-    return JSON.parse(localStorage.getItem(getCartKey())) || [];
+    const raw = localStorage.getItem(getCartKey());
+    return raw ? JSON.parse(raw) : [];
   } catch {
     return [];
   }
 };
 
 const saveCart = (items) => {
-  localStorage.setItem(getCartKey(), JSON.stringify(items));
-};
-
-const clearCartStorage = () => {
-  localStorage.removeItem(getCartKey());
+  try {
+    localStorage.setItem(getCartKey(), JSON.stringify(items));
+  } catch {
+    // silencieux : quota plein, navigation privée, etc.
+  }
 };
 
 const initialState = {
-  items: loadCart()
+  items: loadCart(), // [{ id, title, price, image_url, quantity }]
 };
 
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addToCart: (state, action) => {
-      const incoming = action.payload;
-      const existing = state.items.find(i => i.id === incoming.id);
-      if (existing) {
-        existing.quantity += incoming.quantity ?? 1;
+    addToCart: (state, { payload }) => {
+      const { id, title, price, image_url, quantity = 1 } = payload;
+      const q = Number.isFinite(+quantity) ? Math.max(1, +quantity) : 1;
+
+      const found = state.items.find((it) => it.id === id);
+      if (found) {
+        found.quantity += q;
       } else {
-        state.items.push({ ...incoming, quantity: incoming.quantity ?? 1 });
+        state.items.push({ id, title, price, image_url, quantity: q });
       }
       saveCart(state.items);
     },
-    updateQuantity: (state, action) => {
-      const { id, quantity } = action.payload;
-      const item = state.items.find(i => i.id === id);
-      if (item) item.quantity = quantity;
+
+    removeFromCart: (state, { payload: id }) => {
+      state.items = state.items.filter((it) => it.id !== id);
       saveCart(state.items);
     },
-    removeFromCart: (state, action) => {
-      state.items = state.items.filter(i => i.id !== action.payload);
+
+    setQuantity: (state, { payload }) => {
+      const { id, quantity } = payload;
+      const q = Number.isFinite(+quantity) ? Math.max(1, +quantity) : 1;
+      const it = state.items.find((i) => i.id === id);
+      if (it) {
+        it.quantity = q;
+        saveCart(state.items);
+      }
+    },
+
+    clearCart: (state) => {
+      state.items = [];
       saveCart(state.items);
     },
-    clearCart: state => {
-      state.items = [];
-      clearCartStorage();
+
+    // Optionnel : à appeler si tu veux recharger le panier quand l'utilisateur change
+    reloadCartForCurrentUser: (state) => {
+      state.items = loadCart();
     },
-    resetCart: state => {
-      state.items = [];
-      clearCartStorage();
-    }
-  }
+  },
 });
 
-export const { addToCart, updateQuantity, removeFromCart, clearCart, resetCart } = cartSlice.actions;
+export const {
+  addToCart,
+  removeFromCart,
+  setQuantity,
+  clearCart,
+  reloadCartForCurrentUser,
+} = cartSlice.actions;
+
 export default cartSlice.reducer;

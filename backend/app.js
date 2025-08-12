@@ -7,6 +7,7 @@ const compression = require('compression');
 const rateLimit = require('express-rate-limit');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
+const crypto = require('crypto');
 
 // Init DB (better-sqlite3) — pas de db.connect()
 require('./db');
@@ -24,7 +25,7 @@ const app = express();
 app.disable('x-powered-by');
 app.use(compression());
 
-// CORS
+// --- CORS ---
 const FRONTEND_ORIGINS = (process.env.FRONTEND_ORIGIN || 'http://localhost:5173')
   .split(',')
   .map(s => s.trim())
@@ -37,7 +38,7 @@ app.use(cors({
     return cb(new Error('Not allowed by CORS'));
   },
   methods: ['GET','POST','PUT','PATCH','DELETE','OPTIONS'],
-  allowedHeaders: ['Content-Type','Authorization','X-CSRF-Token'],
+  allowedHeaders: ['Content-Type','Authorization','X-CSRF-Token','X-Requested-With','Accept'],
   credentials: process.env.CORS_CREDENTIALS === 'true',
   optionsSuccessStatus: 204
 }));
@@ -47,27 +48,46 @@ app.use(express.urlencoded({ extended: false, limit: '200kb' }));
 app.use(cookieParser());
 app.use(hpp());
 
-// Sécurité
+// --- CSP nonce par requête (utile si un jour tu sers une page HTML depuis l'API) ---
+app.use((req, res, next) => {
+  res.locals.cspNonce = crypto.randomBytes(16).toString('base64');
+  next();
+});
+
+// --- Sécurité (Helmet) ---
 app.use(helmet({
   contentSecurityPolicy: {
     useDefaults: true,
     directives: {
       "default-src": ["'self'"],
+      "base-uri": ["'self'"],
+      "object-src": ["'none'"],
       "img-src": ["'self'", "data:"],
-      "script-src": ["'self'"],
+      // scripts autorisés: self + nonce dynamique
+      "script-src": [
+        "'self'",
+        (req, res) => `'nonce-${res.locals.cspNonce}'`,
+      ],
+      // Quill en dev a besoin d'inline CSS: on garde 'unsafe-inline' côté style
       "style-src": ["'self'", "'unsafe-inline'"],
-      "connect-src": ["'self'", ...FRONTEND_ORIGINS],
-      "frame-ancestors": ["'self'"]
+      "font-src": ["'self'", "https:", "data:"],
+      // NB: CSP s'applique aux pages servies par l'API, pas à ton front Vite
+      "connect-src": ["'self'"],
+      "frame-ancestors": ["'self'"],
+      "form-action": ["'self'"],
+      "upgrade-insecure-requests": [] // activé quand tu passes en HTTPS
     }
   },
   referrerPolicy: { policy: 'no-referrer' },
   crossOriginEmbedderPolicy: false
 }));
+
+// HSTS seulement si VRAI HTTPS derrière un proxy/serveur
 if (process.env.NODE_ENV === 'production' && process.env.COOKIE_SECURE === 'true') {
   app.use(helmet.hsts({ maxAge: 31536000, includeSubDomains: true, preload: true }));
 }
 
-// Rate limit global doux
+// --- Rate limit global (doux) ---
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 200,
@@ -76,9 +96,10 @@ const limiter = rateLimit({
 });
 app.use(limiter);
 
-// ⚠️ Ne PAS rate-limiter tout /auth ici (ça casserait /auth/csrf)
+// ⚠️ Ne PAS rate-limiter tout /auth ici (ça ferait 429 sur /auth/csrf et /auth/refresh).
+// Si tu veux limiter /auth/login spécifiquement, fais-le DANS routes/auth.js sur la route ciblée.
 
-// Static uploads
+// --- Static uploads protégés ---
 app.use('/uploads', express.static(path.join(__dirname, 'uploads'), {
   dotfiles: 'ignore',
   immutable: true,
@@ -89,12 +110,12 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads'), {
   }
 }));
 
-// CSRF global (double-submit cookie)
+// --- CSRF global (double-submit cookie) ---
 if (process.env.CSRF_PROTECTION === 'true') {
   app.use(csrf());
 }
 
-// Routes
+// --- Routes ---
 app.use('/auth',       authRoutes);
 app.use('/users',      userRoutes);
 app.use('/products',   productRoutes);

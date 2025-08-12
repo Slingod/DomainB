@@ -1,7 +1,7 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../store/authSlice';
-import { resetCart } from '../store/cartSlice';
+import { clearCart, reloadCartForCurrentUser } from '../store/cartSlice';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import './Navbar.scss';
@@ -24,8 +24,10 @@ export default function Navbar() {
   }, [open]);
 
   const handleLogout = () => {
+    // on ne dépend plus d’un token localStorage, juste cookies httpOnly côté serveur
     dispatch(logout());
-    dispatch(resetCart());
+    dispatch(clearCart());                 // vide le panier en mémoire
+    dispatch(reloadCartForCurrentUser());  // recharge le panier "guest"
     navigate('/');
   };
 

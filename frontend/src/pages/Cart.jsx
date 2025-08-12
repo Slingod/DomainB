@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateQuantity, removeFromCart, clearCart } from '../store/cartSlice';
+import { setQuantity, removeFromCart, clearCart } from '../store/cartSlice';
 import api from '../api/api';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
@@ -12,29 +12,28 @@ export default function Cart() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const items = useSelector(state => state.cart.items);
+  const items = useSelector((state) => state.cart.items || []);
   const [successMsgVisible, setSuccessMsgVisible] = useState(false);
 
-  const total = items
-    .reduce((sum, i) => sum + i.price * i.quantity, 0)
-    .toFixed(2);
+  const total = items.reduce((sum, i) => sum + Number(i.price || 0) * Number(i.quantity || 0), 0).toFixed(2);
 
   const handleQuantityChange = (id, value, maxStock) => {
-    let qty = parseInt(value, 10) || 1;
-    qty = Math.max(1, Math.min(qty, maxStock ?? qty));
-    dispatch(updateQuantity({ id, quantity: qty }));
+    let qty = parseInt(value, 10);
+    if (!Number.isFinite(qty) || qty < 1) qty = 1;
+    if (Number.isFinite(maxStock)) qty = Math.min(qty, maxStock);
+    dispatch(setQuantity({ id, quantity: qty }));
   };
 
-  const handleRemove = id => {
+  const handleRemove = (id) => {
     dispatch(removeFromCart(id));
   };
 
   const handleOrder = async () => {
     const payload = {
-      items: items.map(i => ({
+      items: items.map((i) => ({
         product_id: i.id,
-        quantity: i.quantity
-      }))
+        quantity: i.quantity,
+      })),
     };
 
     try {
@@ -64,11 +63,7 @@ export default function Cart() {
         <h1 id="page-title">{t('cart.title')}</h1>
       </div>
 
-      {successMsgVisible && (
-        <div className="cart-success-message">
-          {t('cart.alerts.success')}
-        </div>
-      )}
+      {successMsgVisible && <div className="cart-success-message">{t('cart.alerts.success')}</div>}
 
       {items.length === 0 ? (
         <p className="empty">{t('cart.empty')}</p>
@@ -86,19 +81,20 @@ export default function Cart() {
                 </tr>
               </thead>
               <tbody>
-                {items.map(item => (
+                {items.map((item) => (
                   <tr key={item.id}>
                     <td>{item.title}</td>
-                    <td>{item.price.toFixed(2)} €</td>
+                    <td>{Number(item.price).toFixed(2)} €</td>
                     <td>
                       <input
                         type="number"
                         min="1"
+                        step="1"
                         value={item.quantity}
-                        onChange={e => handleQuantityChange(item.id, e.target.value, item.stock)}
+                        onChange={(e) => handleQuantityChange(item.id, e.target.value, item.stock)}
                       />
                     </td>
-                    <td>{(item.price * item.quantity).toFixed(2)} €</td>
+                    <td>{(Number(item.price) * Number(item.quantity)).toFixed(2)} €</td>
                     <td>
                       <button
                         className="btn danger"
@@ -115,7 +111,7 @@ export default function Cart() {
           </section>
 
           <section className="card-list" aria-label={t('cart.cards.ariaLabel')}>
-            {items.map(item => (
+            {items.map((item) => (
               <article key={item.id} className="card">
                 <div className="field">
                   <span className="label">{t('cart.cards.product')}</span>
@@ -123,20 +119,21 @@ export default function Cart() {
                 </div>
                 <div className="field">
                   <span className="label">{t('cart.cards.price')}</span>
-                  <span className="value">{item.price.toFixed(2)} €</span>
+                  <span className="value">{Number(item.price).toFixed(2)} €</span>
                 </div>
                 <div className="field">
                   <span className="label">{t('cart.cards.quantity')}</span>
                   <input
                     type="number"
                     min="1"
+                    step="1"
                     value={item.quantity}
-                    onChange={e => handleQuantityChange(item.id, e.target.value, item.stock)}
+                    onChange={(e) => handleQuantityChange(item.id, e.target.value, item.stock)}
                   />
                 </div>
                 <div className="field">
                   <span className="label">{t('cart.cards.subtotal')}</span>
-                  <span className="value">{(item.price * item.quantity).toFixed(2)} €</span>
+                  <span className="value">{(Number(item.price) * Number(item.quantity)).toFixed(2)} €</span>
                 </div>
                 <div className="field actions">
                   <button
@@ -153,11 +150,7 @@ export default function Cart() {
 
           <section className="summary" aria-label={t('cart.summary.ariaLabel')}>
             <span className="total">{t('cart.summary.total', { total })}</span>
-            <button
-              className="btn primary order-btn"
-              onClick={handleOrder}
-              disabled={items.length === 0}
-            >
+            <button className="btn primary order-btn" onClick={handleOrder} disabled={items.length === 0}>
               {t('cart.summary.submit')}
             </button>
           </section>

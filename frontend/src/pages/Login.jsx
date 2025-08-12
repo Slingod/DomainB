@@ -43,19 +43,19 @@ export default function Login() {
       await api.post('/auth/login', { email, password });
 
       // Vérifie & récupère l'utilisateur courant via le cookie access_token
-      const me = await api.get('/auth/me');
-      const user = me.data?.user;
+      const me   = await api.get('/auth/me');
+      const user = me.data?.user || {};
 
       // Conserve un "token" truthy pour ne pas casser ton store (placeholder)
       dispatch(setCredentials({
         token: 'cookie',
-        role: user?.role,
-        username: user?.username || user?.email
+        role: user.role ?? null,
+        username: user.username || user.email || ''
       }));
 
       navigate('/');
     } catch (err) {
-      const status = err.response?.status;
+      const status    = err.response?.status;
       const serverMsg = err.response?.data?.error;
 
       if (status === 403) {

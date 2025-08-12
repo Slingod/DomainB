@@ -1,41 +1,28 @@
 const db = require('../db');
+const { sanitizeDescriptionMap } = require('../utils/sanitizeRichText');
 
-// utils
-function isStaff(req) {
-  return req.user && ['admin', 'moderator'].includes(req.user.role);
-}
-
-// 1) Lister les produits
+// 1) Lister tous les produits (respecte include_hidden & rôle)
 exports.listProducts = (req, res) => {
   try {
     const includeHidden = req.query.include_hidden === 'true';
-    const staff = isStaff(req);
+    const role = req.user?.role;
+    const isPrivileged = role === 'admin' || role === 'moderator';
 
-    let rows;
-    if (staff && includeHidden) {
-      rows = db.prepare(`
-        SELECT id, title, description, price, image_url, stock, is_summer_product, is_visible,
-               created_at, updated_at, sort_order
-        FROM products
-        ORDER BY sort_order ASC, created_at DESC
-      `).all();
-    } else {
-      rows = db.prepare(`
-        SELECT id, title, description, price, image_url, stock, is_summer_product, is_visible,
-               created_at, updated_at, sort_order
-        FROM products
-        WHERE is_visible = 1
-        ORDER BY sort_order ASC, created_at DESC
-      `).all();
+    const sql = (includeHidden && isPrivileged)
+      ? `SELECT * FROM products ORDER BY COALESCE(sort_order, CAST(strftime('%s', created_at) AS INTEGER)) ASC`
+      : `SELECT * FROM products WHERE is_visible = 1 ORDER BY COALESCE(sort_order, CAST(strftime('%s', created_at) AS INTEGER)) ASC`;
+
+    const products = db.prepare(sql).all();
+
+    // Parse JSON description (héritage) — côté front on re-sanitise de toute façon
+    for (const p of products) {
+      try { p.description = JSON.parse(p.description || '{}'); }
+      catch { p.description = {}; }
     }
 
-    rows.forEach(p => {
-      try { p.description = JSON.parse(p.description || '{}'); } catch { p.description = {}; }
-    });
-
-    res.json(rows);
-  } catch (e) {
-    console.error(e);
+    res.json(products);
+  } catch (error) {
+    console.error('Erreur listProducts:', error);
     res.status(500).json({ error: 'Erreur serveur lors de la récupération des produits.' });
   }
 };
@@ -43,66 +30,74 @@ exports.listProducts = (req, res) => {
 // 2) Détail produit
 exports.getProduct = (req, res) => {
   try {
+    const role = req.user?.role;
+    const isPrivileged = role === 'admin' || role === 'moderator';
+
     const p = db.prepare(`
-      SELECT id, title, description, price, image_url, stock, is_summer_product, is_visible,
-             created_at, updated_at, sort_order
-      FROM products
-      WHERE id = ?
+      SELECT * FROM products WHERE id = ?
     `).get(req.params.id);
 
     if (!p) return res.status(404).json({ error: 'Produit introuvable.' });
-    if (!p.is_visible && !isStaff(req)) return res.status(404).json({ error: 'Produit introuvable.' });
+    if (!isPrivileged && Number(p.is_visible) !== 1) {
+      return res.status(404).json({ error: 'Produit introuvable.' });
+    }
 
-    try { p.description = JSON.parse(p.description || '{}'); } catch { p.description = {}; }
+    try { p.description = JSON.parse(p.description || '{}'); }
+    catch { p.description = {}; }
 
     res.json(p);
-  } catch (e) {
-    console.error(e);
+  } catch (error) {
+    console.error('Erreur getProduct:', error);
     res.status(500).json({ error: 'Erreur serveur lors de la récupération du produit.' });
   }
 };
 
-// 3) Créer produit (admin)
+// 3) Créer (ADMIN) — SANITIZE avant insert
 exports.createProduct = (req, res) => {
   const {
     title,
     description,
     price,
     image_url,
-    stock = 0,
+    stock,
     is_visible = true,
     is_summer_product = false
   } = req.body;
 
   try {
-    const descJson = JSON.stringify(description || {});
-    const max = db.prepare(`SELECT COALESCE(MAX(sort_order), 0) AS m FROM products`).get().m;
-    const nextOrder = Number(max) + 1;
+    const descSanitized = sanitizeDescriptionMap(description || {});
+    const descJson = JSON.stringify(descSanitized);
 
     const info = db.prepare(`
-      INSERT INTO products (title, description, price, image_url, stock, is_visible, is_summer_product, sort_order)
-      VALUES (?,?,?,?,?,?,?,?)
+      INSERT INTO products (title, description, price, image_url, stock, is_visible, is_summer_product, created_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
     `).run(
-      title,
+      String(title || '').trim(),
       descJson,
-      price,
+      Number(price) || 0,
       image_url || null,
       Number(stock) || 0,
       is_visible ? 1 : 0,
-      is_summer_product ? 1 : 0,
-      nextOrder
+      is_summer_product ? 1 : 0
     );
 
+    // facultatif : initialiser sort_order si null → timestamp de création
+    db.prepare(`
+      UPDATE products
+      SET sort_order = COALESCE(sort_order, CAST(strftime('%s', created_at) AS INTEGER))
+      WHERE id = ?
+    `).run(info.lastInsertRowid);
+
     const created = db.prepare(`SELECT * FROM products WHERE id = ?`).get(info.lastInsertRowid);
-    try { created.description = JSON.parse(created.description || '{}'); } catch { created.description = {}; }
+    try { created.description = JSON.parse(created.description || '{}'); } catch {}
     res.status(201).json(created);
-  } catch (e) {
-    console.error(e);
+  } catch (error) {
+    console.error('Erreur createProduct:', error);
     res.status(500).json({ error: 'Erreur serveur lors de la création du produit.' });
   }
 };
 
-// 4) Mettre à jour produit (admin)
+// 4) Update (ADMIN) — SANITIZE avant update
 exports.updateProduct = (req, res) => {
   const {
     title,
@@ -115,68 +110,88 @@ exports.updateProduct = (req, res) => {
   } = req.body;
 
   try {
-    const current = db.prepare(`SELECT * FROM products WHERE id = ?`).get(req.params.id);
-    if (!current) return res.status(404).json({ error: 'Produit introuvable.' });
+    const p = db.prepare(`SELECT * FROM products WHERE id = ?`).get(req.params.id);
+    if (!p) return res.status(404).json({ error: 'Produit introuvable.' });
 
-    const descJson = JSON.stringify(description ?? JSON.parse(current.description || '{}'));
+    const nextTitle  = (title ?? p.title);
+    const nextDesc   = sanitizeDescriptionMap(description ?? JSON.parse(p.description || '{}'));
+    const nextPrice  = (price ?? p.price);
+    const nextImage  = (image_url ?? p.image_url);
+    const nextStock  = (stock ?? p.stock);
+    const nextVis    = (typeof is_visible === 'boolean' ? is_visible : !!p.is_visible);
+    const nextSummer = (typeof is_summer_product === 'boolean' ? is_summer_product : !!p.is_summer_product);
 
     db.prepare(`
       UPDATE products
-      SET title=?, description=?, price=?, image_url=?, stock=?, is_visible=?, is_summer_product=?, updated_at=CURRENT_TIMESTAMP
-      WHERE id=?
+      SET title = ?, description = ?, price = ?, image_url = ?, stock = ?,
+          is_visible = ?, is_summer_product = ?, updated_at = CURRENT_TIMESTAMP
+      WHERE id = ?
     `).run(
-      title ?? current.title,
-      descJson,
-      price ?? current.price,
-      image_url ?? current.image_url,
-      Number.isFinite(+stock) ? +stock : current.stock,
-      typeof is_visible === 'boolean' ? (is_visible ? 1 : 0) : current.is_visible,
-      typeof is_summer_product === 'boolean' ? (is_summer_product ? 1 : 0) : current.is_summer_product,
+      String(nextTitle || '').trim(),
+      JSON.stringify(nextDesc),
+      Number(nextPrice) || 0,
+      nextImage || null,
+      Number(nextStock) || 0,
+      nextVis ? 1 : 0,
+      nextSummer ? 1 : 0,
       req.params.id
     );
 
     const updated = db.prepare(`SELECT * FROM products WHERE id = ?`).get(req.params.id);
-    try { updated.description = JSON.parse(updated.description || '{}'); } catch { updated.description = {}; }
+    try { updated.description = JSON.parse(updated.description || '{}'); } catch {}
     res.json(updated);
-  } catch (e) {
-    console.error(e);
+  } catch (error) {
+    console.error('Erreur updateProduct:', error);
     res.status(500).json({ error: 'Erreur serveur lors de la mise à jour du produit.' });
   }
 };
 
-// 5) Supprimer produit (admin)
+// 5) Delete (ADMIN)
 exports.deleteProduct = (req, res) => {
   try {
-    const r = db.prepare(`DELETE FROM products WHERE id = ?`).run(req.params.id);
-    if (r.changes === 0) return res.status(404).json({ error: 'Produit introuvable.' });
-    res.json({ ok: true });
-  } catch (e) {
-    if (e.code === 'SQLITE_CONSTRAINT' || e.code === 'SQLITE_CONSTRAINT_FOREIGNKEY') {
-      return res.status(400).json({ error: 'Impossible de supprimer ce produit car il est lié à des commandes existantes.' });
+    const stmt = db.prepare('DELETE FROM products WHERE id = ?');
+    const result = stmt.run(req.params.id);
+
+    if (result.changes === 0) {
+      return res.status(404).json({ error: 'Produit introuvable.' });
     }
-    console.error(e);
+    res.json({ ok: true });
+  } catch (err) {
+    if (err.code === 'SQLITE_CONSTRAINT' || err.code === 'SQLITE_CONSTRAINT_FOREIGNKEY') {
+      return res.status(400).json({
+        error: "Impossible de supprimer ce produit car il est lié à des commandes existantes."
+      });
+    }
+    console.error('Erreur deleteProduct:', err);
     res.status(500).json({ error: 'Erreur interne du serveur.' });
   }
 };
 
-// 6) Réordonner les produits (admin)
+// 6) Reorder (ADMIN) — déjà utilisé par l’admin DnD
 exports.reorderProducts = (req, res) => {
-  const ids = Array.isArray(req.body.ids) ? req.body.ids : null;
-  if (!ids || ids.length === 0) {
-    return res.status(400).json({ error: 'ids manquant' });
-  }
-  // vérifier que tous existent
-  const all = db.prepare(`SELECT id FROM products WHERE id IN (${ids.map(() => '?').join(',')})`).all(...ids);
-  if (all.length !== ids.length) {
-    return res.status(400).json({ error: 'Liste invalide (id manquant/inexistant)' });
-  }
-
-  const tx = db.transaction((arr) => {
-    for (let i = 0; i < arr.length; i++) {
-      db.prepare(`UPDATE products SET sort_order = ? WHERE id = ?`).run(i + 1, arr[i]);
+  try {
+    const ids = Array.isArray(req.body.ids) ? req.body.ids : null;
+    if (!ids || ids.length === 0) {
+      return res.status(400).json({ error: 'ids must be a non-empty array' });
     }
-  });
-  tx(ids);
 
-  res.json({ ok: true });
+    // Vérifie que tous les ids existent
+    const existing = db.prepare(`SELECT id FROM products WHERE id IN (${'?,'.repeat(ids.length).slice(0,-1)})`).all(...ids);
+    if (existing.length !== ids.length) {
+      return res.status(400).json({ error: 'Some ids do not exist' });
+    }
+
+    const tx = db.transaction(() => {
+      let order = 1;
+      for (const id of ids) {
+        db.prepare(`UPDATE products SET sort_order = ? WHERE id = ?`).run(order++, id);
+      }
+    });
+    tx();
+
+    res.json({ ok: true });
+  } catch (e) {
+    console.error('Erreur reorderProducts:', e);
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
 };
