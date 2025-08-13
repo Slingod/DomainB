@@ -24,7 +24,15 @@ Technologie Rôle :
 Une fois les dépendances installées (npm install), tu peux lancer le serveur de développement avec la commande :
 
 ```bash
+cd frontend
 npm run dev
+
+ou
+
+cd frontend
+npm run build
+npm run preview -- --port 5173 --strictPort
+
 ```
 
 ✅ Ce que ça fait :

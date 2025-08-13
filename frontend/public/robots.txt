@@ -1,0 +1,15 @@
+# robots.txt — Domaine Berthuit
+
+User-agent: *
+# Autoriser le site
+Allow: /
+
+# Bloquer les écrans hors SEO
+Disallow: /admin/
+Disallow: /moderation/
+Disallow: /cart
+Disallow: /orders
+Disallow: /login
+Disallow: /signup
+
+Sitemap: https://www.domaine-berthuit.fr/sitemap.xml
