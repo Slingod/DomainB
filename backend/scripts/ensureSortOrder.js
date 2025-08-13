@@ -1,3 +1,5 @@
+'use strict';
+
 const path = require('path');
 const Database = require('better-sqlite3');
 
@@ -5,7 +7,14 @@ const dbPath = path.join(__dirname, '..', 'database.sqlite');
 const db = new Database(dbPath);
 db.pragma('foreign_keys = ON');
 
+// ✅ Whitelist pour éviter toute interpolation libre dans PRAGMA
+const ALLOWED_TABLES = new Set(['products']);
+
 function hasColumn(table, col) {
+  if (!ALLOWED_TABLES.has(table)) {
+    throw new Error(`Invalid table name: ${table}`);
+  }
+  // PRAGMA table_info() n'accepte pas de placeholders, on garde la whitelist
   const rows = db.prepare(`PRAGMA table_info(${table})`).all();
   return rows.some(r => r.name === col);
 }
@@ -39,6 +48,7 @@ try {
 
   tx();
   console.log('✅ Migration terminée.');
+  process.exit(0);
 } catch (e) {
   console.error('❌ Migration échouée :', e.message);
   process.exit(1);
