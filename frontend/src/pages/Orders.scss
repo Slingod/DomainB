@@ -22,7 +22,7 @@
     margin-bottom: 1.5rem;
     color: $heading-color;
     text-align: center;
-    background-color: rgba(255, 255, 255, 0.9);
+    // background-color: rgba(255, 255, 255, 0.9);
     padding: 1rem;
     border-radius: $radius;
     display: inline-block;
@@ -54,7 +54,7 @@
       .stat-value {
         font-size: 1.25rem;
         font-weight: 600;
-        color: $heading-color;
+        color: #000000;
       }
 
       .stat-sub {
@@ -100,7 +100,7 @@
       text-align: center;
       color: $text-muted;
       margin-top: 2rem;
-      background-color: rgba(255, 255, 255, 0.9);
+      // background-color: rgba(255, 255, 255, 0.9);
       padding: 2rem;
       border-radius: $radius;
       max-width: 600px;
@@ -130,7 +130,7 @@
   h1 {
     font-size: 1.75rem;
     color: $heading-color;
-    background-color: rgba(255, 255, 255, 0.9);
+    // background-color: rgba(255, 255, 255, 0.9);
     padding: 1rem;
     border-radius: $radius;
     display: inline-block;
