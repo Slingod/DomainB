@@ -91,8 +91,8 @@ export default function Products() {
               </p>
               <p className="stock">
                 {p.stock > 0
-                  ? t('products.list.stockAvailable', { stock: p.stock })
-                  : t('products.list.outOfStock')}
+                  ? t('products.list.inStock', { defaultValue: 'En stock' })
+                  : t('products.list.outOfStock', { defaultValue: 'Rupture de stock' })}
               </p>
             </div>
           </Link>

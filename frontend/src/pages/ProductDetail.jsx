@@ -7,6 +7,7 @@ import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import DOMPurify from 'dompurify';
 import './ProductDetail.scss';
+import useRequireAuth from '../hooks/useRequireAuth'; // ⬅️ ajout
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -16,6 +17,7 @@ export default function ProductDetail() {
   const [error, setError] = useState('');
   const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
+  const { requireAuth } = useRequireAuth(); // ⬅️ ajout
 
   // Chargement produit
   useEffect(() => {
@@ -187,7 +189,7 @@ export default function ProductDetail() {
         </form>
 
         <button
-          onClick={handleAdd}
+          onClick={requireAuth(handleAdd, { intent: 'add-to-cart', productId: product.id, qty })} /* ⬅️ ajout du contrôle */
           disabled={stock === 0}
           className="btn-add"
         >

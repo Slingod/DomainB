@@ -33,18 +33,6 @@
     "seoDescription": "Réinitialisez votre mot de passe pour accéder à votre compte Domaine Berthuit.",
     "errorGeneric": "Une erreur est survenue. Veuillez réessayer plus tard."
   },
-  "navbar": {
-    "home": "Accueil",
-    "products": "Produits",
-    "cart": "Panier",
-    "orders": "Commandes",
-    "adminProducts": "Admin Produits",
-    "adminUsers": "Admin Utilisateurs",
-    "moderation": "Modération",
-    "greeting": "Bonjour",
-    "logout": "Déconnexion",
-    "contact": "Contact"
-  },
   "auth": {
     "signup": "Inscription",
     "login": "Connexion"
@@ -525,6 +513,63 @@
       "default": "Erreur lors de la mise à jour",
       "export": "Erreur lors de l’export",
       "delete": "Erreur lors de la suppression"
+    }
+  },
+  "navbar": {
+    "lieuGeste": "Le Lieu & Le Geste",
+    "home": "Accueil",
+    "products": "Produits",
+    "cart": "Panier",
+    "orders": "Commandes",
+    "adminProducts": "Admin Produits",
+    "adminUsers": "Admin Utilisateurs",
+    "moderation": "Modération",
+    "greeting": "Bonjour",
+    "logout": "Déconnexion",
+    "contact": "Contact"
+  },
+  "lieuGeste": {
+    "title": "Le Lieu & Le Geste",
+    "meta": {
+      "title": "Le Lieu & Le Geste – Domaine Berthuit",
+      "description": "Découvrez notre terroir, nos gestes, et la philosophie de travail au vignoble et au chai.",
+      "canonical": "https://www.domaineberthuit.com/le-lieu-et-le-geste"
+    },
+    "intro": {
+      "lead": "Terroir, savoir-faire et respect du vivant.",
+      "text1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur et viverra enim. Integer facilisis sapien a lorem feugiat, a condimentum neque pulvinar.",
+      "text2": "Mauris porttitor, velit eu suscipit ullamcorper, lacus risus pharetra dolor, ac mollis nisl ante sit amet nunc. Suspendisse potenti."
+    },
+    "sections": {
+      "terroir": {
+        "title": "Le terroir",
+        "body1": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "body2": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+      },
+      "viticulture": {
+        "title": "Viticulture & pratiques au vignoble",
+        "body1": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "body2": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      },
+      "vinification": {
+        "title": "Vinifications",
+        "body1": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.",
+        "body2": "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit."
+      },
+      "aging": {
+        "title": "Élevage & affinage",
+        "body1": "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.",
+        "body2": "Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur."
+      },
+      "commitment": {
+        "title": "Nos engagements",
+        "body1": "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium.",
+        "body2": "Et harum quidem rerum facilis est et expedita distinctio."
+      }
+    },
+    "map": {
+      "title": "Nous situer",
+      "hint": "La carte interactive sera intégrée ici (Google Maps)."
     }
   }
 }

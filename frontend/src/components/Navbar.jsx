@@ -24,10 +24,9 @@ export default function Navbar() {
   }, [open]);
 
   const handleLogout = () => {
-    // on ne dépend plus d’un token localStorage, juste cookies httpOnly côté serveur
     dispatch(logout());
-    dispatch(clearCart());                 // vide le panier en mémoire
-    dispatch(reloadCartForCurrentUser());  // recharge le panier "guest"
+    dispatch(clearCart());
+    dispatch(reloadCartForCurrentUser());
     navigate('/');
   };
 
@@ -49,6 +48,17 @@ export default function Navbar() {
           <path d="M6 2l1.5 5h9L18 2M5 8h14l-1.5 12H6.5L5 8z" />
         </svg>
         {t('navbar.products')}
+      </Link>
+
+      {/* ⬇️ Nouveau lien : Le Lieu & Le Geste */}
+      <Link to="/le-lieu-et-le-geste" className="nav-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none"
+             viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"
+             style={{ marginRight: '6px', verticalAlign: 'middle' }}>
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+          <path d="M7 10l5-7 5 7" />
+        </svg>
+        {t('navbar.lieuGeste')}
       </Link>
 
       <Link to="/contact" className="nav-link">

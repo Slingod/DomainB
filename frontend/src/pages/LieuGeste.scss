@@ -1,0 +1,90 @@
+.lieu-geste-page {
+  --maxw: 1100px;
+
+  .hero {
+    position: relative;
+    background: linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.35)), url('/vineyard_hero.webp') center/cover no-repeat;
+    color: #fff;
+    padding: clamp(48px, 8vw, 96px) 16px;
+  }
+  .hero-inner {
+    max-width: var(--maxw);
+    margin: 0 auto;
+  }
+  .page-title {
+    margin: 0 0 .5rem 0;
+    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+    letter-spacing: .02em;
+  }
+  .page-lead {
+    margin: 0;
+    opacity: .95;
+    font-size: clamp(1rem, 1.6vw, 1.1rem);
+  }
+
+  .container {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: clamp(16px, 2vw, 24px);
+    line-height: 1.65;
+    color: #222;
+  }
+
+  .intro {
+    margin: 1rem 0 1.5rem 0;
+    p { margin: 0 0 .75rem 0; }
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(16px, 2vw, 20px);
+
+    @media (min-width: 900px) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .card {
+    background: #fff;
+    border: 1px solid #eceef1;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(0,0,0,.05);
+    padding: clamp(16px, 2vw, 22px);
+
+    h2 {
+      margin: 0 0 .5rem 0;
+      font-size: 1.15rem;
+      color: #333;
+    }
+    p { margin: 0 0 .6rem 0; }
+  }
+
+  .map-section {
+    margin-top: clamp(20px, 4vw, 40px);
+  }
+  .map-title {
+    margin: 0 0 .5rem 0;
+    font-size: 1.2rem;
+    color: #333;
+  }
+  .map-block {
+    position: relative;
+    height: clamp(320px, 42vh, 480px);
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px dashed #cfd6e4;
+    background:
+      linear-gradient(135deg, rgba(11,94,215,.06), rgba(11,94,215,.02));
+  }
+  .map-placeholder {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    color: #4b5563;
+    font-size: .98rem;
+    text-align: center;
+    padding: 1rem;
+  }
+}

@@ -28,17 +28,6 @@
     "seoDescription": "Restablece tu contraseña para acceder a tu cuenta de Domaine Berthuit.",
     "errorGeneric": "Se ha producido un error. Por favor, inténtelo de nuevo más tarde."
   },
-  "navbar": {
-    "home": "Inicio",
-    "products": "Productos",
-    "cart": "Carrito",
-    "orders": "Pedidos",
-    "adminProducts": "Admin Productos",
-    "adminUsers": "Admin Usuarios",
-    "greeting": "Hola",
-    "logout": "Cerrar sesión",
-    "contact": "Contacto"
-  },
   "auth": {
     "signup": "Registro",
     "login": "Iniciar sesión"
@@ -499,6 +488,62 @@
       "default": "Error al actualizar",
       "export": "Error al exportar",
       "delete": "Error al eliminar la cuenta"
+    }
+  },
+  "navbar": {
+    "home": "Inicio",
+    "products": "Productos",
+    "cart": "Carrito",
+    "orders": "Pedidos",
+    "adminProducts": "Admin Productos",
+    "adminUsers": "Admin Usuarios",
+    "greeting": "Hola",
+    "logout": "Cerrar sesión",
+    "contact": "Contacto",
+    "lieuGeste": "El Lugar & El Gesto"
+  },
+  "lieuGeste": {
+    "title": "El Lugar & El Gesto",
+    "meta": {
+      "title": "El Lugar & El Gesto – Domaine Berthuit",
+      "description": "Descubre nuestro terruño, nuestro oficio y nuestra filosofía de trabajo en viñedo y bodega.",
+      "canonical": "https://www.domaineberthuit.com/le-lieu-et-le-geste"
+    },
+    "intro": {
+      "lead": "Terruño, oficio y respeto por la vida.",
+      "text1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur et viverra enim. Integer facilisis sapien a lorem feugiat, a condimentum neque pulvinar.",
+      "text2": "Mauris porttitor, velit eu suscipit ullamcorper, lacus risus pharetra dolor, ac mollis nisl ante sit amet nunc. Suspendisse potenti."
+    },
+    "sections": {
+      "terroir": {
+        "title": "El terruño",
+        "body1": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "body2": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+      },
+      "viticulture": {
+        "title": "Viticultura y prácticas en viñedo",
+        "body1": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "body2": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      },
+      "vinification": {
+        "title": "Vinificaciones",
+        "body1": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.",
+        "body2": "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit."
+      },
+      "aging": {
+        "title": "Crianza y afinado",
+        "body1": "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.",
+        "body2": "Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur."
+      },
+      "commitment": {
+        "title": "Nuestros compromisos",
+        "body1": "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium.",
+        "body2": "Et harum quidem rerum facilis est et expedita distinctio."
+      }
+    },
+    "map": {
+      "title": "Cómo encontrarnos",
+      "hint": "Aquí se integrará el mapa interactivo (Google Maps)."
     }
   }
 }

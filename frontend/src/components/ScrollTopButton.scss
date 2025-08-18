@@ -1,0 +1,89 @@
+@use "../styles/variables" as *;
+
+/* Ancre STICKY dans le <main> : s’arrête naturellement avant le footer */
+.scroll-top-anchor {
+  position: sticky;
+  bottom: 0;
+  z-index: 100000;
+  pointer-events: none;
+
+  /* pleine largeur pour pouvoir pousser le bouton à droite */
+  width: 100%;
+  display: flex;
+  /* on peut basculer côté gauche/droite via cette variable si un widget gêne */
+  justify-content: var(--align, flex-end);
+
+  /* gouttières des 2 côtés (utile si on passe à gauche) */
+  --padX: clamp(12px, 2vw, 20px);
+  padding-inline: var(--padX);
+
+  /* base confortable + offset cookies injecté en JS + safe area + gap bouton */
+  --cookies-base: 130px;     /* valeur par défaut si rien détecté */
+  --btn-gap: 24px;           /* marge fixe au-dessus des widgets bas */
+  margin-bottom: calc(
+    max(var(--cookies-offset, var(--cookies-base)), 0px) +
+    var(--btn-gap) +
+    env(safe-area-inset-bottom)
+  );
+}
+
+/* Le bouton */
+.scroll-top-btn {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  /* ++ taille pour meilleure visibilité */
+  width: 64px;     /* 52 → 64 */
+  height: 64px;    /* 52 → 64 */
+  border-radius: 999px;
+
+  border: 1px solid rgba(0,0,0,.12);
+  background: rgba(255,255,255,.98);
+  color: $primary;
+  box-shadow: 0 12px 28px rgba(0,0,0,.28);
+  cursor: pointer;
+
+  transition: transform .2s ease, opacity .2s ease, visibility .2s ease;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+
+  &.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  /* petit appel visuel à l’apparition */
+  &.just-shown {
+    animation: scrollbtn-pop .8s ease;
+  }
+
+  &:hover   { transform: translateY(-2px); }
+  &:active  { transform: translateY(0); }
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(11, 94, 215, .28);
+  }
+
+  /* icône parfaitement centrée et plus grande */
+  svg {
+    display: block;
+    width: 28px;   /* 22 → 28 */
+    height: 28px;  /* 22 → 28 */
+    fill: currentColor;
+  }
+}
+
+@keyframes scrollbtn-pop {
+  0%   { transform: translateY(10px) scale(.98); opacity: 0; }
+  50%  { transform: translateY(0)     scale(1.02); opacity: 1; }
+  100% { transform: translateY(0)     scale(1); }
+}
+
+/* Un peu plus d’air par défaut sur mobile si la détection cookies ne matche pas */
+@media (max-width: 768px) {
+  .scroll-top-anchor { --cookies-base: 150px; --btn-gap: 28px; }
+}
