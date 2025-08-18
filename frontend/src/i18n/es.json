@@ -41,15 +41,21 @@
     "alcoholWarning": "El abuso del alcohol es peligroso para la salud, consúmelo con moderación."
   },
   "cookies": {
-    "title": "Acceso reservado a adultos",
-    "message": "Este sitio está reservado para personas adultas (18+). Al continuar, usted acepta nuestra",
-    "termsLink": "Condiciones de uso",
-    "salesLink": "Condiciones generales de venta",
-    "privacyLink": "política de privacidad",
+    "title": "Cookies y Edad",
+    "ageBadge": "18+",
+    "ageNotice": "Este sitio está reservado a mayores de 18 años.",
+    "continueNotice": "Al continuar aceptas nuestras",
+    "cgu": "Condiciones de uso",
+    "cgv": "Condiciones de venta",
+    "privacy": "Política de privacidad",
+    "contact": "Contacto",
     "and": "y",
-    "accept": "Tengo más de 18 años y acepto",
+    "decline": "Rechazo",
+    "accept": "Soy mayor de 18 y acepto",
+    "reopen": "Cookies",
+    "settingsAria": "Preferencias de cookies",
     "revoke": "Retirar mi consentimiento",
-    "cancel": "Cancelar"
+    "cancel": "Cerrar"
   },
   "home": {
     "meta": {

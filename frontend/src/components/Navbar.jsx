@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import './Navbar.scss';
 
-export default function Navbar() {
+export default function Navbar({ cookiesAccepted = false }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -41,24 +41,29 @@ export default function Navbar() {
         {t('navbar.home')}
       </Link>
 
-      <Link to="/products" className="nav-link">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none"
-             viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"
-             style={{ marginRight: '6px', verticalAlign: 'middle' }}>
-          <path d="M6 2l1.5 5h9L18 2M5 8h14l-1.5 12H6.5L5 8z" />
-        </svg>
-        {t('navbar.products')}
-      </Link>
+      {/* Liens visibles seulement après consentement */}
+      {cookiesAccepted && (
+        <>
+          <Link to="/products" className="nav-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none"
+                 viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"
+                 style={{ marginRight: '6px', verticalAlign: 'middle' }}>
+              <path d="M6 2l1.5 5h9L18 2M5 8h14l-1.5 12H6.5L5 8z" />
+            </svg>
+            {t('navbar.products')}
+          </Link>
 
-      <Link to="/le-lieu-et-le-geste" className="nav-link">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none"
-             viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"
-             style={{ marginRight: '6px', verticalAlign: 'middle' }}>
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-          <path d="M7 10l5-7 5 7" />
-        </svg>
-        {t('navbar.lieuGeste')}
-      </Link>
+          <Link to="/le-lieu-et-le-geste" className="nav-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none"
+                 viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"
+                 style={{ marginRight: '6px', verticalAlign: 'middle' }}>
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <path d="M7 10l5-7 5 7" />
+            </svg>
+            {t('navbar.lieuGeste')}
+          </Link>
+        </>
+      )}
 
       <Link to="/contact" className="nav-link">
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none"
@@ -69,7 +74,8 @@ export default function Navbar() {
         {t('navbar.contact')}
       </Link>
 
-      {token && (
+      {/* Liens “après login” visibles seulement si consentement + token */}
+      {cookiesAccepted && token && (
         <>
           <Link to="/cart" className="nav-link">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none"
@@ -94,11 +100,11 @@ export default function Navbar() {
         </>
       )}
 
-      {token && role === 'moderator' && (
+      {cookiesAccepted && token && role === 'moderator' && (
         <Link to="/moderation" className="nav-link">{t('navbar.moderation')}</Link>
       )}
 
-      {token && role === 'admin' && (
+      {cookiesAccepted && token && role === 'admin' && (
         <>
           <Link to="/admin/products" className="nav-link">{t('navbar.adminProducts')}</Link>
           <Link to="/admin/users" className="nav-link">{t('navbar.adminUsers')}</Link>
@@ -109,12 +115,14 @@ export default function Navbar() {
 
   const authControls = (
     <>
-      {token && username && (
+      {cookiesAccepted && token && username && (
         <Link to="/profile" className="navbar-greeting">
           👋 {t('navbar.greeting')}, <strong>{username}</strong>
         </Link>
       )}
-      {!token ? (
+      {!cookiesAccepted ? (
+        <></>
+      ) : !token ? (
         <>
           <Link to="/signup" className="nav-link">{t('auth.signup')}</Link>
           <Link to="/login" className="nav-link">{t('auth.login')}</Link>

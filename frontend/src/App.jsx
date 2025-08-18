@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useState, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
@@ -29,24 +29,54 @@ import CGV from './pages/CGV';
 import CGU from './pages/CGU';
 import Contact from './pages/Contact';
 import PrivacyPolicy from './pages/PrivacyPolicy';
-import LieuGeste from './pages/LieuGeste'; // ⬅️ ajout
+import LieuGeste from './pages/LieuGeste';
+
+/* === helpers cookies === */
+function readConsentCookie() {
+  const m = document.cookie.match(/(?:^|;\s*)cookieConsent=([^;]+)/);
+  return m ? decodeURIComponent(m[1]) === 'true' : false;
+}
+
+/* garde-route: bloque si consentement absent */
+function CookiesGate({ children }) {
+  const location = useLocation();
+  const accepted = readConsentCookie(); // lu à chaque render
+  if (accepted) return children;
+  return <Navigate to="/" replace state={{ from: location, needCookies: true }} />;
+}
 
 export default function App() {
-  const [cookiesAccepted, setCookiesAccepted] = useState(
-    localStorage.getItem('cookieConsent') === 'true'
-  );
+  const [cookiesAccepted, setCookiesAccepted] = useState(readConsentCookie());
   const location = useLocation();
 
   useEffect(() => {
-    const accepted = localStorage.getItem('cookieConsent') === 'true';
-    setCookiesAccepted(accepted);
+    // fonction de synchro utilisée par tous les listeners
+    const sync = () => setCookiesAccepted(readConsentCookie());
+
+    // sync au focus / visibilité (changement d’onglet)
+    window.addEventListener('focus', sync);
+    document.addEventListener('visibilitychange', sync);
+
+    // ✅ écoute des évènements émis par CookieConsent
+    window.addEventListener('cookieconsent:accepted', sync);
+    window.addEventListener('cookieconsent:refused', sync);
+
+    // init (utile si le cookie a changé avant le montage)
+    sync();
+
+    return () => {
+      window.removeEventListener('focus', sync);
+      document.removeEventListener('visibilitychange', sync);
+      window.removeEventListener('cookieconsent:accepted', sync);
+      window.removeEventListener('cookieconsent:refused', sync);
+    };
   }, []);
 
-  // État d'auth depuis Redux (adapte selon ton authSlice)
+  // état d'auth depuis Redux (adapte selon ton authSlice)
   const auth = useSelector((s) => s.auth);
   const isAuthenticated = Boolean(auth?.isAuthenticated ?? auth?.token ?? auth?.user);
 
-  // On désactive l'IdleTimer sur les pages d'auth
+  // IdleTimer OFF sur les pages d’auth
   const isAuthPage = useMemo(() => {
     const p = location.pathname;
     return p === '/login' || p === '/signup' || p === '/forgot-password' || p === '/reset-password';
@@ -54,7 +84,6 @@ export default function App() {
 
   return (
     <>
-      {/* SEO Meta Global */}
       <Helmet>
         <title>Domaine Berthuit - Boutique en ligne</title>
         <meta
@@ -71,41 +100,76 @@ export default function App() {
         <link rel="canonical" href="http://localhost:5173" />
       </Helmet>
 
-      <Navbar />
+      {/* on informe la navbar pour masquer/afficher les liens */}
+      <Navbar cookiesAccepted={cookiesAccepted} />
 
-      {/* IdleTimer : ACTIF UNIQUEMENT si connecté ET hors pages d'auth ET cookies ok */}
+      {/* IdleTimer actif seulement si connecté + cookies acceptés + pas sur une page d’auth */}
       <IdleTimer
         timeout={15 * 60 * 1000}
         enabled={isAuthenticated && !isAuthPage && cookiesAccepted}
       />
 
-      {/* Consentement cookies obligatoire */}
+      {/* Bandeau cookies (écrit le cookie et émet les events ci-dessus) */}
       <CookieConsent onAccept={() => setCookiesAccepted(true)} />
 
-      {/* Remonte en haut à chaque changement de route */}
       <RouteScrollTop behavior="auto" />
 
       <main className="page-content">
         <Routes>
           {/* Pages publiques */}
           <Route path="/" element={<Home />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/le-lieu-et-le-geste" element={<LieuGeste />} /> {/* ⬅️ ajout */}
-          <Route path="/products/:id" element={<ProductDetail />} />
-
-          {/* Authentification */}
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
-
-          {/* Informations légales */}
           <Route path="/cgu" element={<CGU />} />
           <Route path="/cgv" element={<CGV />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
 
-          {/* Pages protégées (accessibles uniquement après consentement cookies) */}
+          {/* Pages accessibles uniquement après consentement */}
+          <Route
+            path="/products"
+            element={
+              <CookiesGate>
+                <Products />
+              </CookiesGate>
+            }
+          />
+          <Route
+            path="/products/:id"
+            element={
+              <CookiesGate>
+                <ProductDetail />
+              </CookiesGate>
+            }
+          />
+          <Route
+            path="/le-lieu-et-le-geste"
+            element={
+              <CookiesGate>
+                <LieuGeste />
+              </CookiesGate>
+            }
+          />
+          <Route
+            path="/signup"
+            element={
+              <CookiesGate>
+                <Signup />
+              </CookiesGate>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <CookiesGate>
+                <Login />
+              </CookiesGate>
+            }
+          />
+
+          {/* Reset/Forgot : libres (ou mets-les derrière CookiesGate si tu préfères) */}
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+
+          {/* Zones protégées par rôle (et par consentement implicite via Navbar + CookiesGate si tu veux aussi) */}
           {cookiesAccepted && (
             <>
               <Route

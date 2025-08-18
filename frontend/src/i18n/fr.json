@@ -46,15 +46,21 @@
     "alcoholWarning": "L'abus d’alcool est dangereux pour la santé, à consommer avec modération."
   },
   "cookies": {
-    "title": "Accès réservé aux personnes majeures",
-    "message": "Ce site est réservé aux personnes majeures (18+). En poursuivant, vous acceptez nos",
-    "termsLink": "CGU",
-    "salesLink": "CGV",
-    "privacyLink": "politique de confidentialité",
+    "title": "Cookies & Âge",
+    "ageBadge": "18+",
+    "ageNotice": "Ce site est réservé aux personnes majeures (18+).",
+    "continueNotice": "En poursuivant, vous acceptez nos",
+    "cgu": "CGU",
+    "cgv": "CGV",
+    "privacy": "politique de confidentialité",
+    "contact": "Contact",
     "and": "et",
+    "decline": "Je refuse",
     "accept": "J’ai plus de 18 ans et j’accepte",
+    "reopen": "Cookies",
+    "settingsAria": "Paramètres cookies",
     "revoke": "Retirer mon consentement",
-    "cancel": "Annuler"
+    "cancel": "Fermer"
   },
   "home": {
     "meta": {
