@@ -4,13 +4,11 @@
 
 .navbar {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   height: $navbar-height;
   background-color: $navbar-bg;
   color: $navbar-text;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .2);
   z-index: 1000;
   display: flex;
   align-items: center;
@@ -22,66 +20,93 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    gap: .75rem;
   }
 
+  /* ===== BURGER (mobile) ===== */
   .navbar-toggle {
-    display: none;
-    background: none;
-    border: 2px solid $navbar-text;
-    padding: 0.25rem 0.5rem;
-    font-size: 1.5rem;
+    display: none; /* visible en < $breakpoint-lg */
+    width: 42px;
+    height: 42px;
+    border-radius: $radius-sm;
+    background: rgba(0,0,0,.18);
+    border: 1px solid color.adjust($navbar-text, $lightness: -10%);
     color: $navbar-text;
+    font-size: 1.25rem;
     cursor: pointer;
     z-index: 1100;
-    border-radius: $radius-sm;
     line-height: 1;
-    height: 2.5rem;
+    display: none;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,.25);
+    transition: transform .15s ease, background .15s ease;
+
+    &:hover   { transform: translateY(-1px); background: rgba(0,0,0,.24); }
+    &:active  { transform: translateY(0);    background: rgba(0,0,0,.28); }
   }
 
+  /* ===== DESKTOP ROW ===== */
   .navbar-desktop {
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex: 1;
+    min-width: 0;
 
-    .navbar-left,
-    .navbar-right {
+    .navbar-left {
       display: flex;
       align-items: center;
       gap: 1rem;
-      flex-wrap: wrap;
+      flex: 1 1 auto;
+      min-width: 0;
+      /* Pas de wrap → on scrolle à l’horizontale si trop d’items */
+      white-space: nowrap;
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;          /* Firefox */
+      &::-webkit-scrollbar { display: none; } /* WebKit */
     }
 
     .navbar-right {
-      justify-content: flex-end;
-      max-width: 50%;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex: 0 0 auto;
+      white-space: nowrap;
 
       .navbar-greeting {
         font-weight: 600;
         white-space: nowrap;
         padding: 0.4rem 0.75rem;
         border-radius: 0.375rem;
-        color: #ffffff;
+        color: $navbar-text; /* ⬅️ blanc */
         text-decoration: none;
-        transition: background-color 0.3s;
+        transition: background-color .3s;
       }
     }
   }
 
+  /* ===== LIENS / BOUTONS ===== */
   .nav-link {
     color: $navbar-text;
     text-decoration: none;
     font-weight: 500;
     padding: 0.5rem 0.75rem;
     border-radius: 0.25rem;
-    transition: background-color 0.2s;
+    transition: background-color .2s;
+
+    &:hover,
+    &:focus-visible {
+      background-color: color.adjust($navbar-bg, $lightness: -6%);
+      outline: none;
+    }
   }
 
   .nav-button {
     border: 1px solid $navbar-text;
-    background-color: transparent;
+    background-color: rgba(255,255,255,.08);
     color: $navbar-text;
     font-weight: 500;
     font-size: 1rem;
@@ -90,14 +115,11 @@
     cursor: pointer;
     white-space: nowrap;
     text-align: center;
-    transition: background-color 0.2s;
+    transition: background-color .2s, border-color .2s;
 
     &:hover {
       background-color: $navbar-hover;
-    }
-
-    @media (max-width: $breakpoint-lg) {
-      margin-top: 0.5rem;
+      border-color: color.adjust($navbar-text, $lightness: -5%);
     }
 
     @media (min-width: $breakpoint-2xl) {
@@ -105,104 +127,117 @@
     }
   }
 
+  /* ===== MENU MOBILE (plein écran, lisible) ===== */
   .navbar-mobile {
-    position: absolute;
-    top: $navbar-height;
-    left: 0;
-    right: 0;
+    position: fixed;
+    /* au-dessus du contenu, sous la barre */
+    inset: calc(#{$navbar-height} + env(safe-area-inset-top)) 0 0 0;
+    background: rgba(0,0,0,.50);
+    backdrop-filter: blur(2px);
+    z-index: 1200;
+    display: none;          /* affiché quand .navbar.open */
+    overflow: auto;         /* le contenu peut scroller */
+  }
+
+  .navbar-mobile-content {
     background-color: $navbar-bg;
-    z-index: 1001;
-    overflow: hidden;
-    max-height: 0;
-    transition: max-height 0.4s ease;
-    padding: 0;
+    color: $navbar-text;
+    border-top: 1px solid rgba(255,255,255,.18);
+    padding: 12px clamp(12px, 4vw, 20px);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transform: translateY(-10px);
+    opacity: 0;
+    transition: transform .22s ease, opacity .22s ease;
 
-    .navbar-mobile-content {
-      display: flex;
-      flex-direction: column;
+    .nav-link,
+    .nav-button,
+    .navbar-greeting {
+      width: 100%;
+      max-width: 720px;
+      margin: 0 auto;
+      height: 48px;
+      display: inline-flex;
       align-items: center;
-      gap: 0.75rem;
-      opacity: 0;
-      transform: translateY(-10px);
-      transition: opacity 0.3s ease, transform 0.3s ease;
-      padding: 1rem 0;
+      justify-content: flex-start;
+      font-size: 1.05rem;
+      border-radius: 10px;
+      padding: 0 14px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.14);
 
-      .nav-link,
-      .nav-button,
-      .navbar-greeting {
-        text-align: center;
-        font-size: 1rem;
-        padding: 0.75rem 1rem;
-      }
+      &:hover { background: rgba(255,255,255,.12); }
+    }
 
-      .navbar-greeting {
-        color: #ffffff;
-        border-radius: 0.375rem;
+    .navbar-greeting {
+      background: transparent;
+      border-color: transparent;
+      height: auto;
+      padding: 6px 2px;
+      color: $navbar-text; /* ⬅️ blanc */
+      text-decoration: none;
+    }
 
-        &:hover {
-          background-color: color.adjust($navbar-bg, $lightness: 30%);
-        }
-      }
-
-      hr {
-        width: 80%;
-        border: 0;
-        border-top: 1px solid color.adjust($navbar-text, $lightness: 40%);
-        margin: 0.5rem 0;
-      }
+    hr {
+      width: min(720px, 100%);
+      margin: 6px auto;
+      border: 0;
+      border-top: 1px solid color.adjust($navbar-text, $lightness: 40%);
     }
   }
 
+  /* ===== États ===== */
   &.open {
-    .navbar-desktop {
-      display: none;
-    }
-
-    .navbar-mobile {
-      max-height: 600px;
-
-      .navbar-mobile-content {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .navbar-desktop { display: none; }     /* on bascule sur le menu mobile */
+    .navbar-mobile { display: block; }
+    .navbar-mobile-content {
+      transform: translateY(0);
+      opacity: 1;
     }
   }
 
+  /* ===== BREAKPOINTS ===== */
   @media (max-width: $breakpoint-lg) {
-    .navbar-toggle {
-      display: flex;
-    }
-
-    .navbar-desktop {
-      display: none;
-    }
+    .navbar-toggle { display: flex; }
+    .navbar-desktop { display: none; }
   }
 
   @media (min-width: $breakpoint-lg) {
-    .navbar-toggle {
-      display: none;
-    }
-
-    .navbar-desktop {
-      display: flex;
-    }
+    .navbar-toggle { display: none; }
+    .navbar-desktop { display: flex; }
   }
 
   @media (min-width: $breakpoint-2xl) {
     padding: 0 3rem;
 
-    .nav-link {
-      font-size: 1.1rem;
-    }
+    .nav-link { font-size: 1.1rem; }
   }
 }
 
-// Important pour compenser la navbar fixe
+/* Compense la navbar fixe */
 .page-content {
   padding-top: $navbar-height;
 }
 
-// Empêche scroll quand menu mobile est ouvert
+/* Empêche le scroll de fond quand le menu est ouvert */
 body.menu-open {
   overflow: hidden;
+}
+
+/* ===== Forcer la couleur blanche du lien "Bonjour, <user>" partout ===== */
+.navbar .navbar-greeting,
+.navbar .navbar-greeting:link,
+.navbar .navbar-greeting:visited,
+.navbar .navbar-greeting:hover,
+.navbar .navbar-greeting:active,
+.navbar .navbar-greeting:focus,
+.navbar .navbar-mobile-content .navbar-greeting,
+.navbar .navbar-mobile-content .navbar-greeting:link,
+.navbar .navbar-mobile-content .navbar-greeting:visited,
+.navbar .navbar-mobile-content .navbar-greeting:hover,
+.navbar .navbar-mobile-content .navbar-greeting:active,
+.navbar .navbar-mobile-content .navbar-greeting:focus {
+  color: $navbar-text !important;  /* blanc */
+  text-decoration: none;
 }

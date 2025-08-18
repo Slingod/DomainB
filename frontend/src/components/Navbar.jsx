@@ -50,7 +50,6 @@ export default function Navbar() {
         {t('navbar.products')}
       </Link>
 
-      {/* ⬇️ Nouveau lien : Le Lieu & Le Geste */}
       <Link to="/le-lieu-et-le-geste" className="nav-link">
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none"
              viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"
@@ -144,6 +143,7 @@ export default function Navbar() {
           className="navbar-toggle"
           onClick={() => setOpen(prev => !prev)}
           aria-label="Menu mobile"
+          title="Menu"
           aria-expanded={open}
         >
           ☰
