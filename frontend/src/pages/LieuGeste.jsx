@@ -28,11 +28,16 @@ export default function LieuGeste() {
     return () => io.disconnect();
   }, []);
 
-  // Embed Google Maps (adresse sur tes pages légales)
-  // Le short-link fourni ouvre bien l’app, et reste dispo via le bouton "Ouvrir dans Google Maps".
+  /**
+   * 🔗 Nouveau point Google Maps
+   * - Bouton externe : ton short-link exact (ouvre l’app Google Maps)
+   * - Iframe embed : on utilise une requête "q=" stable (pas besoin d’API key).
+   *   Si tu veux un pin ultra-précis (coordonnées), je peux le convertir en loc:lat,lng.
+   */
+  const mapsExternalHref = 'https://maps.app.goo.gl/X1csHjv7q2nJmcAG8';
   const mapEmbedSrc =
-    'https://www.google.com/maps?q=31%20BOULEVARD%20DU%20MINERVOIS%2C%2011700%20PEPIEUX&output=embed';
-  const mapsExternalHref = 'https://maps.app.goo.gl/jSP2nd3tsu2kV94z5';
+    'https://www.google.com/maps?output=embed&q=' +
+    encodeURIComponent('Domaine Berthuit, 11700 Pépieux, France');
 
   return (
     <main className="lieu-geste-page">
