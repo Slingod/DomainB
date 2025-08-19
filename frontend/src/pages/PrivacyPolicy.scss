@@ -1,0 +1,107 @@
+:root { --header-h: 64px; }
+
+.legal-page {
+  --maxw: 1100px;
+  --tocw: 260px;
+  --gap: 2rem;
+
+  padding: clamp(16px, 2vw, 24px);
+  line-height: 1.65;
+  color: #222;
+
+  .legal-title {
+    font-size: clamp(1.6rem, 2.4vw, 2.2rem);
+    margin: 0 0 1rem 0;
+  }
+
+  .legal-layout {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    display: grid;
+    gap: var(--gap);
+    grid-template-columns: 1fr; /* mobile */
+  }
+
+  .toc {
+    background: #f8f9fb;
+    border: 1px solid #e6e8eb;
+    border-radius: 12px;
+    padding: 1rem 1rem;
+  }
+
+  .toc-title {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+    color: #555;
+    margin: 0 0 .5rem 0;
+  }
+
+  .toc-list {
+    list-style: decimal;
+    margin: 0 0 0 1.25rem;
+    padding: 0;
+
+    li { margin: .35rem 0; }
+
+    a {
+      color: #0b5ed7;
+      text-decoration: none;
+      border-radius: 6px;
+      padding: .1rem .2rem;
+
+      &:hover,
+      &:focus-visible {
+        text-decoration: underline;
+        outline: none;
+        background: rgba(11,94,215,.06);
+      }
+    }
+  }
+
+  .legal-content {
+    background: #fff;
+    border: 1px solid #eceef1;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,.05);
+    padding: clamp(16px, 2vw, 24px);
+  }
+
+  .legal-section {
+    scroll-margin-top: calc(var(--header-h) + 16px);
+    margin-bottom: 2rem;
+
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #333;
+      margin: 0 0 .5rem 0;
+    }
+
+    p { margin: 0 0 .6rem 0; }
+  }
+
+  .legal-content ul,
+  .legal-content ol {
+    margin: .5rem 0 .75rem 1.25rem;
+  }
+
+  @media (min-width: 992px) {
+    .legal-layout {
+      grid-template-columns: minmax(220px, var(--tocw)) 1fr;
+      align-items: start;
+    }
+    .toc {
+      position: sticky;
+      top: calc(var(--header-h) + 16px);
+      max-height: calc(100dvh - var(--header-h) - 32px);
+      overflow: auto;
+    }
+  }
+}
+
+a:focus-visible {
+  outline: 2px dashed #0b5ed7;
+  outline-offset: 2px;
+}

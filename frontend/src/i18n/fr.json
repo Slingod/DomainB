@@ -141,10 +141,129 @@
     "email": "Email : lucas@domaineberthuit.com",
     "siret": "SIRET : 987 552 056"
   },
-  "privacyPolicy": {
+  "privacy": {
+    "metaTitle": "Politique de confidentialité – Domaine Berthuit",
+    "metaDescription": "Comment nous collectons, utilisons et protégeons vos données personnelles (RGPD).",
     "title": "Politique de confidentialité",
-    "intro": "Nous attachons une grande importance à la protection de vos données personnelles.",
-    "content": "Contenu détaillé à compléter ici..."
+    "intro": "Nous attachons une grande importance à la protection de vos données personnelles. Cette politique explique quelles données nous collectons, pour quelles finalités, sur quelles bases légales, combien de temps nous les conservons et quels sont vos droits.",
+    "sections": [
+      {
+        "title": "1. Responsable de traitement",
+        "paragraphs": [
+          "Domaine Berthuit – BERTHUIT LUCAS, 31 BOULEVARD DU MINERVOIS, 11700 PEPIEUX – France. SIRET : 987 552 056. Email : lucas@domaineberthuit.com."
+        ]
+      },
+      {
+        "title": "2. Données que nous collectons",
+        "list": [
+          "Compte : nom d’utilisateur, email, mot de passe (haché avec bcrypt), rôle, statut de vérification.",
+          "Coordonnées (facultatives) : prénom, nom, adresse, téléphone.",
+          "Commandes : produits, montants, adresses de livraison/facturation, statut.",
+          "Échanges : emails transactionnels (vérification, réinitialisation), demandes via Contact.",
+          "Sécurité : IP, user-agent, identifiants de session/JWT, jetons CSRF, logs techniques, compteurs anti-abus.",
+          "Cookies : voir la section « Cookies utilisés »."
+        ]
+      },
+      {
+        "title": "3. Finalités et bases légales",
+        "list": [
+          "Gestion des comptes et authentification (exécution du contrat).",
+          "Traitement des commandes (exécution du contrat).",
+          "Service client et communications (intérêt légitime / contrat).",
+          "Sécurité et prévention de la fraude (intérêt légitime).",
+          "Conformité légale (obligation légale).",
+          "Marketing (consentement) — par défaut, pas de publicité ni d'analytics."
+        ]
+      },
+      {
+        "title": "4. Destinataires",
+        "paragraphs": [
+          "Accès limité aux personnes habilitées. Sous-traitants possibles : hébergement/maintenance, email transactionnel, paiement (ex. Stripe si activé), logistique. Ces prestataires agissent selon nos instructions contractuelles."
+        ]
+      },
+      {
+        "title": "5. Transferts hors UE",
+        "paragraphs": [
+          "Si certains prestataires sont situés hors de l’UE, nous utilisons un cadre juridique adéquat (Clauses Contractuelles Types, décision d’adéquation). Détails disponibles sur demande."
+        ]
+      },
+      {
+        "title": "6. Durées de conservation",
+        "list": [
+          "Compte : pendant l’usage, puis suppression sur demande ou au plus tard 3 ans après le dernier contact.",
+          "Commandes/facturation : 10 ans (obligations comptables).",
+          "Messages/support : 3 ans après le dernier échange.",
+          "Logs techniques/sécurité : jusqu’à 6 mois, sauf nécessité.",
+          "Tokens & cookies sécurité : JWT d’accès ~15 min ; refresh_token 7 jours (httpOnly, /auth) ; token CSRF en session.",
+          "Cookie de consentement : 12 mois."
+        ]
+      },
+      {
+        "title": "7. Sécurité",
+        "paragraphs": [
+          "HTTPS, mots de passe hachés (bcrypt), protections serveur (Helmet, HPP), CSRF (double-submit), cookies httpOnly, rate-limiting, contrôles d’accès par rôles, assainissement XSS côté serveur."
+        ]
+      },
+      {
+        "title": "8. Vos droits (RGPD)",
+        "paragraphs": [
+          "Droits d’accès, rectification, effacement, limitation, portabilité, opposition et directives post-mortem. Pour exercer : lucas@domaineberthuit.com. Vous pouvez aussi saisir la CNIL (cnil.fr)."
+        ]
+      },
+      {
+        "title": "9. Mineurs",
+        "paragraphs": ["Ce site est réservé aux personnes majeures (18+)."]
+      },
+      {
+        "title": "10. Paiement",
+        "paragraphs": [
+          "Si le paiement en ligne est activé, il est traité par un prestataire tiers (ex. Stripe). Nous ne stockons pas vos données de carte. Merci de consulter la politique du prestataire."
+        ]
+      },
+      {
+        "title": "11. Modifications",
+        "paragraphs": [
+          "Nous pouvons mettre à jour la présente politique. La dernière version s’applique dès sa publication."
+        ]
+      }
+    ],
+    "cookies": {
+      "title": "Cookies utilisés",
+      "headers": {
+        "name": "Nom",
+        "purpose": "Finalité",
+        "duration": "Durée",
+        "type": "Type"
+      },
+      "rows": [
+        {
+          "name": "access_token",
+          "purpose": "Authentification (sécurité) – httpOnly, SameSite=Lax",
+          "duration": "Session (~15 min côté token)",
+          "type": "Essentiel"
+        },
+        {
+          "name": "refresh_token",
+          "purpose": "Renouvellement du token d’accès – httpOnly, chemin /auth",
+          "duration": "7 jours",
+          "type": "Essentiel"
+        },
+        {
+          "name": "csrf_token",
+          "purpose": "Protection CSRF (double-submit)",
+          "duration": "Session",
+          "type": "Essentiel"
+        },
+        {
+          "name": "cookieConsent",
+          "purpose": "Conserver votre choix de consentement",
+          "duration": "12 mois",
+          "type": "Préférences"
+        }
+      ],
+      "note": "Nous n’utilisons pas de cookies publicitaires ni de mesure d’audience sans consentement."
+    },
+    "updated": "Dernière mise à jour : {{date}}"
   },
   "contact": {
     "title": "Contactez-nous",
@@ -575,7 +694,8 @@
     },
     "map": {
       "title": "Nous situer",
-      "hint": "La carte interactive sera intégrée ici (Google Maps)."
+      "hint": "La carte interactive sera intégrée ici (Google Maps).",
+      "openInMaps": "Ouvrir dans Google Maps"
     }
   }
 }

@@ -116,10 +116,129 @@
     "email": "Email: lucas@domaineberthuit.com",
     "siret": "SIRET: 987 552 056"
   },
-  "privacyPolicy": {
+  "privacy": {
+    "metaTitle": "Privacy Policy – Domaine Berthuit",
+    "metaDescription": "How we collect, use and protect your personal data (GDPR).",
     "title": "Privacy Policy",
-    "intro": "We attach great importance to protecting your personal data.",
-    "content": "Detailed content to be completed here..."
+    "intro": "We care deeply about your privacy. This policy explains what data we collect, the purposes and legal bases, how long we keep it and your rights.",
+    "sections": [
+      {
+        "title": "1. Controller",
+        "paragraphs": [
+          "Domaine Berthuit – BERTHUIT LUCAS, 31 BOULEVARD DU MINERVOIS, 11700 PEPIEUX – France. SIRET: 987 552 056. Email: lucas@domaineberthuit.com."
+        ]
+      },
+      {
+        "title": "2. Data we collect",
+        "list": [
+          "Account: username, email, password (bcrypt-hashed), role, email verification status.",
+          "Contact details (optional): first/last name, address, phone.",
+          "Orders: items, amounts, shipping/billing addresses, status.",
+          "Communications: transactional emails (verification, reset), contact messages.",
+          "Security: IP, user-agent, session/JWT identifiers, CSRF tokens, technical logs, anti-abuse counters.",
+          "Cookies: see “Cookies used”."
+        ]
+      },
+      {
+        "title": "3. Purposes & legal bases",
+        "list": [
+          "Account and authentication (contract).",
+          "Order processing (contract).",
+          "Support and communications (legitimate interest / contract).",
+          "Security & fraud prevention (legitimate interest).",
+          "Legal compliance (legal obligation).",
+          "Marketing (consent) — by default, no ads or analytics."
+        ]
+      },
+      {
+        "title": "4. Recipients",
+        "paragraphs": [
+          "Access is limited to authorized personnel. We may use processors: hosting/maintenance, transactional email, payments (e.g., Stripe if enabled), logistics. They act under our instructions."
+        ]
+      },
+      {
+        "title": "5. Transfers outside the EU",
+        "paragraphs": [
+          "Where providers are outside the EU, we rely on appropriate safeguards (EU SCCs or adequacy). Details available upon request."
+        ]
+      },
+      {
+        "title": "6. Retention",
+        "list": [
+          "Account: while active, then deletion on request or after 3 years of inactivity.",
+          "Orders/invoicing: 10 years (accounting).",
+          "Support messages: 3 years after last contact.",
+          "Security logs: up to 6 months unless required longer.",
+          "Security tokens/cookies: access JWT ~15 min; refresh_token 7 days (httpOnly, /auth); CSRF token session.",
+          "Consent cookie: 12 months."
+        ]
+      },
+      {
+        "title": "7. Security",
+        "paragraphs": [
+          "HTTPS, bcrypt-hashed passwords, server hardening (Helmet, HPP), CSRF (double-submit), httpOnly cookies, rate-limiting, role-based access, server-side XSS sanitization."
+        ]
+      },
+      {
+        "title": "8. Your rights (GDPR)",
+        "paragraphs": [
+          "Access, rectification, erasure, restriction, portability, objection and post-mortem directives. Contact: lucas@domaineberthuit.com. You may also contact the CNIL (cnil.fr)."
+        ]
+      },
+      {
+        "title": "9. Minors",
+        "paragraphs": ["This website is intended for adults (18+) only."]
+      },
+      {
+        "title": "10. Payments",
+        "paragraphs": [
+          "If online payments are enabled, they are handled by a third-party (e.g., Stripe). We do not store card data. Please refer to the provider’s privacy policy."
+        ]
+      },
+      {
+        "title": "11. Changes",
+        "paragraphs": [
+          "We may update this policy. The latest version applies upon publication."
+        ]
+      }
+    ],
+    "cookies": {
+      "title": "Cookies used",
+      "headers": {
+        "name": "Name",
+        "purpose": "Purpose",
+        "duration": "Duration",
+        "type": "Type"
+      },
+      "rows": [
+        {
+          "name": "access_token",
+          "purpose": "Authentication (security) – httpOnly, SameSite=Lax",
+          "duration": "Session (~15 min token)",
+          "type": "Essential"
+        },
+        {
+          "name": "refresh_token",
+          "purpose": "Renew access token – httpOnly, path /auth",
+          "duration": "7 days",
+          "type": "Essential"
+        },
+        {
+          "name": "csrf_token",
+          "purpose": "CSRF protection (double-submit)",
+          "duration": "Session",
+          "type": "Essential"
+        },
+        {
+          "name": "cookieConsent",
+          "purpose": "Stores your consent choice",
+          "duration": "12 months",
+          "type": "Preferences"
+        }
+      ],
+      "note": "We do not use advertising cookies or analytics without consent."
+    },
+    "updated": "Last updated: {{date}}"
   },
   "contact": {
     "title": "Contact Us",
@@ -549,7 +668,8 @@
     },
     "map": {
       "title": "Find us",
-      "hint": "The interactive map (Google Maps) will be embedded here."
+      "hint": "The interactive map (Google Maps) will be embedded here.",
+      "openInMaps": "Open in Google Maps"
     }
   }
 }

@@ -23,6 +23,10 @@ export default function AdminProducts() {
   const [reorderSaving, setReorderSaving] = useState(false);
   const [info, setInfo] = useState('');
 
+  // --- Nouveau : confirmation de suppression ---
+  const [confirming, setConfirming] = useState(null);   // produit ciblé (ou null)
+  const [confirmText, setConfirmText] = useState('');   // texte saisi dans la modal
+
   // charge tous les produits (dont cachés) ordonnés par sort_order
   const loadAll = async () => {
     const res = await api.get('/products?include_hidden=true');
@@ -78,10 +82,17 @@ export default function AdminProducts() {
     setEditing(null);
   };
 
-  const deleteProduct = async (id) => {
-    if (!window.confirm('Supprimer ce produit ?')) return;
+  // Ancienne suppression => remplacée par une demande de confirmation
+  const askDelete = (product) => {
+    setConfirming(product);
+    setConfirmText('');
+  };
+
+  const reallyDelete = async () => {
+    if (!confirming) return;
+    if (confirmText !== confirming.title) return;
     try {
-      await api.delete(`/products/${id}`);
+      await api.delete(`/products/${confirming.id}`);
       await loadAll();
     } catch (error) {
       if (error.response?.status === 400) {
@@ -90,7 +101,15 @@ export default function AdminProducts() {
         alert('Une erreur inattendue est survenue lors de la suppression.');
         console.error(error);
       }
+    } finally {
+      setConfirming(null);
+      setConfirmText('');
     }
+  };
+
+  const cancelDelete = () => {
+    setConfirming(null);
+    setConfirmText('');
   };
 
   const toggleVisibility = async (product) => {
@@ -256,7 +275,7 @@ export default function AdminProducts() {
                             Modifier
                           </button>
                           <button
-                            onClick={() => deleteProduct(p.id)}
+                            onClick={() => askDelete(p)}
                             className="btn danger"
                           >
                             Supprimer
@@ -282,6 +301,7 @@ export default function AdminProducts() {
         </DragDropContext>
       </section>
 
+      {/* Modal édition produit */}
       {editing && (
         <div className="modal-overlay" role="dialog" aria-modal="true">
           <form onSubmit={handleModalSubmit} className="modal">
@@ -387,6 +407,52 @@ export default function AdminProducts() {
               <button type="button" onClick={() => setEditing(null)} className="btn secondary">Annuler</button>
             </div>
           </form>
+        </div>
+      )}
+
+      {/* Modal confirmation suppression (nouveau) */}
+      {confirming && (
+        <div className="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+          <div className="modal">
+            <h2 id="confirm-title">Supprimer le produit</h2>
+            <p>
+              Cette action est <strong>irréversible</strong>. Pour confirmer la suppression du produit&nbsp;:
+              <br />
+              <strong>«&nbsp;{confirming.title}&nbsp;»</strong>,
+              veuillez saisir exactement son nom ci-dessous.
+            </p>
+
+            <label htmlFor="confirm-input">
+              Nom du produit (saisir exactement)
+            </label>
+            <input
+              id="confirm-input"
+              type="text"
+              value={confirmText}
+              onChange={(e) => setConfirmText(e.target.value)}
+              placeholder={confirming.title}
+              autoFocus
+            />
+
+            <div className="modal-actions">
+              <button
+                type="button"
+                className="btn danger"
+                onClick={reallyDelete}
+                disabled={confirmText !== confirming.title}
+                title={confirmText !== confirming.title ? 'Le nom ne correspond pas exactement' : 'Supprimer définitivement'}
+              >
+                Supprimer définitivement
+              </button>
+              <button
+                type="button"
+                className="btn secondary"
+                onClick={cancelDelete}
+              >
+                Annuler
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </main>

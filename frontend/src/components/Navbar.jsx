@@ -44,15 +44,7 @@ export default function Navbar({ cookiesAccepted = false }) {
       {/* Liens visibles seulement après consentement */}
       {cookiesAccepted && (
         <>
-          <Link to="/products" className="nav-link">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none"
-                 viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"
-                 style={{ marginRight: '6px', verticalAlign: 'middle' }}>
-              <path d="M6 2l1.5 5h9L18 2M5 8h14l-1.5 12H6.5L5 8z" />
-            </svg>
-            {t('navbar.products')}
-          </Link>
-
+          
           <Link to="/le-lieu-et-le-geste" className="nav-link">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none"
                  viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"
@@ -62,6 +54,17 @@ export default function Navbar({ cookiesAccepted = false }) {
             </svg>
             {t('navbar.lieuGeste')}
           </Link>
+          
+          <Link to="/products" className="nav-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none"
+                 viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"
+                 style={{ marginRight: '6px', verticalAlign: 'middle' }}>
+              <path d="M6 2l1.5 5h9L18 2M5 8h14l-1.5 12H6.5L5 8z" />
+            </svg>
+            {t('navbar.products')}
+          </Link>
+
+          
         </>
       )}
 

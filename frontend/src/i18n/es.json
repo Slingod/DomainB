@@ -116,10 +116,129 @@
     "email": "Correo electrónico: lucas@domaineberthuit.com",
     "siret": "SIRET: 987 552 056"
   },
-  "privacyPolicy": {
+  "privacy": {
+    "metaTitle": "Política de privacidad – Domaine Berthuit",
+    "metaDescription": "Cómo recopilamos, usamos y protegemos sus datos personales (RGPD).",
     "title": "Política de privacidad",
-    "intro": "Damos gran importancia a la protección de tus datos personales.",
-    "content": "Contenido detallado por completar aquí..."
+    "intro": "Nos tomamos muy en serio su privacidad. Esta política explica qué datos recopilamos, con qué fines y bases legales, cuánto tiempo los conservamos y cuáles son sus derechos.",
+    "sections": [
+      {
+        "title": "1. Responsable del tratamiento",
+        "paragraphs": [
+          "Domaine Berthuit – BERTHUIT LUCAS, 31 BOULEVARD DU MINERVOIS, 11700 PEPIEUX – Francia. SIRET: 987 552 056. Email: lucas@domaineberthuit.com."
+        ]
+      },
+      {
+        "title": "2. Datos que recopilamos",
+        "list": [
+          "Cuenta: nombre de usuario, email, contraseña (hash bcrypt), rol, estado de verificación.",
+          "Datos de contacto (opcionales): nombre/apellidos, dirección, teléfono.",
+          "Pedidos: artículos, importes, direcciones de envío/facturación, estado.",
+          "Comunicaciones: emails transaccionales (verificación, restablecimiento), mensajes de contacto.",
+          "Seguridad: IP, user-agent, identificadores de sesión/JWT, tokens CSRF, registros técnicos, contadores antiabuso.",
+          "Cookies: véase «Cookies utilizadas»."
+        ]
+      },
+      {
+        "title": "3. Fines y bases legales",
+        "list": [
+          "Gestión de cuentas y autenticación (contrato).",
+          "Procesamiento de pedidos (contrato).",
+          "Atención al cliente y comunicaciones (interés legítimo / contrato).",
+          "Seguridad y prevención del fraude (interés legítimo).",
+          "Cumplimiento legal (obligación legal).",
+          "Marketing (consentimiento) — por defecto, sin anuncios ni analítica."
+        ]
+      },
+      {
+        "title": "4. Destinatarios",
+        "paragraphs": [
+          "Acceso limitado al personal autorizado. Posibles encargados: alojamiento/mantenimiento, email transaccional, pagos (p. ej., Stripe si está habilitado), logística. Actúan bajo nuestras instrucciones."
+        ]
+      },
+      {
+        "title": "5. Transferencias fuera de la UE",
+        "paragraphs": [
+          "Cuando los proveedores están fuera de la UE, utilizamos garantías adecuadas (Cláusulas Contractuales Tipo o decisión de adecuación). Detalles disponibles a solicitud."
+        ]
+      },
+      {
+        "title": "6. Plazos de conservación",
+        "list": [
+          "Cuenta: mientras esté activa; luego, eliminación a petición o tras 3 años de inactividad.",
+          "Pedidos/facturación: 10 años (obligaciones contables).",
+          "Mensajes de soporte: 3 años tras el último contacto.",
+          "Registros de seguridad: hasta 6 meses salvo necesidad.",
+          "Tokens/cookies de seguridad: JWT de acceso ~15 min; refresh_token 7 días (httpOnly, /auth); token CSRF de sesión.",
+          "Cookie de consentimiento: 12 meses."
+        ]
+      },
+      {
+        "title": "7. Seguridad",
+        "paragraphs": [
+          "HTTPS, contraseñas con hash bcrypt, refuerzo del servidor (Helmet, HPP), CSRF (double-submit), cookies httpOnly, limitación de tasa, control de acceso por roles, saneamiento XSS del lado del servidor."
+        ]
+      },
+      {
+        "title": "8. Sus derechos (RGPD)",
+        "paragraphs": [
+          "Acceso, rectificación, supresión, limitación, portabilidad, oposición y directrices post mortem. Contacto: lucas@domaineberthuit.com. También puede dirigirse a la CNIL (cnil.fr)."
+        ]
+      },
+      {
+        "title": "9. Menores",
+        "paragraphs": ["Este sitio está reservado a mayores de 18 años."]
+      },
+      {
+        "title": "10. Pago",
+        "paragraphs": [
+          "Si el pago en línea está habilitado, lo gestiona un tercero (p. ej., Stripe). No almacenamos los datos de la tarjeta. Consulte la política de privacidad del proveedor."
+        ]
+      },
+      {
+        "title": "11. Modificaciones",
+        "paragraphs": [
+          "Podemos actualizar esta política. La última versión se aplica desde su publicación."
+        ]
+      }
+    ],
+    "cookies": {
+      "title": "Cookies utilizadas",
+      "headers": {
+        "name": "Nombre",
+        "purpose": "Finalidad",
+        "duration": "Duración",
+        "type": "Tipo"
+      },
+      "rows": [
+        {
+          "name": "access_token",
+          "purpose": "Autenticación (seguridad) – httpOnly, SameSite=Lax",
+          "duration": "Sesión (~15 min token)",
+          "type": "Esencial"
+        },
+        {
+          "name": "refresh_token",
+          "purpose": "Renovar el token de acceso – httpOnly, ruta /auth",
+          "duration": "7 días",
+          "type": "Esencial"
+        },
+        {
+          "name": "csrf_token",
+          "purpose": "Protección CSRF (double-submit)",
+          "duration": "Sesión",
+          "type": "Esencial"
+        },
+        {
+          "name": "cookieConsent",
+          "purpose": "Guardar su elección de consentimiento",
+          "duration": "12 meses",
+          "type": "Preferencias"
+        }
+      ],
+      "note": "No utilizamos cookies publicitarias ni analítica sin su consentimiento."
+    },
+    "updated": "Última actualización: {{date}}"
   },
   "contact": {
     "title": "Contáctanos",
@@ -549,7 +668,8 @@
     },
     "map": {
       "title": "Cómo encontrarnos",
-      "hint": "Aquí se integrará el mapa interactivo (Google Maps)."
+      "hint": "Aquí se integrará el mapa interactivo (Google Maps).",
+      "openInMaps": "Abrir en Google Maps"
     }
   }
 }
