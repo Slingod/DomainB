@@ -43,7 +43,9 @@
     "terms": "CGU",
     "sales": "Conditions Générales de Vente",
     "privacy": "Politique de confidentialité",
-    "alcoholWarning": "L'abus d’alcool est dangereux pour la santé, à consommer avec modération."
+    "alcoholWarning": "L'abus d’alcool est dangereux pour la santé, à consommer avec modération.",
+    "faqLong": "Foire aux questions",
+    "faqShort": "FAQ"
   },
   "cookies": {
     "title": "Cookies & Âge",
@@ -271,7 +273,7 @@
     "description": "Vous avez une question, une commande spéciale ou souhaitez en savoir plus sur nos vins bio ? N’hésitez pas à nous contacter !",
     "addressLabel": "Adresse",
     "addressName": "Domaine Berthuit",
-    "address": "31 du Minervois\n11700 Pépieux",
+    "address": "31 Boulevard du Minervois\n11700 Pépieux",
     "contactLabel": "Contact",
     "phoneLabel": "Téléphone",
     "phoneRaw": "+33668961834",
@@ -698,5 +700,182 @@
       "hint": "La carte interactive sera intégrée ici (Google Maps).",
       "openInMaps": "Ouvrir dans Google Maps"
     }
+  },
+  "faq": {
+    "meta": {
+      "title": "FAQ — Domaine Berthuit",
+      "description": "Questions fréquentes : compte, commandes, paiement, livraison, cookies & confidentialité.",
+      "canonical": "https://www.domaine-berthuit.fr/faq"
+    },
+    "title": "FAQ — Domaine Berthuit",
+    "tocTitle": "FAQ",
+    "sections": [
+      {
+        "title": "Compte & connexion",
+        "qa": [
+          {
+            "q": "Dois-je créer un compte pour commander ?",
+            "a": "Oui. La création / connexion est requise pour ajouter au panier et payer, afin de sécuriser tes données et retrouver tes commandes."
+          },
+          {
+            "q": "Je suis déconnecté(e) après 10–15 min d’inactivité, c’est normal ?",
+            "a": "Oui, c’est une sécurité. Si tu n’étais pas connecté(e), rien n’est perdu ; connecte-toi pour poursuivre."
+          },
+          {
+            "q": "Je n’arrive pas à me connecter / j’ai oublié mon mot de passe.",
+            "a": "Utilise « Mot de passe oublié ». Tu recevras un lien de réinitialisation par email (pense à vérifier tes spams)."
+          },
+          {
+            "q": "Puis-je commander sans accepter les cookies ?",
+            "a": "Non. Nous utilisons des cookies essentiels (sécurité, panier, session). Sans consentement, seules les pages légales restent accessibles."
+          }
+        ]
+      },
+      {
+        "title": "Cookies, âge & confidentialité",
+        "qa": [
+          {
+            "q": "Pourquoi me demande-t-on de confirmer que j’ai 18+ ?",
+            "a": "La vente d’alcool est réservée aux personnes majeures. En poursuivant, tu confirmes avoir 18 ans ou plus."
+          },
+          {
+            "q": "Quels cookies utilisez-vous ?",
+            "a": "Uniquement ceux nécessaires au fonctionnement (authentification, panier, langue) et à l’analytics de base. Détails dans la [PRIVACY]."
+          },
+          {
+            "q": "Comment retirer mon consentement ?",
+            "a": "Clique sur le bouton « Cookies » en bas de page, puis « Retirer mon consentement »."
+          }
+        ]
+      },
+      {
+        "title": "Produits & millésimes",
+        "qa": [
+          {
+            "q": "Vos vins contiennent-ils des sulfites ?",
+            "a": "Comme la plupart des vins, oui. Voir l’étiquette de chaque cuvée."
+          },
+          {
+            "q": "Le millésime peut-il changer ?",
+            "a": "Oui si la cuvée suivante est en vente. La fiche produit précise le millésime expédié."
+          },
+          {
+            "q": "Je vois « Rupture de stock » — quand le produit revient ?",
+            "a": "Dès réassort. Tu peux nous écrire via [CONTACT] pour être notifié."
+          },
+          {
+            "q": "Conseils de garde & service ?",
+            "a": "Chaque fiche produit indique nos recommandations (température, garde, accords)."
+          }
+        ]
+      },
+      {
+        "title": "Commandes & paiement",
+        "qa": [
+          {
+            "q": "Quels moyens de paiement acceptez-vous ?",
+            "a": "Cartes bancaires via Stripe (paiement sécurisé). Aucune donnée de carte n’est stockée chez nous."
+          },
+          {
+            "q": "Puis-je modifier ou annuler ma commande ?",
+            "a": "Écris-nous au plus vite. Tant que la commande n’est pas préparée, on peut l’ajuster/annuler."
+          },
+          {
+            "q": "Reçois-je une confirmation ?",
+            "a": "Oui, un email récapitulatif est envoyé immédiatement après paiement."
+          },
+          {
+            "q": "Proposez-vous des codes promo ou cartes cadeau ?",
+            "a": "Occasionnellement. Abonne-toi à la newsletter ou suis-nous pour en être informé."
+          }
+        ]
+      },
+      {
+        "title": "Livraison & retrait",
+        "qa": [
+          {
+            "q": "Quels sont les délais et frais de livraison ?",
+            "a": "En général 48–72h ouvrées après expédition en France métropolitaine. Les frais s’affichent au panier selon le poids et l’adresse."
+          },
+          {
+            "q": "Livrez-vous hors France ?",
+            "a": "Contacte-nous pour les envois internationaux : nous regardons au cas par cas."
+          },
+          {
+            "q": "Que faire en cas de colis endommagé ?",
+            "a": "Refuse le colis (ou émet une réserve précise) et contacte-nous avec photos ; nous trouvons une solution."
+          },
+          {
+            "q": "Proposez-vous le retrait au domaine ?",
+            "a": "Oui, sur rendez-vous. Choisis « Retrait au domaine » à la validation."
+          }
+        ]
+      },
+      {
+        "title": "Factures & entreprise",
+        "qa": [
+          {
+            "q": "Comment obtenir ma facture ?",
+            "a": "Elle est disponible dans Mon compte > Commandes. Une copie est envoyée par email."
+          },
+          {
+            "q": "Ventes aux professionnels / facturation entreprise ?",
+            "a": "Écris-nous via [CONTACT] avec ton SIRET et besoins ; on te répond rapidement."
+          }
+        ]
+      },
+      {
+        "title": "Visites & dégustations",
+        "qa": [
+          {
+            "q": "Peut-on visiter le domaine ?",
+            "a": "Oui sur rendez-vous. Réserve via [CONTACT] en indiquant la date souhaitée et le nombre de personnes."
+          },
+          {
+            "q": "Organisez-vous des dégustations ?",
+            "a": "Oui, régulièrement. Nous publions les dates sur le site et réseaux."
+          }
+        ]
+      },
+      {
+        "title": "Problèmes techniques",
+        "qa": [
+          {
+            "q": "Le bouton « Ajouter au panier » est grisé.",
+            "a": "Vérifie que tu es connecté(e) et que tu as accepté les cookies. Le produit peut aussi être en rupture."
+          },
+          {
+            "q": "Je ne vois pas le bouton de langue ou certains liens.",
+            "a": "Avant consentement, seules les pages Accueil, [CGU], [CGV], [PRIVACY], [CONTACT] sont accessibles."
+          },
+          {
+            "q": "Je ne reçois pas vos emails.",
+            "a": "Vérifie tes spams/« Promotions » et ajoute contact@domaineberthuit.com à tes contacts."
+          }
+        ]
+      },
+      {
+        "title": "Données & RGPD",
+        "qa": [
+          {
+            "q": "Comment exercer mes droits (accès, rectification, suppression) ?",
+            "a": "Écris-nous à privacy@domaineberthuit.com (ou via [CONTACT]). Nous répondons sous 30 jours."
+          },
+          {
+            "q": "Où trouver vos conditions et politiques ?",
+            "a": "Consulte [CGU], [CGV] et la [PRIVACY]."
+          }
+        ]
+      },
+      {
+        "title": "Nous contacter",
+        "qa": [
+          { "q": "Email", "a": "lucas@domaineberthuit.com" },
+          { "q": "Adresse", "a": "31 Boulevard du Minervois, 11700 Pépieux" },
+          { "q": "Téléphone", "a": "06 68 96 18 34" },
+          { "q": "Formulaire", "a": "Tu peux aussi passer par [CONTACT]." }
+        ]
+      }
+    ]
   }
 }

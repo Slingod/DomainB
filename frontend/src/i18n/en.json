@@ -38,7 +38,9 @@
     "terms": "Terms of Use",
     "sales": "Terms of Sale",
     "privacy": "Privacy Policy",
-    "alcoholWarning": "Excessive drinking is harmful to your health. Consume responsibly."
+    "alcoholWarning": "Excessive drinking is harmful to your health. Consume responsibly.",
+    "faqLong": "Frequently Asked Questions",
+    "faqShort": "FAQ"
   },
   "cookies": {
     "title": "Cookies & Age",
@@ -672,5 +674,182 @@
       "hint": "The interactive map (Google Maps) will be embedded here.",
       "openInMaps": "Open in Google Maps"
     }
+  },
+  "faq": {
+    "meta": {
+      "title": "FAQ — Domaine Berthuit",
+      "description": "Frequently asked questions: account, orders, payment, delivery, cookies & privacy.",
+      "canonical": "https://www.domaine-berthuit.fr/faq"
+    },
+    "title": "FAQ — Domaine Berthuit",
+    "tocTitle": "FAQ",
+    "sections": [
+      {
+        "title": "Account & sign-in",
+        "qa": [
+          {
+            "q": "Do I need an account to place an order?",
+            "a": "Yes. Creating/signing in is required to add to cart and pay, so we can secure your data and let you find your orders."
+          },
+          {
+            "q": "I’m logged out after 10–15 minutes of inactivity. Is that normal?",
+            "a": "Yes, it’s a security measure. If you weren’t signed in, nothing is lost; just sign in to continue."
+          },
+          {
+            "q": "I can’t sign in / I forgot my password.",
+            "a": "Use “Forgot password”. You’ll receive a reset link by email (check your spam folder)."
+          },
+          {
+            "q": "Can I order without accepting cookies?",
+            "a": "No. We use essential cookies (security, cart, session). Without consent, only legal pages remain accessible."
+          }
+        ]
+      },
+      {
+        "title": "Cookies, age & privacy",
+        "qa": [
+          {
+            "q": "Why do you ask me to confirm that I’m 18+?",
+            "a": "Alcohol sales are reserved for adults. By continuing, you confirm you are 18 or older."
+          },
+          {
+            "q": "Which cookies do you use?",
+            "a": "Only those needed for core features (auth, cart, language) and basic analytics. Details in our [PRIVACY]."
+          },
+          {
+            "q": "How can I withdraw my consent?",
+            "a": "Click the “Cookies” button at the bottom of the page, then “Withdraw my consent”."
+          }
+        ]
+      },
+      {
+        "title": "Products & vintages",
+        "qa": [
+          {
+            "q": "Do your wines contain sulfites?",
+            "a": "Like most wines, yes. See each cuvée’s label."
+          },
+          {
+            "q": "Can the vintage change?",
+            "a": "Yes if the next cuvée is for sale. The product page indicates the shipped vintage."
+          },
+          {
+            "q": "I see “Out of stock” — when will it return?",
+            "a": "As soon as we restock. You can write to us via [CONTACT] to be notified."
+          },
+          {
+            "q": "Cellaring & serving tips?",
+            "a": "Each product page includes our recommendations (temperature, ageing, pairings)."
+          }
+        ]
+      },
+      {
+        "title": "Orders & payment",
+        "qa": [
+          {
+            "q": "Which payment methods do you accept?",
+            "a": "Credit/debit cards via Stripe (secure payment). We never store card data."
+          },
+          {
+            "q": "Can I modify or cancel my order?",
+            "a": "Write to us as soon as possible. As long as it hasn’t been prepared, we can adjust/cancel it."
+          },
+          {
+            "q": "Do I receive a confirmation?",
+            "a": "Yes, a summary email is sent right after payment."
+          },
+          {
+            "q": "Do you offer promo codes or gift cards?",
+            "a": "Occasionally. Subscribe to the newsletter or follow us to be informed."
+          }
+        ]
+      },
+      {
+        "title": "Delivery & pickup",
+        "qa": [
+          {
+            "q": "What are delivery times and fees?",
+            "a": "Generally 48–72h business hours after shipment in mainland France. Fees appear in the cart based on weight and address."
+          },
+          {
+            "q": "Do you ship outside France?",
+            "a": "Contact us for international shipping; we evaluate case by case."
+          },
+          {
+            "q": "What if my parcel is damaged?",
+            "a": "Refuse the parcel (or make a precise reservation) and contact us with photos; we’ll find a solution."
+          },
+          {
+            "q": "Can I pick up at the winery?",
+            "a": "Yes, by appointment. Choose “Pickup at the estate” at checkout."
+          }
+        ]
+      },
+      {
+        "title": "Invoices & business",
+        "qa": [
+          {
+            "q": "How can I get my invoice?",
+            "a": "It’s available in My account > Orders. A copy is emailed to you."
+          },
+          {
+            "q": "B2B sales / business invoicing?",
+            "a": "Write to us via [CONTACT] with your company details; we’ll get back to you quickly."
+          }
+        ]
+      },
+      {
+        "title": "Visits & tastings",
+        "qa": [
+          {
+            "q": "Can we visit the estate?",
+            "a": "Yes, by appointment. Book via [CONTACT] with your preferred date and number of people."
+          },
+          {
+            "q": "Do you organize tastings?",
+            "a": "Yes, regularly. We publish the dates on the site and social networks."
+          }
+        ]
+      },
+      {
+        "title": "Technical issues",
+        "qa": [
+          {
+            "q": "The “Add to cart” button is disabled.",
+            "a": "Make sure you’re signed in and have accepted cookies. The product may also be out of stock."
+          },
+          {
+            "q": "I don’t see the language button or some links.",
+            "a": "Before consent, only Home, [CGU], [CGV], [PRIVACY], [CONTACT] are accessible."
+          },
+          {
+            "q": "I’m not receiving your emails.",
+            "a": "Check spam/Promotions and add contact@domaineberthuit.com to your contacts."
+          }
+        ]
+      },
+      {
+        "title": "Data & GDPR",
+        "qa": [
+          {
+            "q": "How can I exercise my rights (access, rectification, deletion)?",
+            "a": "Write to privacy@domaineberthuit.com (or via [CONTACT]). We reply within 30 days."
+          },
+          {
+            "q": "Where can I find your terms and policies?",
+            "a": "See [CGU], [CGV] and our [PRIVACY]."
+          }
+        ]
+      },
+      {
+        "title": "Contact us",
+        "qa": [
+          { "q": "Email", "a": "lucas@domaineberthuit.com" },
+          { "q": "Address", "a": "31 Boulevard du Minervois, 11700 Pépieux" },
+          { "q": "Phone", "a": "06 68 96 18 34" },
+          { "q": "Form", "a": "You can also use our [CONTACT] page." }
+        ]
+      }
+    ]
   }
 }

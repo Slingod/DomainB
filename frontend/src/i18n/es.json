@@ -38,7 +38,9 @@
     "terms": "Términos",
     "sales": "Condiciones Generales de Venta",
     "privacy": "Política de privacidad",
-    "alcoholWarning": "El abuso del alcohol es peligroso para la salud, consúmelo con moderación."
+    "alcoholWarning": "El abuso del alcohol es peligroso para la salud, consúmelo con moderación.",
+    "faqLong": "Preguntas frecuentes",
+    "faqShort": "FAQ"
   },
   "cookies": {
     "title": "Cookies y Edad",
@@ -672,5 +674,189 @@
       "hint": "Aquí se integrará el mapa interactivo (Google Maps).",
       "openInMaps": "Abrir en Google Maps"
     }
+  },
+
+  "faq": {
+    "meta": {
+      "title": "Preguntas frecuentes — Domaine Berthuit",
+      "description": "Preguntas frecuentes: cuenta, pedidos, pago, envío, cookies y privacidad.",
+      "canonical": "https://www.domaine-berthuit.fr/faq"
+    },
+    "title": "Preguntas frecuentes — Domaine Berthuit",
+    "tocTitle": "FAQ",
+    "sections": [
+      {
+        "title": "Cuenta y acceso",
+        "qa": [
+          {
+            "q": "¿Necesito una cuenta para comprar?",
+            "a": "Sí. Crear/iniciar sesión es necesario para añadir al carrito y pagar, para proteger tus datos y recuperar tus pedidos."
+          },
+          {
+            "q": "Me desconecta tras 10–15 minutos de inactividad, ¿es normal?",
+            "a": "Sí, es una medida de seguridad. Si no estabas conectado/a, no se pierde nada; inicia sesión para continuar."
+          },
+          {
+            "q": "No puedo acceder / he olvidado mi contraseña.",
+            "a": "Usa “¿Olvidaste tu contraseña?”. Recibirás un enlace de restablecimiento por email (revisa el spam)."
+          },
+          {
+            "q": "¿Puedo comprar sin aceptar las cookies?",
+            "a": "No. Usamos cookies esenciales (seguridad, carrito, sesión). Sin consentimiento, solo se puede acceder a las páginas legales."
+          }
+        ]
+      },
+      {
+        "title": "Cookies, edad y privacidad",
+        "qa": [
+          {
+            "q": "¿Por qué debo confirmar que tengo 18+?",
+            "a": "La venta de alcohol está reservada a mayores de edad. Al continuar confirmas que tienes 18 años o más."
+          },
+          {
+            "q": "¿Qué cookies utilizáis?",
+            "a": "Solo las necesarias para el funcionamiento (autenticación, carrito, idioma) y analítica básica. Detalles en nuestra [PRIVACY]."
+          },
+          {
+            "q": "¿Cómo retiro mi consentimiento?",
+            "a": "Haz clic en el botón “Cookies” al final de la página y luego en “Retirar mi consentimiento”."
+          }
+        ]
+      },
+      {
+        "title": "Productos y añadas",
+        "qa": [
+          {
+            "q": "¿Vuestros vinos contienen sulfitos?",
+            "a": "Como la mayoría de los vinos, sí. Consulta la etiqueta de cada cuvée."
+          },
+          {
+            "q": "¿Puede cambiar la añada?",
+            "a": "Sí, si la siguiente cuvée está a la venta. La ficha del producto indica la añada enviada."
+          },
+          {
+            "q": "Veo “Agotado” — ¿cuándo vuelve?",
+            "a": "En cuanto repongamos. Puedes escribirnos vía [CONTACT] para que te avisemos."
+          },
+          {
+            "q": "¿Consejos de guarda y servicio?",
+            "a": "Cada ficha de producto indica nuestras recomendaciones (temperatura, guarda, maridajes)."
+          }
+        ]
+      },
+      {
+        "title": "Pedidos y pago",
+        "qa": [
+          {
+            "q": "¿Qué métodos de pago aceptáis?",
+            "a": "Tarjetas a través de Stripe (pago seguro). No almacenamos datos de tarjetas."
+          },
+          {
+            "q": "¿Puedo modificar o cancelar mi pedido?",
+            "a": "Escríbenos lo antes posible. Mientras no esté preparado, podemos ajustarlo/cancelarlo."
+          },
+          {
+            "q": "¿Recibo una confirmación?",
+            "a": "Sí, se envía un correo de confirmación justo después del pago."
+          },
+          {
+            "q": "¿Ofrecéis códigos promocionales o tarjetas regalo?",
+            "a": "Ocasionalmente. Suscríbete al boletín o síguenos para enterarte."
+          }
+        ]
+      },
+      {
+        "title": "Envío y recogida",
+        "qa": [
+          {
+            "q": "¿Plazos y gastos de envío?",
+            "a": "Por lo general 48–72h laborables tras el envío en Francia metropolitana. Los gastos aparecen en el carrito según peso y dirección."
+          },
+          {
+            "q": "¿Enviáis fuera de Francia?",
+            "a": "Contáctanos para envíos internacionales; lo estudiamos caso por caso."
+          },
+          {
+            "q": "¿Qué hago si el paquete llega dañado?",
+            "a": "Recházalo (o indica una reserva precisa) y contáctanos con fotos; buscaremos una solución."
+          },
+          {
+            "q": "¿Ofrecéis recogida en bodega?",
+            "a": "Sí, con cita previa. Elige “Recogida en el dominio” al confirmar el pedido."
+          }
+        ]
+      },
+      {
+        "title": "Facturas y empresa",
+        "qa": [
+          {
+            "q": "¿Cómo obtengo mi factura?",
+            "a": "Está disponible en Mi cuenta > Pedidos. También se envía por correo electrónico."
+          },
+          {
+            "q": "Ventas B2B / facturación a empresa",
+            "a": "Escríbenos vía [CONTACT] con tus datos de empresa; te responderemos rápido."
+          }
+        ]
+      },
+      {
+        "title": "Visitas y catas",
+        "qa": [
+          {
+            "q": "¿Se puede visitar el dominio?",
+            "a": "Sí, con cita previa. Reserva vía [CONTACT] indicando fecha y número de personas."
+          },
+          {
+            "q": "¿Organizáis catas?",
+            "a": "Sí, regularmente. Publicamos las fechas en la web y redes sociales."
+          }
+        ]
+      },
+      {
+        "title": "Problemas técnicos",
+        "qa": [
+          {
+            "q": "El botón “Añadir al carrito” está desactivado.",
+            "a": "Comprueba que has iniciado sesión y aceptado las cookies. El producto también puede estar agotado."
+          },
+          {
+            "q": "No veo el selector de idioma o algunos enlaces.",
+            "a": "Antes del consentimiento, solo están disponibles Inicio, [CGU], [CGV], [PRIVACY], [CONTACT]."
+          },
+          {
+            "q": "No recibo vuestros correos.",
+            "a": "Revisa Spam/Promociones y añade contact@domaineberthuit.com a tus contactos."
+          }
+        ]
+      },
+      {
+        "title": "Datos y RGPD",
+        "qa": [
+          {
+            "q": "¿Cómo ejerzo mis derechos (acceso, rectificación, supresión)?",
+            "a": "Escríbenos a privacy@domaineberthuit.com (o vía [CONTACT]). Respondemos en un plazo de 30 días."
+          },
+          {
+            "q": "¿Dónde están vuestras condiciones y políticas?",
+            "a": "Consulta [CGU], [CGV] y la [PRIVACY]."
+          }
+        ]
+      },
+      {
+        "title": "Contacto",
+        "qa": [
+          { "q": "Email", "a": "lucas@domaineberthuit.com" },
+          {
+            "q": "Dirección",
+            "a": "31 Boulevard du Minervois, 11700 Pépieux"
+          },
+          { "q": "Teléfono", "a": "06 68 96 18 34" },
+          {
+            "q": "Formulario",
+            "a": "También puedes usar la página de [CONTACT]."
+          }
+        ]
+      }
+    ]
   }
 }

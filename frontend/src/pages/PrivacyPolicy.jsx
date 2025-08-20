@@ -17,8 +17,7 @@ export default function PrivacyPolicy() {
     day: '2-digit',
   }).format(new Date());
 
-  // Retire une numérotation en début de chaîne: "1. ", "2) ", "3 - "...
-  // (pas d'échappements inutiles pour '.' et ')' dans la classe)
+  // Retire une numérotation éventuelle en début de chaîne (“1. ”, “2) ”, “3 - ”…)
   const stripLeadingNum = (s) => String(s || '').replace(/^\s*\d+[.)-]\s*/, '');
 
   // Éléments du sommaire : sections + tableau cookies
@@ -31,6 +30,8 @@ export default function PrivacyPolicy() {
       ? { id: 'section-cookies', label: stripLeadingNum(cookies.title) }
       : null,
   ].filter(Boolean);
+
+  const h = cookies?.headers || {};
 
   return (
     <main className="page legal-page privacy-page">
@@ -69,7 +70,6 @@ export default function PrivacyPolicy() {
               aria-labelledby={`heading-${idx + 1}`}
               className="legal-section"
             >
-              {/* On garde le titre tel quel (peut contenir "1. ...") */}
               <h2 id={`heading-${idx + 1}`}>{sec.title}</h2>
 
               {Array.isArray(sec.paragraphs) &&
@@ -95,22 +95,22 @@ export default function PrivacyPolicy() {
               <h2 id="heading-cookies">{cookies.title}</h2>
 
               <div className="table-wrap" role="region" aria-label={cookies.title}>
-                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                <table className="policy-table" aria-describedby="heading-cookies">
                   <thead>
                     <tr>
-                      <th style={th}>{cookies.headers?.name}</th>
-                      <th style={th}>{cookies.headers?.purpose}</th>
-                      <th style={th}>{cookies.headers?.duration}</th>
-                      <th style={th}>{cookies.headers?.type}</th>
+                      <th style={th}>{h.name}</th>
+                      <th style={th}>{h.purpose}</th>
+                      <th style={th}>{h.duration}</th>
+                      <th style={th}>{h.type}</th>
                     </tr>
                   </thead>
                   <tbody>
                     {(cookies.rows || []).map((r, i) => (
                       <tr key={i}>
-                        <td style={td}><code>{r.name}</code></td>
-                        <td style={td}>{r.purpose}</td>
-                        <td style={td}>{r.duration}</td>
-                        <td style={td}>{r.type}</td>
+                        <td style={td} data-label={h.name}><code>{r.name}</code></td>
+                        <td style={td} data-label={h.purpose}>{r.purpose}</td>
+                        <td style={td} data-label={h.duration}>{r.duration}</td>
+                        <td style={td} data-label={h.type}>{r.type}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -127,7 +127,6 @@ export default function PrivacyPolicy() {
         </article>
       </div>
 
-      {/* Bouton retour haut (même composant que CGU/CGV) */}
       <ScrollTopButton />
     </main>
   );

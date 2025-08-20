@@ -30,6 +30,7 @@ import CGU from './pages/CGU';
 import Contact from './pages/Contact';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import LieuGeste from './pages/LieuGeste';
+import FAQ from './pages/FAQ';
 
 /* === helpers cookies === */
 function readConsentCookie() {
@@ -50,18 +51,13 @@ export default function App() {
   const location = useLocation();
 
   useEffect(() => {
-    // fonction de synchro utilisée par tous les listeners
     const sync = () => setCookiesAccepted(readConsentCookie());
 
-    // sync au focus / visibilité (changement d’onglet)
     window.addEventListener('focus', sync);
     document.addEventListener('visibilitychange', sync);
-
-    // ✅ écoute des évènements émis par CookieConsent
     window.addEventListener('cookieconsent:accepted', sync);
     window.addEventListener('cookieconsent:refused', sync);
 
-    // init (utile si le cookie a changé avant le montage)
     sync();
 
     return () => {
@@ -122,6 +118,7 @@ export default function App() {
           <Route path="/cgv" element={<CGV />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/faq" element={<FAQ />} />
 
           {/* Pages accessibles uniquement après consentement */}
           <Route
@@ -165,11 +162,12 @@ export default function App() {
             }
           />
 
-          {/* Reset/Forgot : libres (ou mets-les derrière CookiesGate si tu préfères) */}
+          {/* Reset/Forgot : libres (tu peux aussi les passer derrière CookiesGate si tu préfères) */}
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
 
-          {/* Zones protégées par rôle (et par consentement implicite via Navbar + CookiesGate si tu veux aussi) */}
+          {/* Zones protégées par rôle (cookies implicites déjà gérés par la Navbar ; 
+              tu peux aussi entourer chaque route d’un CookiesGate si tu veux forcer) */}
           {cookiesAccepted && (
             <>
               <Route
