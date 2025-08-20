@@ -9,7 +9,8 @@ function readConsentCookie() {
 }
 function writeConsentCookie(value) {
   const secure = window.location.protocol === 'https:' ? '; Secure' : '';
-  document.cookie = `cookieConsent=${value ? 'true' : 'false'}; Path=/; Max-Age=31536000; SameSite=Lax${secure}`;
+  document.cookie =
+    `cookieConsent=${value ? 'true' : 'false'}; Path=/; Max-Age=31536000; SameSite=Lax${secure}`;
 }
 
 export default function CookieConsent({ onAccept }) {
@@ -90,6 +91,11 @@ export default function CookieConsent({ onAccept }) {
               <span className="cc-age-badge">{t('cookies.ageBadge', '18+')}</span>
             </h3>
 
+            {/* ✅ nouvelle note d’accès complet */}
+            <p className="cc-note">
+              {t('cookies.fullAccess', 'Pour bénéficier d’un accès complet au site, vous devez accepter nos cookies.')}
+            </p>
+
             <p className="cc-copy">
               {t('cookies.ageNotice', 'Ce site est réservé aux personnes majeures (18+).')}{' '}
               {t('cookies.continueNotice', 'En poursuivant, vous acceptez nos')}{' '}
@@ -102,6 +108,7 @@ export default function CookieConsent({ onAccept }) {
             </p>
           </div>
 
+          {/* ✅ actions déplacées en bas (full width) */}
           <div className="cc-actions">
             {view === 'ask' ? (
               <>

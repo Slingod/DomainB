@@ -55,7 +55,8 @@
     "reopen": "Cookies",
     "settingsAria": "Preferencias de cookies",
     "revoke": "Retirar mi consentimiento",
-    "cancel": "Cerrar"
+    "cancel": "Cerrar",
+    "fullAccess": "Para obtener acceso completo al sitio, debes aceptar nuestras cookies."
   },
   "home": {
     "meta": {
