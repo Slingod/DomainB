@@ -9,17 +9,20 @@ const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
 const crypto = require('crypto');
 
-// Init DB (better-sqlite3) — pas de db.connect()
+// Init DB (better-sqlite3)
 require('./db');
 
 const csrf = require('./middlewares/csrf');
 
-// Routes
+// Routes métier
 const authRoutes       = require('./routes/auth');
 const userRoutes       = require('./routes/users');
 const productRoutes    = require('./routes/products');
 const orderRoutes      = require('./routes/orders');
 const moderationRoutes = require('./routes/moderation');
+
+// ✅ Route d'upload (POST /uploads/images)
+const uploadsRoutes    = require('./routes/uploads.routes');
 
 const app = express();
 app.disable('x-powered-by');
@@ -48,14 +51,16 @@ app.use(express.urlencoded({ extended: false, limit: '200kb' }));
 app.use(cookieParser());
 app.use(hpp());
 
-// --- CSP nonce par requête (utile si un jour tu sers une page HTML depuis l'API) ---
+// --- CSP nonce par requête ---
 app.use((req, res, next) => {
   res.locals.cspNonce = crypto.randomBytes(16).toString('base64');
   next();
 });
 
 // --- Sécurité (Helmet) ---
+// IMPORTANT: autorise l'utilisation cross-origin des ressources (images) :
 app.use(helmet({
+  crossOriginResourcePolicy: { policy: 'cross-origin' }, // <-- clé pour éviter "NotSameOrigin"
   contentSecurityPolicy: {
     useDefaults: true,
     directives: {
@@ -63,26 +68,23 @@ app.use(helmet({
       "base-uri": ["'self'"],
       "object-src": ["'none'"],
       "img-src": ["'self'", "data:"],
-      // scripts autorisés: self + nonce dynamique
       "script-src": [
         "'self'",
         (req, res) => `'nonce-${res.locals.cspNonce}'`,
       ],
-      // Quill en dev a besoin d'inline CSS: on garde 'unsafe-inline' côté style
       "style-src": ["'self'", "'unsafe-inline'"],
       "font-src": ["'self'", "https:", "data:"],
-      // NB: CSP s'applique aux pages servies par l'API, pas à ton front Vite
       "connect-src": ["'self'"],
       "frame-ancestors": ["'self'"],
       "form-action": ["'self'"],
-      "upgrade-insecure-requests": [] // activé quand tu passes en HTTPS
+      "upgrade-insecure-requests": []
     }
   },
   referrerPolicy: { policy: 'no-referrer' },
   crossOriginEmbedderPolicy: false
 }));
 
-// HSTS seulement si VRAI HTTPS derrière un proxy/serveur
+// HSTS seulement si vrai HTTPS + cookies secure
 if (process.env.NODE_ENV === 'production' && process.env.COOKIE_SECURE === 'true') {
   app.use(helmet.hsts({ maxAge: 31536000, includeSubDomains: true, preload: true }));
 }
@@ -96,17 +98,25 @@ const limiter = rateLimit({
 });
 app.use(limiter);
 
-// ⚠️ Ne PAS rate-limiter tout /auth ici (ça ferait 429 sur /auth/csrf et /auth/refresh).
-// Si tu veux limiter /auth/login spécifiquement, fais-le DANS routes/auth.js sur la route ciblée.
+// 📂 Dossier public (où la route d'upload enregistre les fichiers)
+const PUBLIC_DIR = path.join(__dirname, 'public');
 
-// --- Static uploads protégés ---
-app.use('/uploads', express.static(path.join(__dirname, 'uploads'), {
+// ✅ Monte la route d'upload AVANT le CSRF (on ne CSRF pas l'upload binaire)
+app.use('/uploads', uploadsRoutes);
+
+// ✅ Fichiers statiques: sert /uploads/* depuis backend/public/uploads
+//    + force CORP cross-origin sur ces réponses
+app.use('/uploads', (req, res, next) => {
+  res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+  next();
+});
+app.use('/uploads', express.static(path.join(PUBLIC_DIR, 'uploads'), {
   dotfiles: 'ignore',
   immutable: true,
-  maxAge: '7d',
+  maxAge: '31536000', // 1 an (OK grâce aux noms hashés)
   setHeaders: (res) => {
     res.setHeader('X-Content-Type-Options', 'nosniff');
-    res.setHeader('Content-Security-Policy', "default-src 'none'; img-src 'self' data:; media-src 'self'");
+    // Pas besoin de CSP ici, on laisse simple pour les images
   }
 }));
 
@@ -115,7 +125,7 @@ if (process.env.CSRF_PROTECTION === 'true') {
   app.use(csrf());
 }
 
-// --- Routes ---
+// --- Routes API ---
 app.use('/auth',       authRoutes);
 app.use('/users',      userRoutes);
 app.use('/products',   productRoutes);
@@ -123,7 +133,7 @@ app.use('/orders',     orderRoutes);
 app.use('/moderation', moderationRoutes);
 
 app.get('/', (req, res) => {
-  res.send('🚀 API up: /auth /users /products /orders /moderation');
+  res.send('🚀 API up: /auth /users /products /orders /moderation /uploads');
 });
 
 // 404

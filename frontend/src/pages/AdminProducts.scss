@@ -342,3 +342,38 @@
     }
   }
 }
+
+.uploader {
+  .dropzone {
+    border: 2px dashed $border-color;
+    border-radius: $radius;
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: background .2s ease, border-color .2s ease;
+
+    &.over { background: #f7f9fc; border-color: $primary; }
+    &.disabled { opacity: .6; cursor: not-allowed; }
+
+    p { margin: 0; color: $text-light; }
+    strong { color: $text-main; }
+    small { color: $text-muted; }
+
+    .progress {
+      margin-top: .75rem;
+      height: 6px;
+      background: $gray-light;
+      border-radius: 999px;
+      overflow: hidden;
+
+      .bar { height: 100%; background: $primary; width: 0%; }
+    }
+  }
+}
+
+.image-field .preview {
+  margin-top: .5rem;
+  display: flex; flex-direction: column; gap: .25rem;
+  img { width: 180px; height: 180px; object-fit: cover; border-radius: $radius; border: 1px solid $border-color; }
+  .muted { color: $text-muted; word-break: break-all; }
+}

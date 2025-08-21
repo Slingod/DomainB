@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import api from '../api/api';
 import './AdminProducts.scss';
@@ -6,13 +6,125 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 
-const localImages = [
-  { url: '/hiver.webp',  alt: 'ciel_Hiver' },
-  { url: '/gout.webp',   alt: 'le_gout_des_autres' },
-  { url: '/dany.webp',   alt: 'dany_jo' },
-  { url: '/coteau.webp', alt: 'petit_coteau' },
-  { url: '/lum.webp',    alt: 'lum_del_pais' }
-];
+/**
+ * RGPD — Points couverts par ce fichier Front :
+ * 1) Aucun stockage navigateur (pas de localStorage/sessionStorage/IndexedDB).
+ * 2) Pas de base64 côté client (envoi binaire via FormData uniquement).
+ * 3) Upload direct vers le serveur (POST /uploads/images).
+ * 4) EXIF purgé : à faire côté backend dans /uploads/images (Sharp sans withMetadata()).
+ */
+
+/* ===========================
+   Composant d'upload d'image
+   =========================== */
+function ImageUploader({ onUploaded, disabled }) {
+  const [dragOver, setDragOver] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const inputRef = useRef(null);
+
+  const MAX_UPLOAD_MB = 5;
+  const accept = 'image/jpeg,image/png,image/webp,image/avif';
+
+  const uploadFile = async (file) => {
+    if (!file) return;
+
+    // Validation simple côté client (la sécurité reste assurée côté serveur)
+    if (!accept.split(',').includes(file.type)) {
+      alert('Format non supporté (JPEG/PNG/WebP/AVIF uniquement).');
+      return;
+    }
+    if (file.size > MAX_UPLOAD_MB * 1024 * 1024) {
+      alert(`Fichier trop lourd (max ${MAX_UPLOAD_MB} Mo).`);
+      return;
+    }
+
+    const form = new FormData();
+    form.append('file', file);
+
+    try {
+      setProgress(1);
+      // IMPORTANT (RGPD/EXIF) :
+      // La route /uploads/images doit :
+      //  - valider le MIME réellement avec Sharp
+      //  - redimensionner/compresser
+      //  - SUPPRIMER les métadonnées (ne pas utiliser .withMetadata())
+      const res = await api.post('/uploads/images', form, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+        onUploadProgress: (e) => {
+          if (!e.total) return;
+          setProgress(Math.round((e.loaded * 100) / e.total));
+        }
+      });
+      const { url, altSuggested } = res.data || {};
+      onUploaded?.({ url, alt: altSuggested || '' });
+    } catch (err) {
+      console.error(err);
+      alert("Échec de l'upload de l'image.");
+    } finally {
+      setProgress(0);
+      setDragOver(false);
+    }
+  };
+
+  const onDrop = (e) => {
+    e.preventDefault();
+    if (disabled) return;
+    const file = e.dataTransfer.files?.[0];
+    uploadFile(file);
+  };
+
+  const onSelect = (e) => {
+    const file = e.target.files?.[0];
+    uploadFile(file);
+  };
+
+  const triggerClick = () => {
+    if (!disabled) inputRef.current?.click();
+  };
+
+  const onKeyDown = (e) => {
+    if (disabled) return;
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      triggerClick();
+    }
+  };
+
+  return (
+    <div className="uploader">
+      <div
+        className={`dropzone ${dragOver ? 'over' : ''} ${disabled ? 'disabled' : ''}`}
+        onDragOver={(e) => { e.preventDefault(); if (!disabled) setDragOver(true); }}
+        onDragLeave={() => setDragOver(false)}
+        onDrop={onDrop}
+        onClick={triggerClick}
+        onKeyDown={onKeyDown}
+        role="button"
+        tabIndex={0}
+        aria-label="Déposer une image ici ou cliquer pour parcourir"
+      >
+        <input
+          ref={inputRef}
+          type="file"
+          accept={accept}
+          onChange={onSelect}
+          hidden
+          disabled={disabled}
+        />
+        <p>
+          <strong>Glissez-déposez</strong> une image ici<br />
+          <span>ou cliquez pour parcourir</span><br />
+          <small>JPEG/PNG/WebP/AVIF — max {MAX_UPLOAD_MB} Mo</small>
+        </p>
+        {progress > 0 && (
+          <div className="progress" aria-label="Progression de l'upload">
+            <div className="bar" style={{ width: `${progress}%` }} />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
 
 export default function AdminProducts() {
   const [products, setProducts]     = useState([]);   // liste source (tri = sort_order)
@@ -23,7 +135,7 @@ export default function AdminProducts() {
   const [reorderSaving, setReorderSaving] = useState(false);
   const [info, setInfo] = useState('');
 
-  // --- Nouveau : confirmation de suppression ---
+  // --- Confirmation de suppression ---
   const [confirming, setConfirming] = useState(null);   // produit ciblé (ou null)
   const [confirmText, setConfirmText] = useState('');   // texte saisi dans la modal
 
@@ -61,13 +173,12 @@ export default function AdminProducts() {
   );
 
   const saveProduct = async p => {
-    const selected = localImages.find(img => img.url === p.image_url);
     const payload = {
       title: p.title,
-      description: p.description,
+      description: p.description, // { fr, en, es }
       price: p.price,
       image_url: p.image_url,
-      image_alt: selected ? selected.alt : '',
+      image_alt: p.image_alt || '',
       stock: p.stock,
       is_visible: p.is_visible,
       is_summer_product: p.is_summer_product
@@ -82,7 +193,7 @@ export default function AdminProducts() {
     setEditing(null);
   };
 
-  // Ancienne suppression => remplacée par une demande de confirmation
+  // Demande de confirmation
   const askDelete = (product) => {
     setConfirming(product);
     setConfirmText('');
@@ -179,9 +290,10 @@ export default function AdminProducts() {
             onClick={() =>
               setEditing({
                 title: '',
-                description: { fr: '', en: '', es: '', ru: '', zh: '' },
+                description: { fr: '', en: '', es: '' },
                 price: 0,
                 image_url: '',
+                image_alt: '',
                 stock: 0,
                 is_visible: true,
                 is_summer_product: false
@@ -236,6 +348,7 @@ export default function AdminProducts() {
                           {p.image_url && (
                             <div className="product-thumb-wrapper">
                               <img
+                                loading="lazy"
                                 src={p.image_url}
                                 alt={p.image_alt || `Produit : ${p.title}`}
                                 className="product-thumb"
@@ -319,7 +432,7 @@ export default function AdminProducts() {
 
             <fieldset>
               <legend>Description (par langue)</legend>
-              {mounted && ['fr', 'en', 'es', 'ru', 'zh'].map(lang => (
+              {mounted && ['fr', 'en', 'es'].map(lang => (
                 <div key={lang} className="quill-block">
                   <label>{lang.toUpperCase()}</label>
                   <ReactQuill
@@ -340,6 +453,34 @@ export default function AdminProducts() {
               ))}
             </fieldset>
 
+            {/* Uploader + aperçu */}
+            <div className="image-field">
+              <label>Image du produit</label>
+              <ImageUploader
+                disabled={false}
+                onUploaded={({ url, alt }) =>
+                  setEditing(prev => ({ ...prev, image_url: url, image_alt: alt }))
+                }
+              />
+              {editing.image_url && (
+                <div className="preview">
+                  <img src={editing.image_url} alt={editing.image_alt || 'Aperçu du produit'} />
+                  <small className="muted">{editing.image_url}</small>
+                </div>
+              )}
+            </div>
+
+            {/* ALT éditable pour accessibilité/SEO */}
+            <label>
+              Texte alternatif (ALT)
+              <input
+                type="text"
+                value={editing.image_alt || ''}
+                onChange={(e) => setEditing(prev => ({ ...prev, image_alt: e.target.value }))}
+                placeholder="Courte description de l’image"
+              />
+            </label>
+
             <label>
               Prix (€)
               <input
@@ -349,28 +490,6 @@ export default function AdminProducts() {
                 onChange={(evt) => setEditing({ ...editing, price: parseFloat(evt.target.value) || 0 })}
                 required
               />
-            </label>
-
-            <label>
-              Image du produit
-              <select
-                value={editing.image_url || ''}
-                onChange={(evt) => {
-                  const selected = localImages.find(img => img.url === evt.target.value);
-                  setEditing({
-                    ...editing,
-                    image_url: selected?.url || '',
-                    image_alt: selected?.alt || ''
-                  });
-                }}
-              >
-                <option value="">-- Choisir une image --</option>
-                {localImages.map(img => (
-                  <option key={img.url} value={img.url}>
-                    {img.alt}
-                  </option>
-                ))}
-              </select>
             </label>
 
             <label>
@@ -410,7 +529,7 @@ export default function AdminProducts() {
         </div>
       )}
 
-      {/* Modal confirmation suppression (nouveau) */}
+      {/* Modal confirmation suppression */}
       {confirming && (
         <div className="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
           <div className="modal">
