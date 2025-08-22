@@ -115,7 +115,7 @@
   },
   "legal": {
     "company": "Publisher: Domaine Berthuit",
-    "address": "Address: 31 BOULEVARD DU MINERVOIS, 11700 PEPIEUX",
+    "address": "Address: 11 Rue du Onze Novembre 1918, 11700 Pépieux",
     "email": "Email: lucas@domaineberthuit.com",
     "siret": "SIRET: 987 552 056"
   },
@@ -128,7 +128,7 @@
       {
         "title": "1. Controller",
         "paragraphs": [
-          "Domaine Berthuit – BERTHUIT LUCAS, 31 BOULEVARD DU MINERVOIS, 11700 PEPIEUX – France. SIRET: 987 552 056. Email: lucas@domaineberthuit.com."
+          "Domaine Berthuit – BERTHUIT LUCAS, 11 Rue du Onze Novembre 1918, 11700 Pépieux – France. SIRET: 987 552 056. Email: lucas@domaineberthuit.com."
         ]
       },
       {
@@ -376,7 +376,7 @@
       "11": {
         "title": "11. Legal Notice",
         "editeur": "Publisher: Domaine Berthuit, BERTHUIT LUCAS",
-        "adresse": "Address: 31 BOULEVARD DU MINERVOIS, 11700 PEPIEUX",
+        "adresse": "Address: 11 Rue du Onze Novembre 1918, 11700 Pépieux",
         "email": "Email: lucas@domaineberthuit.com",
         "siret": "SIRET: 987 552 056",
         "date": "Last update: July 2025"
@@ -448,7 +448,7 @@
       "11": {
         "title": "11. Legal Notice",
         "editeur": "Publisher: Domaine Berthuit, BERTHUIT LUCAS",
-        "adresse": "Address: 31 BOULEVARD DU MINERVOIS, 11700 PEPIEUX",
+        "adresse": "Address: 11 Rue du Onze Novembre 1918, 11700 Pépieux",
         "email": "Email: lucas@domaineberthuit.com",
         "siret": "SIRET: 987 552 056",
         "date": "Last updated: July 2025"
@@ -845,7 +845,10 @@
         "title": "Contact us",
         "qa": [
           { "q": "Email", "a": "lucas@domaineberthuit.com" },
-          { "q": "Address", "a": "31 Boulevard du Minervois, 11700 Pépieux" },
+          {
+            "q": "Address",
+            "a": "11 Rue du Onze Novembre 1918, 11700 Pépieux"
+          },
           { "q": "Phone", "a": "06 68 96 18 34" },
           { "q": "Form", "a": "You can also use our [CONTACT] page." }
         ]

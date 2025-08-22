@@ -115,7 +115,7 @@
   },
   "legal": {
     "company": "Editor: Domaine Berthuit",
-    "address": "Dirección: 31 BOULEVARD DU MINERVOIS, 11700 PEPIEUX",
+    "address": "Dirección: 11 Rue du Onze Novembre 1918, 11700 Pépieux",
     "email": "Correo electrónico: lucas@domaineberthuit.com",
     "siret": "SIRET: 987 552 056"
   },
@@ -128,7 +128,7 @@
       {
         "title": "1. Responsable del tratamiento",
         "paragraphs": [
-          "Domaine Berthuit – BERTHUIT LUCAS, 31 BOULEVARD DU MINERVOIS, 11700 PEPIEUX – Francia. SIRET: 987 552 056. Email: lucas@domaineberthuit.com."
+          "Domaine Berthuit – BERTHUIT LUCAS, 11 Rue du Onze Novembre 1918, 11700 Pépieux – Francia. SIRET: 987 552 056. Email: lucas@domaineberthuit.com."
         ]
       },
       {
@@ -376,7 +376,7 @@
       "11": {
         "title": "11. Aviso legal",
         "editeur": "Editor: Domaine Berthuit, BERTHUIT LUCAS",
-        "adresse": "Dirección: 31 BOULEVARD DU MINERVOIS, 11700 PEPIEUX",
+        "adresse": "Dirección: 11 Rue du Onze Novembre 1918, 11700 Pépieux",
         "email": "Correo electrónico: lucas@domaineberthuit.com",
         "siret": "SIRET: 987 552 056",
         "date": "Última actualización: Julio 2025"
@@ -448,7 +448,7 @@
       "11": {
         "title": "11. Aviso legal",
         "editeur": "Editor: Domaine Berthuit, BERTHUIT LUCAS",
-        "adresse": "Dirección: 31 BOULEVARD DU MINERVOIS, 11700 PEPIEUX",
+        "adresse": "Dirección: 11 Rue du Onze Novembre 1918, 11700 Pépieux",
         "email": "Correo electrónico: lucas@domaineberthuit.com",
         "siret": "SIRET: 987 552 056",
         "date": "Última actualización: julio de 2025"
@@ -848,7 +848,7 @@
           { "q": "Email", "a": "lucas@domaineberthuit.com" },
           {
             "q": "Dirección",
-            "a": "31 Boulevard du Minervois, 11700 Pépieux"
+            "a": "11 Rue du Onze Novembre 1918, 11700 Pépieux"
           },
           { "q": "Teléfono", "a": "06 68 96 18 34" },
           {

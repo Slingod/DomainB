@@ -140,7 +140,7 @@
   },
   "legal": {
     "company": "Éditeur : Domaine Berthuit",
-    "address": "Adresse : 31 BOULEVARD DU MINERVOIS, 11700 PEPIEUX",
+    "address": "Adresse : 11 Rue du Onze Novembre 1918, 11700 Pépieux",
     "email": "Email : lucas@domaineberthuit.com",
     "siret": "SIRET : 987 552 056"
   },
@@ -153,7 +153,7 @@
       {
         "title": "1. Responsable de traitement",
         "paragraphs": [
-          "Domaine Berthuit – BERTHUIT LUCAS, 31 BOULEVARD DU MINERVOIS, 11700 PEPIEUX – France. SIRET : 987 552 056. Email : lucas@domaineberthuit.com."
+          "Domaine Berthuit – BERTHUIT LUCAS, 11 Rue du Onze Novembre 1918, 11700 Pépieux – France. SIRET : 987 552 056. Email : lucas@domaineberthuit.com."
         ]
       },
       {
@@ -273,7 +273,7 @@
     "description": "Vous avez une question, une commande spéciale ou souhaitez en savoir plus sur nos vins bio ? N’hésitez pas à nous contacter !",
     "addressLabel": "Adresse",
     "addressName": "Domaine Berthuit",
-    "address": "31 Boulevard du Minervois\n11700 Pépieux",
+    "address": "11 Rue du Onze Novembre 1918, 11700 Pépieux",
     "contactLabel": "Contact",
     "phoneLabel": "Téléphone",
     "phoneRaw": "+33668961834",
@@ -401,7 +401,7 @@
       "11": {
         "title": "11. Mentions légales",
         "editeur": "Éditeur : Domaine Berthuit, BERTHUIT LUCAS",
-        "adresse": "Adresse : Adresse : 31 BOULEVARD DU MINERVOIS, 11700 PEPIEUX",
+        "adresse": "Adresse : Adresse : 11 Rue du Onze Novembre 1918, 11700 Pépieux",
         "email": "Email :  lucas@domaineberthuit.com",
         "siret": "SIRET : 987 552 056",
         "date": "Dernière mise à jour : Juillet 2025"
@@ -473,7 +473,7 @@
       "11": {
         "title": "Mentions légales",
         "societe": "Domaine Berthuit, éditeur du site.",
-        "adresse": "31 BOULEVARD DU MINERVOIS, 11700 PEPIEUX",
+        "adresse": "11 Rue du Onze Novembre 1918, 11700 Pépieux",
         "email": "lucas@domaineberthuit.com",
         "siret": "SIRET : 987 552 056",
         "date": "Dernière mise à jour : Août 2025"
@@ -871,7 +871,10 @@
         "title": "Nous contacter",
         "qa": [
           { "q": "Email", "a": "lucas@domaineberthuit.com" },
-          { "q": "Adresse", "a": "31 Boulevard du Minervois, 11700 Pépieux" },
+          {
+            "q": "Adresse",
+            "a": "11 Rue du Onze Novembre 1918, 11700 Pépieux"
+          },
           { "q": "Téléphone", "a": "06 68 96 18 34" },
           { "q": "Formulaire", "a": "Tu peux aussi passer par [CONTACT]." }
         ]
