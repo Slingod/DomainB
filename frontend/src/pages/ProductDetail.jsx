@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import api from '../api/api';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../store/cartSlice';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import DOMPurify from 'dompurify';
 import './ProductDetail.scss';
-import useRequireAuth from '../hooks/useRequireAuth'; // ⬅️ ajout
+import useRequireAuth from '../hooks/useRequireAuth';
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -17,7 +17,12 @@ export default function ProductDetail() {
   const [error, setError] = useState('');
   const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
-  const { requireAuth } = useRequireAuth(); // ⬅️ ajout
+  const { requireAuth } = useRequireAuth();
+
+  // 🔐 rôle utilisateur depuis Redux
+  const auth = useSelector((s) => s.auth);
+  const role = auth?.user?.role || auth?.role || null;
+  const isPrivileged = role === 'admin' || role === 'moderator';
 
   // Chargement produit
   useEffect(() => {
@@ -25,7 +30,7 @@ export default function ProductDetail() {
     setError('');
     api
       .get(`/products/${encodeURIComponent(id)}`)
-      .then(res => { if (mounted) setProduct(res.data); })
+      .then((res) => { if (mounted) setProduct(res.data); })
       .catch(() => { if (mounted) setError(t('productDetail.loadError')); });
     return () => { mounted = false; };
   }, [id, t]);
@@ -38,34 +43,25 @@ export default function ProductDetail() {
     const rawDesc = product.description;
 
     try {
-      // Si c'est un string JSON -> on parse
       if (typeof rawDesc === 'string') {
         const parsed = JSON.parse(rawDesc);
         if (parsed && typeof parsed === 'object') {
           html = parsed[i18n.language] || parsed.fr || '';
         } else {
-          // string non-JSON de type texte simple
           html = String(rawDesc);
         }
       } else if (typeof rawDesc === 'object') {
-        // déjà un objet { fr, en, ... }
         html = rawDesc[i18n.language] || rawDesc.fr || '';
       } else {
         html = String(rawDesc ?? '');
       }
     } catch {
-      // string non JSON → on l'utilise tel quel
       html = String(rawDesc ?? '');
     }
 
     return DOMPurify.sanitize(html, {
-      ALLOWED_TAGS: [
-        'p','br','ul','ol','li','b','i','strong','em','a','img','h2','h3','h4'
-      ],
-      ALLOWED_ATTR: {
-        a: ['href','title','target','rel'],
-        img: ['src','alt','title']
-      },
+      ALLOWED_TAGS: ['p','br','ul','ol','li','b','i','strong','em','a','img','h2','h3','h4'],
+      ALLOWED_ATTR: { a: ['href','title','target','rel'], img: ['src','alt','title'] },
       RETURN_TRUSTED_TYPE: false
     });
   }, [product, i18n.language]);
@@ -120,8 +116,8 @@ export default function ProductDetail() {
           name="description"
           content={t('productDetail.meta.description', {
             title: product.title,
-            price: price.toFixed(2),
-            stock: stock
+            price: price.toFixed(2)
+            // volontairement pas d'inclusion du stock ici pour ne pas exposer aux clients
           })}
         />
         <meta
@@ -158,10 +154,13 @@ export default function ProductDetail() {
           <meta itemProp="priceCurrency" content="EUR" />
         </div>
 
+        {/* ✅ Stock : nombre visible seulement pour admin/modérateur */}
         <p className="stock">
           {stock > 0
-            ? t('productDetail.stockAvailable', { stock })
-            : t('productDetail.outOfStock')}
+            ? (isPrivileged
+                ? t('productDetail.stockAvailableCount', { count: stock, defaultValue: 'En stock : {{count}}' })
+                : t('productDetail.inStock', { defaultValue: 'En stock' }))
+            : t('productDetail.outOfStock', { defaultValue: 'Rupture de stock' })}
         </p>
 
         {safeDescription && (
@@ -180,7 +179,7 @@ export default function ProductDetail() {
             min="1"
             max={stock}
             value={qty}
-            onChange={e => {
+            onChange={(e) => {
               const v = Number(e.target.value);
               if (!Number.isFinite(v)) return;
               setQty(v < 1 ? 1 : v > stock ? stock : v);
@@ -189,7 +188,7 @@ export default function ProductDetail() {
         </form>
 
         <button
-          onClick={requireAuth(handleAdd, { intent: 'add-to-cart', productId: product.id, qty })} /* ⬅️ ajout du contrôle */
+          onClick={requireAuth(handleAdd, { intent: 'add-to-cart', productId: product.id, qty })}
           disabled={stock === 0}
           className="btn-add"
         >
