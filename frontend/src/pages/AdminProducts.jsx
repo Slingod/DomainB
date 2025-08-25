@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useRef } from 'react';
+import { useState, useEffect, useMemo, useRef, memo, useCallback } from 'react';
 import { Helmet } from 'react-helmet-async';
 import api from '../api/api';
 import './AdminProducts.scss';
@@ -43,11 +43,10 @@ function ImageUploader({ onUploaded, disabled }) {
 
     try {
       setProgress(1);
-      // IMPORTANT (RGPD/EXIF) :
-      // La route /uploads/images doit :
-      //  - valider le MIME réellement avec Sharp
-      //  - redimensionner/compresser
-      //  - SUPPRIMER les métadonnées (ne pas utiliser .withMetadata())
+      // La route /uploads/images :
+      //  - valide le MIME réellement avec Sharp
+      //  - redimensionne/compresse
+      //  - SUPPRIME les métadonnées (ne pas utiliser .withMetadata())
       const res = await api.post('/uploads/images', form, {
         headers: { 'Content-Type': 'multipart/form-data' },
         onUploadProgress: (e) => {
@@ -126,21 +125,113 @@ function ImageUploader({ onUploaded, disabled }) {
   );
 }
 
+/* ===========================
+   Ligne produit mémoïsée
+   =========================== */
+const ProductRow = memo(function ProductRow({
+  p,
+  index,
+  searchActive,
+  askDelete,
+  toggleVisibility,
+  setEditing
+}) {
+  return (
+    <Draggable
+      draggableId={String(p.id)}
+      index={index}
+      isDragDisabled={!!searchActive}
+    >
+      {(prov, snapshot) => (
+        <li
+          ref={prov.innerRef}
+          {...prov.draggableProps}
+          className={`product-item ${!p.is_visible ? 'disabled-product' : ''} ${snapshot.isDragging ? 'dragging' : ''}`}
+        >
+          <div className="drag-handle" title="Glisser pour réordonner" {...prov.dragHandleProps}>⋮⋮</div>
+
+          <div className="info">
+            {p.image_url && (
+              <div className="product-thumb-wrapper">
+                <img
+                  loading="lazy"
+                  decoding="async"
+                  src={p.image_url}
+                  alt={p.image_alt || `Produit : ${p.title}`}
+                  className="product-thumb"
+                />
+              </div>
+            )}
+            <div className="text-info">
+              <strong className="title">
+                {p.title}
+                {!p.is_visible && (
+                  <span className="invisible-tag"> (désactivé)</span>
+                )}
+              </strong>
+              <span className="price">{Number(p.price).toFixed(2)} €</span>
+              <span className={`stock-badge ${p.stock > 0 ? 'in-stock' : 'out-of-stock'}`}>
+                {p.stock > 0 ? `En stock : ${p.stock}` : 'Rupture de stock'}
+              </span>
+              {p.is_summer_product && (
+                <span className="badge summer">☀️ Estival</span>
+              )}
+            </div>
+          </div>
+
+          <div className="actions">
+            <button
+              onClick={() =>
+                setEditing({
+                  ...p,
+                  is_visible: p.is_visible ?? true,
+                  is_summer_product: p.is_summer_product ?? false
+                })
+              }
+              className="btn warning"
+            >
+              Modifier
+            </button>
+            <button
+              onClick={() => askDelete(p)}
+              className="btn danger"
+            >
+              Supprimer
+            </button>
+            <button
+              onClick={() => toggleVisibility(p)}
+              className={`btn ${p.is_visible ? 'secondary' : 'success'}`}
+            >
+              {p.is_visible ? 'Désactiver' : 'Activer'}
+            </button>
+          </div>
+        </li>
+      )}
+    </Draggable>
+  );
+}, (prev, next) => {
+  // Ne re-render que si l'objet ou l'index changent (et l'état "filtré")
+  return prev.p === next.p && prev.index === next.index && prev.searchActive === next.searchActive;
+});
+
+/* ===========================
+   Page AdminProducts
+   =========================== */
 export default function AdminProducts() {
-  const [products, setProducts]     = useState([]);   // liste source (tri = sort_order)
-  const [filtered, setFiltered]     = useState([]);   // vue filtrée
-  const [editing, setEditing]       = useState(null);
+  // liste source (tri = sort_order)
+  const [products, setProducts] = useState([]);
+  const [editing, setEditing] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
-  const [mounted, setMounted]       = useState(false);
+  const [mounted, setMounted] = useState(false);
   const [reorderSaving, setReorderSaving] = useState(false);
   const [info, setInfo] = useState('');
 
-  // --- Confirmation de suppression ---
-  const [confirming, setConfirming] = useState(null);   // produit ciblé (ou null)
-  const [confirmText, setConfirmText] = useState('');   // texte saisi dans la modal
+  // Confirmation de suppression
+  const [confirming, setConfirming] = useState(null);
+  const [confirmText, setConfirmText] = useState('');
 
   // charge tous les produits (dont cachés) ordonnés par sort_order
-  const loadAll = async () => {
+  const loadAll = useCallback(async () => {
     const res = await api.get('/products?include_hidden=true');
     const withDefaults = res.data.map(p => ({
       ...p,
@@ -148,31 +239,23 @@ export default function AdminProducts() {
       is_summer_product: p.is_summer_product ?? false
     }));
     setProducts(withDefaults);
-    setFiltered(withDefaults);
-  };
+  }, []);
 
   useEffect(() => {
     loadAll();
     setMounted(true);
-  }, []);
+  }, [loadAll]);
 
-  useEffect(() => {
+  // Vue filtrée DÉRIVÉE (pas stockée en état)
+  const searchActive = !!searchTerm.trim();
+  const visibleList = useMemo(() => {
     const term = searchTerm.trim().toLowerCase();
-    if (!term) {
-      setFiltered(products);
-      return;
-    }
-    setFiltered(
-      products.filter(p => (p.title || '').toLowerCase().includes(term))
-    );
-  }, [searchTerm, products]);
+    if (!term) return products;
+    return products.filter(p => (p.title || '').toLowerCase().includes(term));
+  }, [products, searchTerm]);
 
-  const visibleList = useMemo(
-    () => (searchTerm.trim() ? filtered : products),
-    [searchTerm, filtered, products]
-  );
-
-  const saveProduct = async p => {
+  // Mutations stables
+  const saveProduct = useCallback(async (p) => {
     const payload = {
       title: p.title,
       description: p.description, // { fr, en, es }
@@ -191,15 +274,14 @@ export default function AdminProducts() {
     }
     await loadAll();
     setEditing(null);
-  };
+  }, [loadAll]);
 
-  // Demande de confirmation
-  const askDelete = (product) => {
+  const askDelete = useCallback((product) => {
     setConfirming(product);
     setConfirmText('');
-  };
+  }, []);
 
-  const reallyDelete = async () => {
+  const reallyDelete = useCallback(async () => {
     if (!confirming) return;
     if (confirmText !== confirming.title) return;
     try {
@@ -216,14 +298,14 @@ export default function AdminProducts() {
       setConfirming(null);
       setConfirmText('');
     }
-  };
+  }, [confirming, confirmText, loadAll]);
 
-  const cancelDelete = () => {
+  const cancelDelete = useCallback(() => {
     setConfirming(null);
     setConfirmText('');
-  };
+  }, []);
 
-  const toggleVisibility = async (product) => {
+  const toggleVisibility = useCallback(async (product) => {
     const updated = { ...product, is_visible: !product.is_visible };
     const payload = {
       ...updated,
@@ -231,8 +313,8 @@ export default function AdminProducts() {
       image_alt: product.image_alt || ''
     };
     await api.put(`/products/${product.id}`, payload);
-    await loadAll(); // recharge pour conserver l’ordre
-  };
+    await loadAll();
+  }, [loadAll]);
 
   // ---- Drag & Drop ----
   function arrayMove(arr, from, to) {
@@ -242,35 +324,32 @@ export default function AdminProducts() {
     return copy;
   }
 
-  const onDragEnd = async (result) => {
+  const onDragEnd = useCallback(async (result) => {
     if (!result.destination) return;
-    if (searchTerm.trim()) {
+    if (searchActive) {
       setInfo('Astuce : vide le champ de recherche pour réordonner toute la liste.');
       setTimeout(() => setInfo(''), 3000);
       return;
     }
 
     const next = arrayMove(products, result.source.index, result.destination.index);
-    setProducts(next);
-    setFiltered(next); // puisque pas de filtre actif
+    setProducts(next); // ✅ un seul setState
 
-    // Sauvegarde côté API
     try {
       setReorderSaving(true);
       await api.put('/products/reorder', { ids: next.map(p => p.id) });
     } catch {
-      // rollback si erreur
       setInfo("Erreur lors de l'enregistrement de l'ordre. Rechargement…");
       await loadAll();
     } finally {
       setReorderSaving(false);
     }
-  };
+  }, [products, searchActive, loadAll]);
 
-  // handler séparé pour éviter le warning no-unused-vars
+  // handler modal
   const handleModalSubmit = (evt) => {
     evt.preventDefault();
-    saveProduct(editing);
+    if (editing) saveProduct(editing);
   };
 
   return (
@@ -330,79 +409,15 @@ export default function AdminProducts() {
                 {...provided.droppableProps}
               >
                 {visibleList.map((p, index) => (
-                  <Draggable
+                  <ProductRow
                     key={p.id}
-                    draggableId={String(p.id)}
+                    p={p}
                     index={index}
-                    isDragDisabled={!!searchTerm.trim()} // on bloque si filtré
-                  >
-                    {(prov, snapshot) => (
-                      <li
-                        ref={prov.innerRef}
-                        {...prov.draggableProps}
-                        className={`product-item ${!p.is_visible ? 'disabled-product' : ''} ${snapshot.isDragging ? 'dragging' : ''}`}
-                      >
-                        <div className="drag-handle" title="Glisser pour réordonner" {...prov.dragHandleProps}>⋮⋮</div>
-
-                        <div className="info">
-                          {p.image_url && (
-                            <div className="product-thumb-wrapper">
-                              <img
-                                loading="lazy"
-                                src={p.image_url}
-                                alt={p.image_alt || `Produit : ${p.title}`}
-                                className="product-thumb"
-                              />
-                            </div>
-                          )}
-                          <div className="text-info">
-                            <strong className="title">
-                              {p.title}
-                              {!p.is_visible && (
-                                <span className="invisible-tag"> (désactivé)</span>
-                              )}
-                            </strong>
-                            <span className="price">{Number(p.price).toFixed(2)} €</span>
-                            <span
-                              className={`stock-badge ${p.stock > 0 ? 'in-stock' : 'out-of-stock'}`}
-                            >
-                              {p.stock > 0 ? `En stock : ${p.stock}` : 'Rupture de stock'}
-                            </span>
-                            {p.is_summer_product && (
-                              <span className="badge summer">☀️ Estival</span>
-                            )}
-                          </div>
-                        </div>
-
-                        <div className="actions">
-                          <button
-                            onClick={() =>
-                              setEditing({
-                                ...p,
-                                is_visible: p.is_visible ?? true,
-                                is_summer_product: p.is_summer_product ?? false
-                              })
-                            }
-                            className="btn warning"
-                          >
-                            Modifier
-                          </button>
-                          <button
-                            onClick={() => askDelete(p)}
-                            className="btn danger"
-                          >
-                            Supprimer
-                          </button>
-                          <button
-                            onClick={() => toggleVisibility(p)}
-                            className={`btn ${p.is_visible ? 'secondary' : 'success'}`}
-                          >
-                            {p.is_visible ? 'Désactiver' : 'Activer'}
-                          </button>
-                        </div>
-                      </li>
-                    )}
-                  </Draggable>
+                    searchActive={searchActive}
+                    askDelete={askDelete}
+                    toggleVisibility={toggleVisibility}
+                    setEditing={setEditing}
+                  />
                 ))}
                 {provided.placeholder}
                 {visibleList.length === 0 && (
@@ -470,7 +485,7 @@ export default function AdminProducts() {
               )}
             </div>
 
-            {/* ALT éditable pour accessibilité/SEO */}
+            {/* ALT éditable */}
             <label>
               Texte alternatif (ALT)
               <input

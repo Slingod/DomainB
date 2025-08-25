@@ -33,7 +33,6 @@
 
     input {
       width: 100%;
-      // max-width: 420px;
       padding: 0.5rem 1rem;
       font-size: 1rem;
       border: 1px solid $border-color;
@@ -69,11 +68,14 @@
       border-bottom: 1px solid $gray;
       flex-wrap: wrap;
       background: #fff;
-      transition: background .2s ease, box-shadow .2s ease;
+      transition: background .15s ease;
+      will-change: transform;   /* ⚡️ perf */
+      contain: layout paint;    /* ⚡️ limite les repaints */
 
       &.dragging {
+        transition: none;
         background: #f7f9fc;
-        box-shadow: 0 8px 24px rgba(0,0,0,.08);
+        box-shadow: 0 4px 14px rgba(0,0,0,.10);
       }
 
       .drag-handle {
@@ -116,6 +118,7 @@
           height: 100%;
           object-fit: cover;
           display: block;
+          image-rendering: auto;
         }
 
         .text-info {
@@ -137,13 +140,8 @@
           .stock-badge {
             font-size: 0.85rem;
 
-            &.in-stock {
-              color: $success-text;
-            }
-
-            &.out-of-stock {
-              color: $error-text;
-            }
+            &.in-stock { color: $success-text; }
+            &.out-of-stock { color: $error-text; }
           }
 
           .badge.summer {
@@ -170,30 +168,20 @@
         .btn {
           @extend .btn;
 
-          &.warning {
-            @extend .warning;
-          }
-
-          &.danger {
-            @extend .danger;
-          }
+          &.warning { @extend .warning; }
+          &.danger  { @extend .danger; }
 
           &.secondary {
             background: $gray-light;
             color: $text-light;
 
-            &:hover {
-              background: $gray;
-            }
+            &:hover { background: $gray; }
           }
 
-          &.success {
-            @extend .success; // doit exister dans tes styles globaux (vert)
-          }
+          &.success { @extend .success; }
         }
       }
 
-      // 👉 Produit désactivé visuellement
       &.disabled-product {
         opacity: 0.5;
         filter: grayscale(0.6);
@@ -243,9 +231,7 @@
         color: $heading-color;
       }
 
-      p {
-        margin: 0 0 .75rem 0;
-      }
+      p { margin: 0 0 .75rem 0; }
 
       label {
         display: flex;
@@ -271,18 +257,8 @@
         }
       }
 
-      .quill-block {
-        margin-bottom: 1rem;
-
-        .ql-container {
-          min-height: 120px;
-        }
-      }
-
-      .quill-block .ql-container {
-        max-height: 300px;
-        overflow-y: auto;
-      }
+      .quill-block { margin-bottom: 1rem; }
+      .quill-block .ql-container { min-height: 120px; max-height: 300px; overflow-y: auto; }
 
       .modal-actions {
         display: flex;
@@ -294,22 +270,14 @@
         .btn {
           @extend .btn;
 
-          &.primary {
-            @extend .primary;
-          }
-
+          &.primary { @extend .primary; }
           &.secondary {
             background: $gray-light;
             color: $text-light;
-
-            &:hover {
-              background: $gray;
-            }
+            &:hover { background: $gray; }
           }
-
           &.danger {
             @extend .danger;
-
             &:disabled {
               opacity: .5;
               cursor: not-allowed;
