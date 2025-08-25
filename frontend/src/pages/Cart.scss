@@ -4,25 +4,55 @@
 @use "sass:color";
 
 .cart-page {
+  /* mêmes variables d’overlay que Home/Products */
+  --overlay-top: 0.55; /* opacité haut/bas */
+  --overlay-mid: 0.55; /* opacité centre */
+
   position: relative;
   min-height: 100vh;
   padding: 2rem 1rem;
   font-family: $font-main;
   color: $text-main;
-  background-image: url('/cartpage.webp');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  z-index: 1;
+  overflow: hidden;
+  isolation: isolate; /* garantit un empilement propre */
 
+  /* Image de fond + overlay dégradé */
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-image:
+      linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, var(--overlay-top)),
+        rgba(0, 0, 0, var(--overlay-mid)) 40%,
+        rgba(0, 0, 0, var(--overlay-top))
+      ),
+      url('/cartpage.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* effet parallax léger */
+    filter: brightness(.95) saturate(.98);
+    pointer-events: none;
+  }
+
+  /* Titre */
   h1 {
     font-size: 2rem;
     margin-bottom: 1rem;
     text-align: center;
-    color: $heading-color;
+    color: $text-inverse; /* blanc */
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+    position: relative;
+    z-index: 1;
   }
 
+  /* Panneau "panier vide" */
   .empty {
+    position: relative;
+    z-index: 1;
     text-align: center;
     color: $text-muted;
     font-size: 1.1rem;
@@ -33,7 +63,10 @@
     margin: 2rem auto;
   }
 
+  /* Tableau desktop */
   .table-wrapper {
+    position: relative;
+    z-index: 1;
     overflow-x: auto;
     margin-bottom: 1.5rem;
     background-color: rgba(255, 255, 255, 0.9);
@@ -84,7 +117,10 @@
     }
   }
 
+  /* Résumé + CTA */
   .summary {
+    position: relative;
+    z-index: 1;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -114,11 +150,16 @@
     }
   }
 
+  /* Liste cartes mobile */
   .card-list {
+    position: relative;
+    z-index: 1;
     display: none;
   }
 
   .cart-success-message {
+    position: relative;
+    z-index: 1;
     background-color: #d4edda;
     color: #155724;
     padding: 1rem;
@@ -197,9 +238,15 @@
         }
       }
     }
+
+    /* Sur mobile, on évite souvent le fixed pour la perf */
+    &::before {
+      background-attachment: scroll;
+    }
   }
 }
 
+/* Wrapper du titre (si utilisé ailleurs) */
 .title-wrapper {
   display: flex;
   justify-content: center;
@@ -207,10 +254,21 @@
 
   h1 {
     font-size: 1.75rem;
-    color: $heading-color;
-    // background-color: rgba(255, 255, 255, 0.9);
+    color: $text-inverse; /* blanc */
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
     padding: 1rem;
     border-radius: $radius;
     display: inline-block;
   }
+}
+
+/* 🔒 Override de spécificité pour forcer le H1 en blanc
+   (au cas où une règle globale passerait après) */
+.cart-page #page-title,
+.cart-page .title-wrapper > h1,
+.cart-page h1 {
+  color: $text-inverse; /* blanc */
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+  position: relative;
+  z-index: 1;
 }

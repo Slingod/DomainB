@@ -63,31 +63,32 @@
   "home": {
     "meta": {
       "title": "Home – Domaine Berthuit",
-      "description": "Welcome to Domaine Berthuit’s online store. Discover our organic red, white, and rosé wines.",
+      "description": "Welcome to Domaine Berthuit’s online shop. Discover our organic red, white and rosé wines.",
       "canonical": "https://www.domaine-berthuit.fr/",
       "robots": "index, follow"
     },
     "welcome": "Welcome to Domaine Berthuit",
-    "subtitle": "Explore our selection and enjoy easy, secure shopping.",
+    "subtitle": "Explore our selection and enjoy a seamless shopping experience.",
     "browseShop": "Browse the shop",
-    "qualityProducts": "Quality products selected for you.",
-    "viewShop": "View the shop",
+    "qualityProducts": "Carefully selected quality products for you.",
+    "viewShop": "Browse products",
     "security": "Security & GDPR",
     "dataProtection": "Your data is protected and exportable at any time.",
-    "poemTitle": "The Domaine's Poem",
+    "myProfile": "My profile",
+    "poemTitle": "The Domain’s Poem",
     "poem": {
-      "line1": "It’s a harsh but grand land,",
-      "line2": "Where a sea of vines stretches between two mountains.",
+      "line1": "It is a rugged yet magnificent land,",
+      "line2": "Where between two mountains stretches a sea of vines.",
       "line3": "A land of light and people,",
       "line4": "With elders who speak, seated on their bench.",
-      "line5": "Behind every vine lies a memory,",
+      "line5": "Behind each vine stock lies a memory,",
       "line6": "The sum of doubts and a thousand hopes,",
-      "line7": "The memory of labor, joy, and laughter.",
-      "line8": "Me, a kid from elsewhere come here,",
-      "line9": "I listen to the frozen words whispered by the cers wind,",
+      "line7": "The memory of work, of joy, of laughter.",
+      "line8": "I, a newcomer from elsewhere,",
+      "line9": "Listen to the frozen words whispered by the north wind,",
       "line10": "My eyes drowned in the crimson of the summer sun,",
-      "line11": "I walk from mailheuls to gobelets,",
-      "line12": "I try, I sow, I live, I write in wine the stories from here."
+      "line11": "I walk among rows and goblet vines,",
+      "line12": "I try, I sow, I live, I write in wine the stories of this place."
     }
   },
   "terms": {

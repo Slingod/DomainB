@@ -7,6 +7,10 @@ $max-2xl: $breakpoint-2xl - 1px;
 $max-4k: $breakpoint-4k - 1px;
 
 .products-page {
+  /* mêmes variables d'overlay que sur Home */
+  --overlay-top: 0.55; /* opacité en haut/bas */
+  --overlay-mid: 0.55; /* opacité au centre */
+
   position: relative;
   z-index: 1;
   padding: 2rem 1rem;
@@ -29,16 +33,23 @@ $max-4k: $breakpoint-4k - 1px;
       object-fit: cover;
       object-position: center;
       display: block;
+      /* homogénéité et lisibilité, comme sur Home */
+      filter: brightness(.95) saturate(.98);
     }
 
+    /* ⬇️ overlay dégradé sombre identique à Home */
     .overlay {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(255, 255, 255, 0.15);
+      inset: 0;
       z-index: 1;
+      pointer-events: none;
+      background:
+        linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, var(--overlay-top)),
+          rgba(0, 0, 0, var(--overlay-mid)) 40%,
+          rgba(0, 0, 0, var(--overlay-top))
+        );
     }
   }
 

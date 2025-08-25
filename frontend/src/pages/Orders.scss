@@ -1,7 +1,14 @@
 @use "../styles/variables" as *;
 @use "../styles/mixins" as *;
 
+/* ✅ Pré-calcul pour éviter "( ) expected" dans @media */
+$max-lg: $breakpoint-lg - 1px;
+
 .orders-page {
+  /* Overlay identique aux autres pages */
+  --overlay-top: 0.55; /* opacité haut/bas */
+  --overlay-mid: 0.55; /* opacité centre */
+
   position: relative;
   min-height: 100vh;
   padding: 2rem 1rem;
@@ -11,24 +18,50 @@
   box-sizing: border-box;
   font-family: $font-main;
   color: $text-main;
-  background-image: url('/orderpage.webp');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  overflow: hidden;
+  isolation: isolate;
   z-index: 1;
 
+  /* Image de fond + overlay */
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-image:
+      linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, var(--overlay-top)),
+        rgba(0, 0, 0, var(--overlay-mid)) 40%,
+        rgba(0, 0, 0, var(--overlay-top))
+      ),
+      url('/orderpage.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    filter: brightness(.95) saturate(.98);
+    pointer-events: none;
+  }
+
+  /* Titre */
   h1 {
     font-size: 1.75rem;
     margin-bottom: 1.5rem;
-    color: $heading-color;
+    color: $text-inverse; /* blanc */
     text-align: center;
-    // background-color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 2px 6px rgba(0,0,0,.6);
     padding: 1rem;
     border-radius: $radius;
     display: inline-block;
+    position: relative;
+    z-index: 1;
   }
 
+  /* Stats */
   .stats {
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -65,12 +98,29 @@
     }
   }
 
+  /* Liste des commandes en grille */
   .orders-list {
+    position: relative;
+    z-index: 1;
+
+    display: grid;
+    grid-template-columns: 1fr;   /* mobile */
+    gap: 1rem;
+
+    /* ≥ md (tablettes) : 2 colonnes */
+    @media (min-width: $breakpoint-md) and (max-width: $max-lg) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    /* ≥ lg (petits laptops et +) : 3 colonnes */
+    @media (min-width: $breakpoint-lg) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
     .order-card {
       background: rgba(255, 255, 255, 0.9);
       border-radius: $radius;
       padding: 1rem;
-      margin-bottom: 1rem;
       box-shadow: $shadow-sm;
 
       .order-header {
@@ -99,13 +149,12 @@
     .no-orders {
       text-align: center;
       color: $text-muted;
-      margin-top: 2rem;
-      // background-color: rgba(255, 255, 255, 0.9);
       padding: 2rem;
       border-radius: $radius;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
+      max-width: 100%;
+      background: rgba(255, 255, 255, 0.9);
+      /* occupe toute la largeur de la grille */
+      grid-column: 1 / -1;
     }
   }
 
@@ -116,12 +165,18 @@
       gap: 0.5rem;
     }
 
-    .order-card {
+    .orders-list .order-card {
       padding: 0.75rem;
+    }
+
+    /* désactive le fixed pour la perf sur mobile */
+    &::before {
+      background-attachment: scroll;
     }
   }
 }
 
+/* Wrapper du titre si utilisé */
 .title-wrapper {
   display: flex;
   justify-content: center;
@@ -129,10 +184,20 @@
 
   h1 {
     font-size: 1.75rem;
-    color: $heading-color;
-    // background-color: rgba(255, 255, 255, 0.9);
+    color: $text-inverse; /* blanc */
+    text-shadow: 0 2px 6px rgba(0,0,0,.6);
     padding: 1rem;
     border-radius: $radius;
     display: inline-block;
   }
+}
+
+/* 🔒 Override de spécificité pour forcer le H1 en blanc (si styles globaux) */
+.orders-page #page-title,
+.orders-page .title-wrapper > h1,
+.orders-page h1 {
+  color: $text-inverse !important;
+  text-shadow: 0 2px 6px rgba(0,0,0,.6);
+  position: relative;
+  z-index: 1;
 }

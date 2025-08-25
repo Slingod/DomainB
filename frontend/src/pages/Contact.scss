@@ -1,18 +1,43 @@
 .contact-page {
+  /* mêmes paramètres d’overlay que Home/Products */
+  --overlay-top: 0.55; /* opacité haut/bas */
+  --overlay-mid: 0.55; /* opacité centre */
+
   position: relative;
   min-height: 100vh;
   padding: 2rem;
-  background-image: url('/contact_background.webp');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  overflow: hidden;
+  isolation: isolate; /* garantit l'empilement propre */
+
+  /* Image de fond + overlay dégradé */
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-image:
+      linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, var(--overlay-top)),
+        rgba(0, 0, 0, var(--overlay-mid)) 40%,
+        rgba(0, 0, 0, var(--overlay-top))
+      ),
+      url('/contact_background.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* garde ton effet parallax */
+    filter: brightness(.95) saturate(.98);
+    pointer-events: none;
+  }
 
   .contact-overlay {
-    background-color: rgba(255, 255, 255, 0.92); // léger voile blanc transparent
+    position: relative;
+    z-index: 1; /* au-dessus de l’overlay */
+    background-color: rgba(255, 255, 255, 0.92); /* panneau blanc translucide */
     padding: 2rem;
     border-radius: 12px;
     width: 100%;
@@ -25,6 +50,7 @@
     font-size: 2.2rem;
     margin-bottom: 1rem;
     color: #0c2c40;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25); /* léger boost lisibilité */
   }
 
   p {
@@ -91,5 +117,22 @@
     .contact-cards {
       grid-template-columns: 1fr;
     }
+
+    /* les fixed backgrounds peuvent janker sur mobile :
+       on peut désactiver si besoin */
+    &::before {
+      background-attachment: scroll;
+    }
+  }
+}
+
+/* Optionnel : si l’utilisateur a activé le contraste renforcé */
+@media (prefers-contrast: more) {
+  .contact-page::before {
+    filter: none;
+  }
+  .contact-page .contact-overlay {
+    background-color: #fff;
+    box-shadow: none;
   }
 }

@@ -35,6 +35,7 @@ export default function Home() {
         <link rel="canonical" href="https://www.domaine-berthuit.fr/" />
       </Helmet>
 
+      {/* Fond d'écran + overlay */}
       <div className="background-image" role="presentation" aria-hidden="true">
         {images.map((src, index) => (
           <img
@@ -48,6 +49,7 @@ export default function Home() {
         <div className="overlay" aria-hidden="true" />
       </div>
 
+      {/* Hero */}
       <header className="home-hero">
         <h1>{t('home.welcome')}</h1>
         <p>{t('home.subtitle')}</p>
@@ -58,8 +60,13 @@ export default function Home() {
         )}
       </header>
 
-      <section className="home-features darken-bg" aria-label={t('home.featuresLabel')}>
-        <article className="feature">
+      {/* Tuiles fonctionnalités */}
+      <section
+        className="home-features darken-bg"
+        aria-label={t('home.featuresLabel', 'Fonctionnalités')}
+      >
+        {/* Tuile Boutique */}
+        <article className="feature" aria-label={t('home.browseShop')}>
           <h2>🛒 {t('home.browseShop')}</h2>
           <p>{t('home.qualityProducts')}</p>
           <Link to="/products" className="btn-secondary" aria-label={t('home.viewShop')}>
@@ -67,12 +74,21 @@ export default function Home() {
           </Link>
         </article>
 
-        <article className="feature">
+        {/* Tuile Sécurité & RGPD */}
+        <article className="feature" aria-label={t('home.security')}>
           <h2>🔒 {t('home.security')}</h2>
           <p>{t('home.dataProtection')}</p>
+
+          {/* Bouton Mon profil : visible seulement si connecté */}
+          {token && (
+            <Link to="/profile" className="btn-secondary" aria-label={t('home.myProfile')}>
+              <button className="btn primary">{t('home.myProfile')}</button>
+            </Link>
+          )}
         </article>
       </section>
 
+      {/* Poème */}
       <section className="home-poem">
         <h2>{t('home.poemTitle')}</h2>
         <blockquote>
