@@ -1,0 +1,49 @@
+.insta-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.insta-link {
+  display: inline-flex;
+  flex-direction: column; /* icône au-dessus du label si label visible */
+  align-items: center;
+  gap: 0.35rem;
+  color: #f1f1f1;
+  text-decoration: none;
+  transition: transform 0.12s ease, color 0.12s ease;
+  outline: none;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.insta-link:focus,
+.insta-link:hover {
+  transform: translateY(-3px);
+  color: #f7a8b8; /* délicat accent rose — adapte si tu veux */
+}
+
+/* icône vectorielle : taille et netteté */
+.insta-icon {
+  display: block;
+  width: clamp(20px, 4.5vw, 36px);
+  height: auto;
+  color: currentColor; /* reprise de la couleur du lien */
+  shape-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* label (optionnel) */
+.insta-text {
+  font-size: 0.85rem;
+  line-height: 1;
+  color: inherit;
+}
+
+/* Si tu veux masquer le texte sur les petits écrans et ne garder que l'icône : */
+@media (max-width: 480px) {
+  .insta-text {
+    display: none;
+  }
+}

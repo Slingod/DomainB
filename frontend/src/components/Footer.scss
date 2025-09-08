@@ -13,23 +13,34 @@
     top: 1rem;
     right: 1rem;
     z-index: 1001;
+    min-width: 48px;
 
     .selected {
       background: #555;
       color: #fff;
-      padding: 0.4rem 0.8rem;
+      padding: 0.35rem 0.7rem;
       border-radius: 4px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+      border: none;
+      line-height: 1;
 
       img {
         width: 24px;
-        height: 16px;
-        border-radius: 3px;
-        border: 1px solid #ccc;
+        height: auto;
+        max-width: 100%;
+        display: block;
+        object-fit: contain;
+        border-radius: 2px;
+        border: 1px solid rgba(255,255,255,0.12);
+      }
+
+      span {
+        display: inline-block;
+        font-size: 0.9rem;
       }
     }
 
@@ -37,32 +48,45 @@
       margin-top: 0.4rem;
       background: #444;
       border-radius: 4px;
-      padding: 0.4rem 0;
+      padding: 0.25rem 0;
       position: absolute;
       top: 110%;
       right: 0;
       list-style: none;
-      z-index: 9999; // très haut pour passer au-dessus de tout
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+      z-index: 9999;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+      min-width: 160px;
+      max-width: 320px;
+      overflow: hidden;
 
       li {
-        padding: 0.4rem 0.8rem;
+        padding: 0.35rem 0.75rem;
         cursor: pointer;
         display: flex;
         align-items: center;
-        gap: 0.5rem;
-        transition: background 0.2s;
+        gap: 0.6rem;
+        transition: background 0.15s;
+        outline: none;
+      }
 
-        &:hover {
-          background: #666;
-        }
+      li:focus,
+      li:hover {
+        background: #666;
+      }
 
-        img {
-          width: 24px;
-          height: 16px;
-          border-radius: 3px;
-          border: 1px solid #ccc;
-        }
+      img {
+        width: 34px;
+        height: auto;
+        max-width: 40%;
+        object-fit: contain;
+        border-radius: 3px;
+        border: 1px solid rgba(255,255,255,0.08);
+        display: block;
+      }
+
+      span {
+        font-size: 0.95rem;
+        color: #fff;
       }
     }
   }
@@ -73,7 +97,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     flex-wrap: wrap;
     gap: 2rem;
 
@@ -86,6 +110,11 @@
 
   .footer-links {
     flex: 1;
+    min-width: 220px;
+
+    h4 {
+      margin-top: 0;
+    }
 
     ul {
       list-style: none;
@@ -94,33 +123,101 @@
 
       li {
         margin: 0.3rem 0;
-
         a {
           color: #f1f1f1;
           text-decoration: none;
-
-          &:hover {
-            text-decoration: underline;
-          }
+          &:hover { text-decoration: underline; }
         }
       }
     }
   }
 
-  .footer-logo {
+  /* ============================
+     LOGO + SOCIAL — important : on force colonne
+     pour afficher l'icône sous le logo (centré)
+     ============================ */
+  .footer-logo-and-social {
     flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    min-width: 220px;
+
+    /* --> colonne par défaut pour garder logo au dessus et insta en dessous */
+    flex-direction: column;
+
+    @media (min-width: 1100px) {
+      /* si tu préfères une rangée sur très grands écrans, active ceci */
+      /* flex-direction: row; */
+      /* align-items: center; */
+    }
+  }
+
+  .footer-logo {
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 
-    img {
-      width: 100px;
+    .footer-logo-link {
+      display: inline-block;
+      line-height: 0;
+    }
+
+    /* IMAGE DU LOGO — taille ajustée pour être lisible sur mobile */
+    .footer-logo-img,
+    img[src*="logberthuit"] {
+      display: block;
+      width: clamp(64px, 10vw, 160px); /* min 64px, adaptatif, max 160px */
+      height: auto;
+      max-width: 100%;
+      object-fit: contain;
+      image-rendering: -webkit-optimize-contrast;
+      border-radius: 0;
     }
 
     .footer-brand {
+      margin-top: 0.25rem;
       font-weight: bold;
       font-size: 1.3rem;
+    }
+  }
+
+  .footer-social {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.6rem; /* espace sous le logo */
+
+    /* centre l'icône */
+    justify-content: center;
+
+    a,
+    button {
+      color: #f1f1f1;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* svg / icon sizing */
+    .insta-icon {
+      width: 34px;
+      height: 34px;
+      display: inline-block;
+      border-radius: 6px;
+      padding: 6px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .insta-label {
+      margin-top: 0.25rem;
+      font-size: 0.9rem;
+      color: #f1f1f1;
     }
   }
 
@@ -137,24 +234,19 @@
     .footer-lang-selector-topright {
       top: 1rem;
       right: 1rem;
-      position: absolute;
-      z-index: 1001;
-
-      .options {
-        top: 110%;
-        right: 0;
-      }
+      .options { top: 110%; right: 0; min-width: 140px; }
     }
 
-    .footer-content {
-      flex-direction: column;
-      gap: 1.5rem;
-    }
+    .footer-content { flex-direction: column; gap: 1.5rem; }
 
     .footer-logo,
-    .footer-links {
-      text-align: center;
-      flex: unset;
+    .footer-links { text-align: center; flex: unset; }
+
+    .footer-logo-img,
+    img[src*="logberthuit"] {
+      width: clamp(56px, 14vw, 120px);
     }
+
+    .footer-brand { font-size: 1.05rem; }
   }
 }
